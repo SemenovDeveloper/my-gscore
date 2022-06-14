@@ -11,7 +11,9 @@ const Home: NextPage = () => {
       <Head>
         <title>Home page</title>
       </Head>
-      <Container><><h1>Home text</h1></></Container>
+      <Container>
+        <><h1>Home text</h1>
+      </></Container>
     </>  
   )
 }
