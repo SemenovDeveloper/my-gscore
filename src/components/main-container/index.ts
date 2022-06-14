@@ -1,0 +1,1 @@
+export * from 'src/components/main-container/main-container'
