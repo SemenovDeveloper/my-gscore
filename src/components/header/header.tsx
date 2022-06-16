@@ -13,8 +13,7 @@ export const Header: React.FC = () => {
 
 const StyledHeader = styled.div`
   width: 100%;
-  height: 122px;
   display: flex;
   align-items: center;
-  padding: 0 87px;
+  padding: 30px 87px;
 `

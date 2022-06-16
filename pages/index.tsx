@@ -1,7 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import styled from 'styled-components'
 import { ContentContainer } from 'src/ui'
  
 const Home: NextPage = () => {
@@ -11,7 +9,7 @@ const Home: NextPage = () => {
         <title>Home page</title>
       </Head>
       <ContentContainer>
-        <div>Dream</div>
+        <div>Content</div>
       </ContentContainer>
     </>  
   )

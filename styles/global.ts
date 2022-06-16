@@ -8,11 +8,9 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     background-color: ${COLORS.black};
-    overflow-x: hidden;
     color: ${COLORS.white};
   }
   a {
     color: ${COLORS.white};
-    text-decoration: none;
   }
 `

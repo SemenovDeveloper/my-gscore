@@ -2,6 +2,7 @@ import 'styles/normalize.css'
 import 'styles/fonts.css'
 import { GlobalStyle } from 'styles/global'
 
+
 import type { AppProps } from 'next/app'
 import { MainContainer } from 'src/components'
 
