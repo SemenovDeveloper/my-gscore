@@ -3,16 +3,14 @@ import styled from "styled-components";
 import { COLORS } from 'src/lib';
 import { Header, Footer } from 'src/components'
 
-interface IContainer {
+interface IContentContainer {
   children: React.ReactNode;
 }
 
-export const MainContainer: React.FC<IContainer> = ({ children }) => {
+export const ContentContainer: React.FC<IContentContainer> = ({ children }) => {
   return (
     <StyledContainer>
-      <Header />
       {children}
-      <Footer />
     </StyledContainer>
   );
 };

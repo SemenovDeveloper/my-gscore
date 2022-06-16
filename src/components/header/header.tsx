@@ -1,14 +1,20 @@
 import { COLORS } from "src/lib"
 import styled from "styled-components"
+import Logo from 'public/img/logo.svg'
+
 
 export const Header: React.FC = () => {
   return(
-    <>
-      <Title>Header</Title>
-    </>
+    <StyledHeader>
+      <Logo />
+    </StyledHeader>
   )
 }
 
-const Title = styled.h3`
-  color: ${COLORS.white}
+const StyledHeader = styled.div`
+  width: 100%;
+  height: 122px;
+  display: flex;
+  align-items: center;
+  padding: 0 87px;
 `
