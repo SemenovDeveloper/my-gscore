@@ -7,7 +7,10 @@ const nextConfig = {
       use: '@svgr/webpack',
     })
     return config
-  }
+  },
+  compiler: {
+    styledComponents: true,
+  },
 }
 
 module.exports = nextConfig
