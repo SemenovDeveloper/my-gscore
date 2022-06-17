@@ -1,17 +1,26 @@
 import 'styles/normalize.css'
 import 'styles/fonts.css'
 import { GlobalStyle } from 'styles/global'
-
-
+import Head from 'next/head'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from 'src/store'
 import type { AppProps } from 'next/app'
 import { MainContainer } from 'src/components'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <MainContainer>
-      <GlobalStyle />
-      <Component {...pageProps} />
-    </MainContainer>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<GlobalStyle />
+				<Head>
+					<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+				</Head>
+				<MainContainer>
+					<Component {...pageProps} />
+				</MainContainer>
+			</PersistGate>
+		</Provider>
   )
 }
 

@@ -20,16 +20,17 @@ export const Footer: React.FC = () => {
 }
 
 const StyledFooter = styled.div `
-  height: 362px;
+  height: 15px;
   border-top: 1px solid ${COLORS.darkGray};
   background-color: ${COLORS.black};
   color: ${COLORS.lightGray};
   padding: 0 87px;
 `
 
-const Description = styled.div`  
+const Description = styled.div`
+  padding-bottom: 60px;
+  width: 100%;
   height: 246px;
-  padding: 60px 0;
 `
 
 const DescText = styled.p`
