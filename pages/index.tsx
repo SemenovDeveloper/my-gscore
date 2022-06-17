@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { ContentContainer } from 'src/ui'
+import { Start } from 'src/components'
  
 const Home: NextPage = () => {
   return (
@@ -9,7 +10,7 @@ const Home: NextPage = () => {
         <title>Home page</title>
       </Head>
       <ContentContainer>
-        <div>Content</div>
+        <Start />
       </ContentContainer>
     </>  
   )

@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
 }
 
 const StyledFooter = styled.div `
-  height: 15px;
+  height: 362px;
   border-top: 1px solid ${COLORS.darkGray};
   background-color: ${COLORS.black};
   color: ${COLORS.lightGray};
@@ -28,9 +28,9 @@ const StyledFooter = styled.div `
 `
 
 const Description = styled.div`
-  padding-bottom: 60px;
   width: 100%;
-  height: 246px;
+  height: 126px;
+  margin: 60px 0;
 `
 
 const DescText = styled.p`
@@ -47,5 +47,12 @@ const CopyrightContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-left: -19px;
+  p, a {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+  }
 `
 
