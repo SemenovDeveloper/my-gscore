@@ -6,16 +6,18 @@ import { SocialMedia } from "src/components"
 
 export const Footer: React.FC = () => {
   return(
-    <StyledFooter>
-      <Description>
-        <Logo />
-        <DescText>Ut enim ad minim veniam quis<br/>nostrud exercitation  ea commodo</DescText>
-      </Description>
-      <CopyrightContainer>
-          <p>Copyright © 2022 GScore | All Rights Reserved | <Link href=""><a>Cookies</a></Link> | <Link href=""><a>Privacy Policy</a></Link></p>
-          <SocialMedia /> 
-      </CopyrightContainer>
-    </StyledFooter>
+    <footer>
+      <StyledFooter>
+        <Description>
+          <Logo />
+          <DescText>Ut enim ad minim veniam quis<br/>nostrud exercitation  ea commodo</DescText>
+        </Description>
+        <CopyrightContainer>
+            <p>Copyright © 2022 GScore | All Rights Reserved | <Link href=""><a>Cookies</a></Link> | <Link href=""><a>Privacy Policy</a></Link></p>
+            <SocialMedia /> 
+        </CopyrightContainer>
+      </StyledFooter>
+    </footer>
   )
 }
 
@@ -48,11 +50,5 @@ const CopyrightContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-left: -19px;
-  p, a {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 30px;
-  }
 `
 

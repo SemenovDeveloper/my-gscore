@@ -18,7 +18,8 @@ export const MainContainer: React.FC<IContainer> = ({ children }) => {
 };
 
 const StyledContainer = styled.div`
-  height: 100vh;
+  position: relative;
+  height: 100%;
   max-width: 1440px;
   background-color: ${COLORS.black};
   margin: 0 auto;

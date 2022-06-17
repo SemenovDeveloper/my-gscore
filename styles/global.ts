@@ -11,6 +11,20 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${COLORS.black};
     color: ${COLORS.white};
   }
+
+  h2 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 54px;
+  }
+
+  p, a {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+  }
   a {
     color: ${COLORS.white};
   }

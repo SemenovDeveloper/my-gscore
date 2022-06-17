@@ -5,9 +5,11 @@ import Logo from 'public/img/logo.svg'
 
 export const Header: React.FC = () => {
   return(
-    <StyledHeader>
-      <Logo />
-    </StyledHeader>
+    <header>
+      <StyledHeader>
+        <Logo />
+      </StyledHeader>
+    </header>
   )
 }
 

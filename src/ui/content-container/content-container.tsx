@@ -9,9 +9,11 @@ interface IContentContainer {
 
 export const ContentContainer: React.FC<IContentContainer> = ({ children }) => {
   return (
-    <StyledContainer>
-      {children}
-    </StyledContainer>
+    <main>
+      <StyledContainer>
+        {children}
+      </StyledContainer>
+    </main>
   );
 };
 
