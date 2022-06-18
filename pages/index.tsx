@@ -2,10 +2,10 @@ import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import { ContentContainer } from 'src/ui'
-const axios = require('axios').default;
 import styled from 'styled-components'
 import { COLORS } from 'src/lib'
 import { Products } from 'src/components';
+import { axiosInstance } from 'src/utils';
  
 const Home: NextPage = ({ products }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
@@ -26,10 +26,9 @@ const Home: NextPage = ({ products }: InferGetServerSidePropsType<typeof getServ
 }
 export default Home
 
-
 export const getServerSideProps: GetServerSideProps = async () => {
-	const response = await axios.get('https://gscore-back.herokuapp.com/api/products')
-
+  const response = await axiosInstance.get(`products`);
+  
 	if (!response) {
 		return {
 			notFound: true,
@@ -47,3 +46,5 @@ const StyledStart = styled.div`
     color: ${COLORS.red}
   }
 `
+
+
