@@ -1,45 +1,32 @@
 
-const axios = require('axios').default;
+import Link from 'next/link'
+import {useRouter} from 'next/router'
+import {GetServerSideProps, NextPageContext} from 'next'
 
-interface Price {
+interface IPrice {
   id: number,
   isActive: boolean,
   productId: number,
   price: string,
 } 
 
-interface Product {
+interface IProduct {
   id: number,
   sitesCount: number,
   name: string,
-  prices: Price[],
+  prices: IPrice[],
   upgrade?: boolean,
 }
 
+interface IProducts {
+  products: IProduct[]
+}
 
-
-const baseURL = 'https://gscore-back.herokuapp.com/api/products'
-
-// const instance = axios.create({ baseURL })
-
-
-export const Products: React.FC = () => {
-  let products: Product[]
-
-  axios.get('https://gscore-back.herokuapp.com/api/products')
-    .then(function (response: any) {
-      console.log(response.data)
-      products = response.data
-      console.log(products)
-    })
-    .catch(function (error: Error) {
-      console.log(error);
-    })
-
+export const Products: React.FC<IProducts> = ({ products }) => {
   return(
     <div>
-      <h2>Products</h2>
-      {/* {products.map( product => <div>{product.id}</div>)} */}
+      Hello, products
+      {products.map( product => <div key={product.id}>{product.id}</div>)}
     </div>
   )
 }
