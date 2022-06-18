@@ -21,18 +21,21 @@ interface Product {
 const baseURL = 'https://gscore-back.herokuapp.com/api/products'
 
 // const instance = axios.create({ baseURL })
-let products: Product[]
-
-axios.get('https://gscore-back.herokuapp.com/api/products')
-  .then(function (response: any) {
-    products = response.data
-  })
-  .catch(function (error: Error) {
-    console.log(error);
-  })
 
 
 export const Products: React.FC = () => {
+  let products: Product[]
+
+  axios.get('https://gscore-back.herokuapp.com/api/products')
+    .then(function (response: any) {
+      console.log(response.data)
+      products = response.data
+      console.log(products)
+    })
+    .catch(function (error: Error) {
+      console.log(error);
+    })
+
   return(
     <div>
       <h2>Products</h2>

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from 'src/store'
 import type { AppProps } from 'next/app'
-import { MainContainer } from 'src/components'
+import { MainLayout } from 'src/components'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,9 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 				<Head>
 					<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 				</Head>
-				<MainContainer>
+				<MainLayout>
 					<Component {...pageProps} />
-				</MainContainer>
+				</MainLayout>
 			</PersistGate>
 		</Provider>
   )
