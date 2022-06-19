@@ -6,6 +6,8 @@ export const GlobalStyle = createGlobalStyle`
   * {
     font-family: THICCCBOI;
     box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
   }
   body {
     background-color: ${COLORS.black};
