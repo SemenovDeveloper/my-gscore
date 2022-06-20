@@ -1,67 +1,149 @@
 import { COLORS } from "src/lib";
-import styled from "styled-components";
 import { IProduct } from "src/types";
 import CheckedCircleRed from "public/img/checked-circle-red.svg";
 import CheckedCircleBlack from "public/img/checked-circle-black.svg";
 import { Button } from "src/ui";
+import styled from "styled-components";
 
-export const Card: React.FC<IProduct> = ({ id, sitesCount, name, prices }) => {
+interface ICard {
+  product: IProduct;
+  activeCardID: number;
+  setCardActive: (productID: number) => void;
+}
+
+export const Card: React.FC<ICard> = ({
+  product,
+  activeCardID,
+  setCardActive,
+}) => {
   return (
-    <StyledCard>
-      <CardTitle>${prices[0].price}</CardTitle>
-      <Description>
-        <h3>
-          {sitesCount === 1
-            ? "Single site license"
-            : `${sitesCount} Site license`}{" "}
-        </h3>
-        <p>
-          Get the advanced WordPress plugin that optimizes content with GSC
-          keywords at one low annual price
-        </p>
-      </Description>
-      <FeatureList>
-        <Feature>
-          <CheckedCircleBlack />
-          <FeatureText>
-            {sitesCount === 1
-              ? "Single site license"
-              : `All features for ${sitesCount} sites`}
-          </FeatureText>
-        </Feature>
-        <Feature>
-          <CheckedCircleBlack />
-          <FeatureText>Special introductory pricing</FeatureText>
-        </Feature>
-        <Feature>
-          <CheckedCircleBlack />
-          <FeatureText>Unlimited Pages and Keywords</FeatureText>
-        </Feature>
-        <Feature>
-          <CheckedCircleBlack />
-          <FeatureText>Billed annually</FeatureText>
-        </Feature>
-      </FeatureList>
-      <Button theme="secondary" size="wide" darkLabel={true}>Get Gscore</Button>
-    </StyledCard>
+    <div className="card">
+      {activeCardID == product.id ? (
+        <StyledCard
+          active
+          onMouseOver={() => setCardActive(product.id)}
+          onMouseOut={() => setCardActive(2)}
+        >
+          <CardTitle>${product.prices[0].price}</CardTitle>
+          <Description active>
+            <h3>
+              {product.sitesCount === 1
+                ? "Single site license"
+                : `${product.sitesCount} Site license`}{" "}
+            </h3>
+            <p>
+              Get the advanced WordPress plugin that optimizes content with GSC
+              keywords at one low annual price
+            </p>
+          </Description>
+          <FeatureList>
+            <Feature>
+              <CheckedCircleRed />
+              <FeatureText>
+                {product.sitesCount === 1
+                  ? "Single site license"
+                  : `All features for ${product.sitesCount} sites`}
+              </FeatureText>
+            </Feature>
+            <Feature>
+              <CheckedCircleRed />
+              <FeatureText>Special introductory pricing</FeatureText>
+            </Feature>
+            <Feature>
+              <CheckedCircleRed />
+              <FeatureText>Unlimited Pages and Keywords</FeatureText>
+            </Feature>
+            <Feature>
+              <CheckedCircleRed />
+              <FeatureText>Billed annually</FeatureText>
+            </Feature>
+          </FeatureList>
+          <Button theme="secondary" size="wide">
+            Get Gscore
+          </Button>
+        </StyledCard>
+      ) : (
+        <StyledCard
+          onMouseOver={() => setCardActive(product.id)}
+          onMouseOut={() => setCardActive(2)}
+        >
+          <CardTitle>${product.prices[0].price}</CardTitle>
+          <Description>
+            <h3>
+              {product.sitesCount === 1
+                ? "Single site license"
+                : `${product.sitesCount} Site license`}{" "}
+            </h3>
+            <p>
+              Get the advanced WordPress plugin that optimizes content with GSC
+              keywords at one low annual price
+            </p>
+          </Description>
+          <FeatureList>
+            <Feature>
+              <CheckedCircleBlack />
+              <FeatureText>
+                {product.sitesCount === 1
+                  ? "Single site license"
+                  : `All features for ${product.sitesCount} sites`}
+              </FeatureText>
+            </Feature>
+            <Feature>
+              <CheckedCircleBlack />
+              <FeatureText>Special introductory pricing</FeatureText>
+            </Feature>
+            <Feature>
+              <CheckedCircleBlack />
+              <FeatureText>Unlimited Pages and Keywords</FeatureText>
+            </Feature>
+            <Feature>
+              <CheckedCircleBlack />
+              <FeatureText>Billed annually</FeatureText>
+            </Feature>
+          </FeatureList>
+          <Button theme="secondary" size="wide" darkLabel>
+            Get Gscore
+          </Button>
+        </StyledCard>
+      )}
+    </div>
   );
 };
 
-const StyledCard = styled.div`
+interface IStyledCard {
+  active?: boolean;
+}
+
+interface IDescription {
+  active?: boolean;
+}
+
+const StyledCard = styled.div<IStyledCard>`
   width: 404px;
   height: 612px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: ${COLORS.darkestGray};
+  background-color: ${(props) =>
+    props.active ? COLORS.lightRed : COLORS.darkestGray};
   box-shadow: 0px 8px 28px rgba(0, 0, 0, 0.06);
   border-radius: 12px;
-  margin-top: 50px;
+  margin-top: ${(props) => (props.active ? "0px" : "50px")};
+  margin-bottom: ${(props) => (props.active ? "50px" : "0")};
   padding: 42px 48px;
+  transition: all 0.4s linear;
+
+  p {
+    color: ${(props) => props.active && COLORS.white};
+  }
+
+  @media screen and (max-width: 1390px) {
+    margin-top: 50px;
+  }
 `;
 
-const Description = styled.div`
+const Description = styled.div<IDescription>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -70,7 +152,7 @@ const Description = styled.div`
   padding: 4px 0 40px;
   p {
     margin-top: 8px;
-    color: ${COLORS.gray};
+    color: ${(props) => (props.active ? COLORS.white : COLORS.gray)};
   }
 `;
 
@@ -101,13 +183,6 @@ const CardTitle = styled.h2`
   color: ${COLORS.white};
 `;
 
-const DescText = styled.p`
-  margin: 0px;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 20px;
-`;
-
 const FeatureText = styled.p`
   margin-left: 14px;
-`
+`;

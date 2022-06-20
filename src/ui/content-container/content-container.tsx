@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { COLORS } from 'src/lib';
-import { Header, Footer } from 'src/components'
+import { COLORS } from "src/lib";
 
 interface IContentContainer {
   children: React.ReactNode;
@@ -10,9 +9,7 @@ interface IContentContainer {
 export const ContentContainer: React.FC<IContentContainer> = ({ children }) => {
   return (
     <main>
-      <StyledContainer>
-        {children}
-      </StyledContainer>
+      <StyledContainer>{children}</StyledContainer>
     </main>
   );
 };
