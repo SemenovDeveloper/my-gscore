@@ -63,6 +63,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 const StyledHome = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

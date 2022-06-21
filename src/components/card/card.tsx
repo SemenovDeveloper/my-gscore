@@ -3,7 +3,7 @@ import { IProduct } from "src/types";
 import CheckedCircleRed from "public/img/checked-circle-red.svg";
 import CheckedCircleBlack from "public/img/checked-circle-black.svg";
 import { Button } from "src/ui";
-import styled from "styled-components";
+import S from "styled-components";
 
 interface ICard {
   product: IProduct;
@@ -19,7 +19,7 @@ export const Card: React.FC<ICard> = ({
   return (
     <div className="card">
       {activeCardID == product.id ? (
-        <StyledCard
+        <SCard
           active
           onMouseOver={() => setCardActive(product.id)}
           onMouseOut={() => setCardActive(2)}
@@ -61,9 +61,9 @@ export const Card: React.FC<ICard> = ({
           <Button theme="secondary" size="wide">
             Get Gscore
           </Button>
-        </StyledCard>
+        </SCard>
       ) : (
-        <StyledCard
+        <SCard
           onMouseOver={() => setCardActive(product.id)}
           onMouseOut={() => setCardActive(2)}
         >
@@ -104,13 +104,13 @@ export const Card: React.FC<ICard> = ({
           <Button theme="secondary" size="wide" darkLabel>
             Get Gscore
           </Button>
-        </StyledCard>
+        </SCard>
       )}
     </div>
   );
 };
 
-interface IStyledCard {
+interface ISCard {
   active?: boolean;
 }
 
@@ -118,7 +118,7 @@ interface IDescription {
   active?: boolean;
 }
 
-const StyledCard = styled.div<IStyledCard>`
+const SCard = S.div<ISCard>`
   width: 404px;
   height: 612px;
   display: flex;
@@ -143,7 +143,7 @@ const StyledCard = styled.div<IStyledCard>`
   }
 `;
 
-const Description = styled.div<IDescription>`
+const Description = S.div<IDescription>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -156,7 +156,7 @@ const Description = styled.div<IDescription>`
   }
 `;
 
-const FeatureList = styled.ul`
+const FeatureList = S.ul`
   width: 100%;
   border-top: 1px solid ${COLORS.gray};
   padding: 38px 0 32px;
@@ -168,13 +168,13 @@ const FeatureList = styled.ul`
     margin-bottom: 0;
   }
 `;
-const Feature = styled.li`
+const Feature = S.li`
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 
-const CardTitle = styled.h2`
+const CardTitle = S.h2`
   font-weight: 700;
   font-size: 54px;
   line-height: 66px;
@@ -183,6 +183,6 @@ const CardTitle = styled.h2`
   color: ${COLORS.white};
 `;
 
-const FeatureText = styled.p`
+const FeatureText = S.p`
   margin-left: 14px;
 `;

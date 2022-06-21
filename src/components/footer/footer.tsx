@@ -6,8 +6,7 @@ import { SocialMedia } from "src/components";
 
 export const Footer: React.FC = () => {
   return (
-    <footer>
-      <StyledFooter>
+      <SFooter>
         <Description>
           <Logo />
           <DescText>
@@ -29,12 +28,11 @@ export const Footer: React.FC = () => {
           </p>
           <SocialMedia />
         </CopyrightContainer>
-      </StyledFooter>
-    </footer>
+      </SFooter>
   );
 };
 
-const StyledFooter = styled.div`
+const SFooter = styled.footer`
   height: 362px;
   border-top: 1px solid ${COLORS.darkGray};
   background-color: ${COLORS.black};

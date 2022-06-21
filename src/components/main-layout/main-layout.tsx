@@ -9,15 +9,15 @@ interface IMainLayout {
 
 export const MainLayout: React.FC<IMainLayout> = ({ children }) => {
   return (
-    <StyledContainer>
+    <SContainer>
       <Header />
       {children}
       <Footer />
-    </StyledContainer>
+    </SContainer>
   );
 };
 
-const StyledContainer = styled.div`
+const SContainer = styled.div`
   min-height: 100vh;
   position: relative;
   max-width: 1440px;

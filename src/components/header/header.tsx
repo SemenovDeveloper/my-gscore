@@ -3,15 +3,13 @@ import Logo from "public/img/logo.svg";
 
 export const Header: React.FC = () => {
   return (
-    <header>
-      <StyledHeader>
-        <Logo />
-      </StyledHeader>
-    </header>
+    <SHeader>
+      <Logo />
+    </SHeader>
   );
 };
 
-const StyledHeader = styled.div`
+const SHeader = styled.header`
   width: 100%;
   display: flex;
   align-items: center;
