@@ -17,10 +17,8 @@ export const Card: React.FC<ICard> = ({
   setCardActive,
 }) => {
   return (
-    <div className="card">
-      {activeCardID == product.id ? (
         <SCard
-          active
+          active={activeCardID == product.id}
           onMouseOver={() => setCardActive(product.id)}
           onMouseOut={() => setCardActive(2)}
         >
@@ -62,51 +60,6 @@ export const Card: React.FC<ICard> = ({
             Get Gscore
           </Button>
         </SCard>
-      ) : (
-        <SCard
-          onMouseOver={() => setCardActive(product.id)}
-          onMouseOut={() => setCardActive(2)}
-        >
-          <CardTitle>${product.prices[0].price}</CardTitle>
-          <Description>
-            <h3>
-              {product.sitesCount === 1
-                ? "Single site license"
-                : `${product.sitesCount} Site license`}{" "}
-            </h3>
-            <p>
-              Get the advanced WordPress plugin that optimizes content with GSC
-              keywords at one low annual price
-            </p>
-          </Description>
-          <FeatureList>
-            <Feature>
-              <CheckedCircleBlack />
-              <FeatureText>
-                {product.sitesCount === 1
-                  ? "Single site license"
-                  : `All features for ${product.sitesCount} sites`}
-              </FeatureText>
-            </Feature>
-            <Feature>
-              <CheckedCircleBlack />
-              <FeatureText>Special introductory pricing</FeatureText>
-            </Feature>
-            <Feature>
-              <CheckedCircleBlack />
-              <FeatureText>Unlimited Pages and Keywords</FeatureText>
-            </Feature>
-            <Feature>
-              <CheckedCircleBlack />
-              <FeatureText>Billed annually</FeatureText>
-            </Feature>
-          </FeatureList>
-          <Button theme="secondary" size="wide" darkLabel>
-            Get Gscore
-          </Button>
-        </SCard>
-      )}
-    </div>
   );
 };
 
