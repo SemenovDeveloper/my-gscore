@@ -110,15 +110,8 @@ export const Card: React.FC<ICard> = ({
   );
 };
 
-interface ISCard {
-  active?: boolean;
-}
 
-interface IDescription {
-  active?: boolean;
-}
-
-const SCard = S.div<ISCard>`
+const SCard = S.div<{active?: boolean}>`
   width: 404px;
   height: 612px;
   display: flex;
@@ -144,7 +137,7 @@ const SCard = S.div<ISCard>`
   }
 `;
 
-const Description = S.div<IDescription>`
+const Description = S.div<{active?: boolean}>`
   width: 100%;
   display: flex;
   flex-direction: column;
