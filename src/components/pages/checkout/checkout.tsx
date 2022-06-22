@@ -23,8 +23,8 @@ export const Checkout: React.FC = () => {
 };
 
 const SCheckout = styled.div`
-  width: 100%;
-  margin-top: 60px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-top: 60px;
 `;

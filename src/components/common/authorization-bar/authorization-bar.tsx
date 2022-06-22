@@ -24,12 +24,12 @@ export const AuthorizationBar: React.FC<IAuthorizationBar> = ({ step }) => {
 };
 
 const StepList = styled.ul`
-  width: 100%;
-  list-style: none;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
   margin-top: 32px;
+  list-style: none;
 `;
 
 const Step = styled.li`
@@ -41,15 +41,11 @@ const Step = styled.li`
   }
 `;
 
-interface IIndicator {
-  active?: boolean;
-}
-
-const Indicator = styled.div<IIndicator>`
+const Indicator = styled.div<{ active?: boolean }>`
   width: 100%;
   height: 8px;
   margin-top: 12px;
+  border-radius: 4px;
   background-color: ${(props) =>
     props.active ? "var(--light-red)" : "var(--dark-gray)"};
-  border-radius: 4px;
 `;

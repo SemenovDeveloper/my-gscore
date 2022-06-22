@@ -10,8 +10,8 @@ export const Header: React.FC = () => {
 };
 
 const SHeader = styled.header`
-  width: 100%;
   display: flex;
   align-items: center;
+  width: 100%;
   padding: 30px 87px;
 `;

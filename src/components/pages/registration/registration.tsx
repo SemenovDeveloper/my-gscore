@@ -58,10 +58,10 @@ export const Registration: React.FC = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  margin-top: 60px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-top: 60px;
 `;
 
 const SRegistration = styled.div`
@@ -70,17 +70,17 @@ const SRegistration = styled.div`
 `;
 
 const SDescription = styled.p`
+  padding-top: 16px;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  padding-top: 16px;
 `;
 
 const SForm = styled.form`
-  width: 100%;
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const SInputs = styled.div`
@@ -93,16 +93,16 @@ const STextBlock = styled.p`
   align-items: center;
   margin-top: 48px;
   p {
+    padding-right: 8px;
     font-weight: 400;
     font-size: 16px;
     line-height: 18px;
-    padding-right: 8px;
   }
 `;
 
 const SLink = styled.a`
-  color: var(--light-red);
   font-weight: 400;
   font-size: 16px;
   line-height: 18px;
+  color: var(--light-red);
 `

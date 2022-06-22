@@ -82,19 +82,19 @@ export const Card: React.FC<ICard> = ({
 };
 
 const SCard = S.div<{ active?: boolean }>`
-  width: 404px;
-  height: 612px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  width: 404px;
+  height: 612px;
+  margin-top: ${(props) => (props.active ? "0px" : "50px")};
+  margin-bottom: ${(props) => (props.active ? "50px" : "0")};
+  padding: 42px 48px;
   background-color: ${(props) =>
     props.active ? "var(--light-red)" : "var(--darkest-gray)"};
   box-shadow: 0px 8px 28px rgba(0, 0, 0, 0.06);
   border-radius: 12px;
-  margin-top: ${(props) => (props.active ? "0px" : "50px")};
-  margin-bottom: ${(props) => (props.active ? "50px" : "0")};
-  padding: 42px 48px;
   transition: all 0.4s linear;
 
   p {
@@ -108,12 +108,13 @@ const SCard = S.div<{ active?: boolean }>`
 `;
 
 const Description = S.div<{ active?: boolean }>`
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  width: 100%;
   padding: 4px 0 40px;
+  text-align: center;
+  
   p {
     margin-top: 8px;
     color: ${(props) => (props.active ? "var(--white)" : "var(--gray)")};
@@ -122,8 +123,8 @@ const Description = S.div<{ active?: boolean }>`
 
 const FeatureList = S.ul`
   width: 100%;
-  border-top: 1px solid var(--gray);
   padding: 38px 0 32px;
+  border-top: 1px solid var(--gray);
   list-style: none;
   li {
     margin-bottom: 16px;
@@ -132,6 +133,7 @@ const FeatureList = S.ul`
     margin-bottom: 0;
   }
 `;
+
 const Feature = S.li`
   display: flex;
   flex-direction: row;
@@ -139,10 +141,10 @@ const Feature = S.li`
 `;
 
 const CardTitle = S.h2`
+  margin: 0;
   font-weight: 700;
   font-size: 54px;
   line-height: 66px;
-  margin: 0;
   text-align: center;
   color: var(--white);
 `;

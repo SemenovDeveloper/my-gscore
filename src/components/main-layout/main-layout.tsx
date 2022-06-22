@@ -18,10 +18,10 @@ export const MainLayout: React.FC<IMainLayout> = ({ children }) => {
 
 const SContainer = styled.div`
   position: relative;
-  max-width: 1440px;
-  background-color: var(--black);
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: var(--black);
 `;

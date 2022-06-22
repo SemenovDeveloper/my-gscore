@@ -44,10 +44,10 @@ export const Login: React.FC = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  margin-top: 60px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-top: 60px;
 `;
 
 const SLogin = styled.div`
@@ -56,9 +56,9 @@ const SLogin = styled.div`
 `;
 
 const SForm = styled.form`
-  width: 100%;
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const SInputs = styled.div`

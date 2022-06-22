@@ -25,9 +25,9 @@ export const SocialMedia: React.FC = () => {
 };
 
 const StyledSocialMedia = styled.div`
-  width: 134px;
-  padding: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 134px;
+  padding: 5px;
 `;

@@ -14,13 +14,13 @@ export const ContentContainer: React.FC<IContentContainer> = ({ children }) => {
 };
 
 const StyledContainer = styled.div`
-  max-width: 1440px;
-  min-height: 916px;
-  background-color: var(--black);
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  max-width: 1440px;
+  min-height: 916px;
+  margin: 0 auto;
   padding: 0 87px;
+  background-color: var(--black);
 `;
