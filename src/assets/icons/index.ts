@@ -1,0 +1,6 @@
+export * from './checked-circle-black'
+export * from './checked-circle-red'
+export * from './facebook'
+export * from './linkedin'
+export * from './logo'
+export * from './twitter'

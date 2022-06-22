@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { COLORS } from "src/lib";
 import { ContentContainer, Button, SlimContainer } from "src/ui";
 import { AuthorizationBar } from "src/components";
 import React from "react";

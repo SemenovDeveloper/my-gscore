@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ContentContainer } from "src/ui";
 import styled from "styled-components";
-import { COLORS } from "src/lib";
 import { IProduct } from "src/types";
 import { Card } from "src/components";
 import { useState } from "react";

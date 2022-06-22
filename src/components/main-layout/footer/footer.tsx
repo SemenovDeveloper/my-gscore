@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Logo from "public/img/logo.svg";
+import { Logo } from "src/assets/icons";
 import Link from "next/link";
-import { SocialMedia } from "src/components";
+import { SocialMedia } from "./social-media";
 
 export const Footer: React.FC = () => {
   return (

@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
-interface IAuthorizationBar{
-  step: 'register' | 'login' | 'checkout'
+interface IAuthorizationBar {
+  step: "register" | "login" | "checkout";
 }
 
-export const AuthorizationBar: React.FC<IAuthorizationBar> = ({step}) => {
-
+export const AuthorizationBar: React.FC<IAuthorizationBar> = ({ step }) => {
   return (
     <StepList>
       <Step>
@@ -14,7 +13,7 @@ export const AuthorizationBar: React.FC<IAuthorizationBar> = ({step}) => {
       </Step>
       <Step>
         <p>Log in</p>
-        <Indicator active={step === 'checkout' || step === 'login'}/>
+        <Indicator active={step === "checkout" || step === "login"} />
       </Step>
       <Step>
         <p>Checkout</p>
@@ -51,6 +50,6 @@ const Indicator = styled.div<IIndicator>`
   height: 8px;
   margin-top: 12px;
   background-color: ${(props) =>
-    props.active ? 'var(--light-red)' : 'var(--dark-gray)'};
+    props.active ? "var(--light-red)" : "var(--dark-gray)"};
   border-radius: 4px;
 `;

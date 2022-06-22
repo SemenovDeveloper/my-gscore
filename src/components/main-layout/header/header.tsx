@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Logo from "public/img/logo.svg";
+import { Logo } from "src/assets/icons";
 
 export const Header: React.FC = () => {
   return (

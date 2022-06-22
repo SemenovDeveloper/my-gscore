@@ -1,6 +1,5 @@
 import { IProduct } from "src/types";
-import CheckedCircleRed from "public/img/checked-circle-red.svg";
-import CheckedCircleBlack from "public/img/checked-circle-black.svg";
+import { CheckedCircleRed, CheckedCircleBlack}  from "src/assets/icons";
 import { Button } from "src/ui";
 import S from "styled-components";
 
@@ -90,7 +89,7 @@ const SCard = S.div<{ active?: boolean }>`
   align-items: center;
   justify-content: flex-start;
   background-color: ${(props) =>
-    props.active ? 'var(--light-red)': 'var(--darkest-gray)'};
+    props.active ? "var(--light-red)" : "var(--darkest-gray)"};
   box-shadow: 0px 8px 28px rgba(0, 0, 0, 0.06);
   border-radius: 12px;
   margin-top: ${(props) => (props.active ? "0px" : "50px")};
@@ -99,7 +98,7 @@ const SCard = S.div<{ active?: boolean }>`
   transition: all 0.4s linear;
 
   p {
-    color: ${(props) => props.active && 'var(--white)'};
+    color: ${(props) => props.active && "var(--white)"};
   }
 
   @media screen and (max-width: 1390px) {
@@ -117,7 +116,7 @@ const Description = S.div<{ active?: boolean }>`
   padding: 4px 0 40px;
   p {
     margin-top: 8px;
-    color: ${(props) => (props.active ? 'var(--white)' : 'var(--gray)')};
+    color: ${(props) => (props.active ? "var(--white)" : "var(--gray)")};
   }
 `;
 
@@ -146,7 +145,7 @@ const CardTitle = S.h2`
   margin: 0;
   text-align: center;
   color: var(--white);
-`
+`;
 
 const FeatureText = S.p`
   margin-left: 14px;
