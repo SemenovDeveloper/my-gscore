@@ -1,2 +1,2 @@
 export * from './home'
-export * from './card'
+export * from './components/card'
