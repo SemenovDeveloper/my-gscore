@@ -46,7 +46,7 @@ const StyledHome = styled.div`
   align-items: center;
   padding: 16px 0 42px;
   a {
-    color: ${COLORS.red};
+    color: var(--red);
   }
 `
 

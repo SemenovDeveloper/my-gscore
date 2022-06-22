@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { COLORS } from "src/lib";
 
 interface IAuthorizationBar{
   step: 'register' | 'login' | 'checkout'
@@ -52,6 +51,6 @@ const Indicator = styled.div<IIndicator>`
   height: 8px;
   margin-top: 12px;
   background-color: ${(props) =>
-    props.active ? COLORS.lightRed : COLORS.darkGray};
+    props.active ? 'var(--light-red)' : 'var(--dark-gray)'};
   border-radius: 4px;
 `;

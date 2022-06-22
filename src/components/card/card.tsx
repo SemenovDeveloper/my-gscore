@@ -1,4 +1,3 @@
-import { COLORS } from "src/lib";
 import { IProduct } from "src/types";
 import CheckedCircleRed from "public/img/checked-circle-red.svg";
 import CheckedCircleBlack from "public/img/checked-circle-black.svg";
@@ -23,7 +22,7 @@ export const Card: React.FC<ICard> = ({
       onMouseOut={() => setCardActive(2)}
     >
       <CardTitle>${product.prices[0].price}</CardTitle>
-      <Description active>
+      <Description active={activeCardID == product.id}>
         <h3>
           {product.sitesCount === 1
             ? "Single site license"
@@ -91,7 +90,7 @@ const SCard = S.div<{ active?: boolean }>`
   align-items: center;
   justify-content: flex-start;
   background-color: ${(props) =>
-    props.active ? COLORS.lightRed : COLORS.darkestGray};
+    props.active ? 'var(--light-red)': 'var(--darkest-gray)'};
   box-shadow: 0px 8px 28px rgba(0, 0, 0, 0.06);
   border-radius: 12px;
   margin-top: ${(props) => (props.active ? "0px" : "50px")};
@@ -100,7 +99,7 @@ const SCard = S.div<{ active?: boolean }>`
   transition: all 0.4s linear;
 
   p {
-    color: ${(props) => props.active && COLORS.white};
+    color: ${(props) => props.active && 'var(--white)'};
   }
 
   @media screen and (max-width: 1390px) {
@@ -118,13 +117,13 @@ const Description = S.div<{ active?: boolean }>`
   padding: 4px 0 40px;
   p {
     margin-top: 8px;
-    color: ${(props) => (props.active ? COLORS.white : COLORS.gray)};
+    color: ${(props) => (props.active ? 'var(--white)' : 'var(--gray)')};
   }
 `;
 
 const FeatureList = S.ul`
   width: 100%;
-  border-top: 1px solid ${COLORS.gray};
+  border-top: 1px solid var(--gray);
   padding: 38px 0 32px;
   list-style: none;
   li {
@@ -146,8 +145,8 @@ const CardTitle = S.h2`
   line-height: 66px;
   margin: 0;
   text-align: center;
-  color: ${COLORS.white};
-`;
+  color: var(--white);
+`
 
 const FeatureText = S.p`
   margin-left: 14px;

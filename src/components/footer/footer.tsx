@@ -1,4 +1,3 @@
-import { COLORS } from "src/lib";
 import styled from "styled-components";
 import Logo from "public/img/logo.svg";
 import Link from "next/link";
@@ -34,9 +33,9 @@ export const Footer: React.FC = () => {
 
 const SFooter = styled.footer`
   height: 362px;
-  border-top: 1px solid ${COLORS.darkGray};
-  background-color: ${COLORS.black};
-  color: ${COLORS.lightGray};
+  border-top: 1px solid var(--dark-gray);
+  background-color: var(--black);
+  color: var(--light-gray);
   padding: 0 87px;
 `;
 
@@ -55,7 +54,7 @@ const DescText = styled.p`
 const CopyrightContainer = styled.div`
   width: 100%;
   height: 116px;
-  border-top: 1px solid ${COLORS.darkGray};
+  border-top: 1px solid var(--dark-gray);
   display: flex;
   flex-direction: row;
   align-items: center;

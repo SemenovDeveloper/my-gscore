@@ -1,9 +1,6 @@
-import { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
 import { ContentContainer } from "src/ui";
-import { COLORS } from "src/lib";
 import { Input, Button, SlimContainer } from "src/ui";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { AuthorizationBar } from "src/components";
@@ -90,7 +87,7 @@ const SInputs = styled.div`
   margin-bottom: 48px;
 `;
 
-const STextBlock = styled.div`
+const STextBlock = styled.p`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -104,7 +101,7 @@ const STextBlock = styled.div`
 `;
 
 const SLink = styled.a`
-  color: ${COLORS.lightRed};
+  color: var(--light-red);
   font-weight: 400;
   font-size: 16px;
   line-height: 18px;
