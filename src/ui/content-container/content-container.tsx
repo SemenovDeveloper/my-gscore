@@ -16,6 +16,7 @@ export const ContentContainer: React.FC<IContentContainer> = ({ children }) => {
 
 const StyledContainer = styled.div`
   max-width: 1440px;
+  min-height: 916px;
   background-color: ${COLORS.black};
   margin: 0 auto;
   display: flex;
@@ -23,4 +24,5 @@ const StyledContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   padding: 0 87px;
+  border: 1px solid red;
 `;

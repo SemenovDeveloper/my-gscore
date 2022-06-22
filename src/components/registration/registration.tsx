@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Input, Button } from "src/ui";
+import { Input, Button, ContentContainer, SlimContainer } from "src/ui";
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { AuthorizationBar } from "../authorization-bar";
 
 type FormValues = {
   userName: string;
@@ -16,28 +17,33 @@ export const Registration: React.FC = () => {
   }
 
   return (
-    <SRegistration>
-      <h2>Create account</h2>
-      <SDescription>
-        You need to enter your name and email. We will send you a temporary
-        password by email
-      </SDescription>
-      <SForm onSubmit={handleSubmit(onSubmit)}>
-        <SInputs>
-          <Input {...register("userName")} placeholder='Username'/>
-          <Input type="email"{...register("email")} placeholder='Email'/>
-          <Input {...register("password")} placeholder='Password'/>
-        </SInputs>
-        <Button theme="primary" type='submit' smallText>
-          Send password
-        </Button>
-
-      </SForm>
-    </SRegistration>
+    <ContentContainer>
+      <SlimContainer>
+        <AuthorizationBar step='register'/>
+        <SRegistration>
+          <h2>Create account</h2>
+          <SDescription>
+            You need to enter your name and email. We will send you a temporary
+            password by email
+          </SDescription>
+          <SForm onSubmit={handleSubmit(onSubmit)}>
+            <SInputs>
+              <Input {...register("userName")} placeholder='Username'/>
+              <Input type="email"{...register("email")} placeholder='Email'/>
+              <Input {...register("password")} placeholder='Password'/>
+            </SInputs>
+            <Button theme="primary" type='submit' smallText>
+              Send password
+            </Button>
+          </SForm>
+        </SRegistration>
+      </SlimContainer>
+    </ContentContainer>
   );
 };
 
 const SRegistration = styled.div`
+  margin-top: 64px;
   display: flex;
   flex-direction: column;
 `;

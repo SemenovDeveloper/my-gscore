@@ -18,7 +18,6 @@ export const MainLayout: React.FC<IMainLayout> = ({ children }) => {
 };
 
 const SContainer = styled.div`
-  min-height: 100vh;
   position: relative;
   max-width: 1440px;
   background-color: ${COLORS.black};
