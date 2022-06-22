@@ -140,6 +140,7 @@ const SCard = S.div<ISCard>`
 
   @media screen and (max-width: 1390px) {
     margin-top: 50px;
+    margin-bottom: 0px;
   }
 `;
 

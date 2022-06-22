@@ -7,7 +7,7 @@ interface IButton {
   size?: string;
   darkLabel?: boolean;
   type?: string;
-  smallText: boolean;
+  smallText?: boolean;
 }
 
 
