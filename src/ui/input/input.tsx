@@ -1,14 +1,47 @@
-import styled from "styled-components";
+import React, { FC, InputHTMLAttributes } from 'react'
+import { FieldError } from 'react-hook-form'
+import styled, { css } from 'styled-components'
 
-export const Input = styled.input`
+interface IInput extends InputHTMLAttributes<HTMLInputElement> {
+	error?: FieldError | undefined
+	ref: null
+}
+
+export const Input: FC<IInput> = ({ error, ...props }) => {
+	return (
+		<SInput>
+			<InputField $isValid={!error} {...props} />
+			{error && <Error>{error.message}</Error>}
+		</SInput>
+	)
+}
+
+interface StyleProps {
+	$isValid: boolean
+}
+
+const SInput = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+`
+
+const InputField = styled.input`
   width: 100%;
   height: 68px;
-  margin: 24px 0;
   padding: 25px 23px;
-  border: 1px solid var(--lightest-gray);
-  border-radius: 6px;
-  box-shadow: 0px 2px 12px rgba(20, 20, 43, 0.06);
-  background: var(--white);
+	${(props: StyleProps) => {
+		if (props.$isValid) {
+			return css`
+				border: 1px solid var(--lightest-gray);
+			`
+		} else {
+			return css`
+				border: 1px solid var(--red);
+			`
+		}
+	}}
+	border-radius: 6px;
   ::placeholder {
     font-style: normal;
     font-weight: 400;
@@ -16,4 +49,8 @@ export const Input = styled.input`
     line-height: 18px;
     color: var(--gray);
   }
-`;
+`
+
+const Error = styled.p`
+	color: var(--red);
+`
