@@ -7,8 +7,6 @@ import { AuthorizationBar } from "src/components";
 import { EMAIL_REGEX } from 'src/lib/constants'
 import { axiosInstance } from 'src/utils'
 import { useRouter } from "next/router";
-import { AxiosError, Axios } from "axios";
-import { useState } from "react";
 
 
 type UserProps = {
@@ -107,7 +105,7 @@ export const Registration: React.FC = () => {
                       return (
                         <Input
                           type="password"
-                          placeholder="Username"
+                          placeholder="Password"
                           {...field}
                           ref={null}
                           error={fieldState.error}

@@ -1,19 +1,24 @@
 import styled from "styled-components";
 import { ContentContainer } from "src/ui";
 import { Input, Button, SlimContainer } from "src/ui";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { AuthorizationBar } from "src/components";
+import { loginUser } from 'src/store/ducks'
+import { axiosInstance } from "src/utils";
 
-type FormValues = {
-  userName: string;
+type LoginProps = {
   email: string;
   password: string;
 };
 
 export const Login: React.FC = () => {
-  const { register, handleSubmit } = useForm<FormValues>();
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+  const { control, handleSubmit } = useForm<LoginProps>();
+  const onSubmit: SubmitHandler<LoginProps> = async (data) => {
+    
+    const {email, password} = data;
+    loginUser({email, password})
+    // const response = await axiosInstance.post(`users/sign-in`, data);
+    // console.log(response)
   };
 
   return (
@@ -25,12 +30,46 @@ export const Login: React.FC = () => {
             <h2>Log in</h2>
             <SForm onSubmit={handleSubmit(onSubmit)}>
               <SInputs>
-                <Input
-                  type="email"
-                  {...register("email")}
-                  placeholder="Email"
+                <Controller
+                    control={control}
+                    name="email"
+                    rules={{
+                      required: "Email is missing",
+                    }}
+                    render={({ field, fieldState }) => {
+                      return (
+                        <Input
+                          type="text"
+                          placeholder="Email"
+                          {...field}
+                          ref={null}
+                          error={fieldState.error}
+                        />
+                      );
+                    }}
+                  />
+                <Controller
+                  control={control}
+                  name="password"
+                  rules={{
+                    required: "Password is missing",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters long",
+                    },
+                  }}
+                  render={({ field, fieldState }) => {
+                    return (
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        {...field}
+                        ref={null}
+                        error={fieldState.error}
+                      />
+                    );
+                  }}
                 />
-                <Input {...register("password")} placeholder="Password" />
               </SInputs>
               <Button theme="primary" type="submit" smallText>
                 Log in
@@ -62,7 +101,12 @@ const SForm = styled.form`
 `;
 
 const SInputs = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 32px;
   margin-bottom: 48px;
+  gap: 24px;
 `;
 
 export default Login;

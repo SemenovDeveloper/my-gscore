@@ -3,7 +3,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import { IProducts } from 'src/types'
 import { axiosInstance } from 'src/utils'; 
 
-export interface IProductsState {
+interface IProductsState {
   products: IProducts,
   status: string,
   error: string
@@ -38,5 +38,3 @@ export const productsReducer = createReducer<IProductsState >(initialState, {
     state.error = action.payload
   }
 })
-
-export default productsReducer

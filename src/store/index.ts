@@ -10,10 +10,11 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { productsReducer } from "src/store/ducks";
+import { productsReducer, userReducer } from "src/store/ducks";
 
 const rootReducer = combineReducers({
-  products: productsReducer
+  products: productsReducer,
+  user: userReducer
 });
 
 const persistConfig = {
