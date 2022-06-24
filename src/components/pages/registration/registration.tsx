@@ -6,6 +6,10 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { AuthorizationBar } from "src/components";
 import { EMAIL_REGEX } from 'src/lib/constants'
 import { axiosInstance } from 'src/utils'
+import { useRouter } from "next/router";
+import { AxiosError, Axios } from "axios";
+import { useState } from "react";
+
 
 type UserProps = {
   username: string;
@@ -26,13 +30,20 @@ export interface UserExport {
 
 export const Registration: React.FC = () => {
   const { control, handleSubmit } = useForm<UserProps>();
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<UserProps> = async (data) => {
-    console.log(data);
-    const response = await axiosInstance.post<UserExport>(`/users/sign-up`, data)
-    await console.log(response.status);
-    
+    try {
+      const response = await axiosInstance.post<UserExport>(`/users/sign-up`, data)
+      if (response.status === 201){
+        router.push('/users/login')
+      }
+    }
+    catch(err: any) {
+
+    }
   };
+  
   return (
     <>
       <ContentContainer>
@@ -111,7 +122,7 @@ export const Registration: React.FC = () => {
               </SForm>
               <STextBlock>
                 <p>Have an account? </p>
-                <Link href="">
+                <Link href="/users/login">
                   <SLink>Go to the next step</SLink>
                 </Link>
               </STextBlock>

@@ -6,7 +6,6 @@ import { Card } from "src/components";
 import { useState } from "react";
 
 export const Home: React.FC<{products: IProduct[]}> = ({ products }) => {
-
   const [activeCardID, setActiveCardID] = useState(2);
 
   return (

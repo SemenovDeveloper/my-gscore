@@ -4,12 +4,16 @@ import {
   NextPage,
 } from "next";
 import Head from "next/head";
-import { axiosInstance } from "src/utils";
 import { Home } from "src/components";
+import { store } from "src/store";
+import { getProducts } from "src/store/ducks/products/products-reducers";
+import { unwrapResult } from "@reduxjs/toolkit";
+
 
 const HomePage: NextPage = ({
   products,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
   return (
     <>
       <Head>
@@ -20,16 +24,14 @@ const HomePage: NextPage = ({
   );
 };
 
-export default HomePage;
-
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await axiosInstance.get(`products`);
+  const products = await store.dispatch(getProducts()).then(unwrapResult);
 
-  if (!response) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return { props: { products: response.data } };
+  return {
+    props: {
+      products,
+    },
+  };
 };
+
+export default HomePage;
