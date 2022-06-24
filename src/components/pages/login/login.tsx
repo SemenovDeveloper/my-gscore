@@ -5,6 +5,12 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { AuthorizationBar } from "src/components";
 import { loginUser } from 'src/store/ducks'
 import { axiosInstance } from "src/utils";
+import { useSelector } from "react-redux";
+import { store } from "src/store";
+import { useAppSelector } from "src/hooks";
+import { EMAIL_REGEX } from "src/lib/constants";
+import { useEffect } from "react";
+import Router from "next/router";
 
 type LoginProps = {
   email: string;
@@ -12,20 +18,25 @@ type LoginProps = {
 };
 
 export const Login: React.FC = () => {
+  const { loginStatus, error } = useAppSelector((state) => state.user);
+
+
   const { control, handleSubmit } = useForm<LoginProps>();
   const onSubmit: SubmitHandler<LoginProps> = async (data) => {
-    
     const {email, password} = data;
-    loginUser({email, password})
-    // const response = await axiosInstance.post(`users/sign-in`, data);
-    // console.log(response)
+    store.dispatch(loginUser({email, password}))
   };
+
+  useEffect(() =>{
+    if(loginStatus === 'resolved') {
+      Router.push('/users/checkout')
+    }
+  } ,[loginStatus])
 
   return (
     <ContentContainer>
       <SlimContainer>
         <AuthorizationBar step="login" />
-        <Container>
           <SLogin>
             <h2>Log in</h2>
             <SForm onSubmit={handleSubmit(onSubmit)}>
@@ -34,7 +45,11 @@ export const Login: React.FC = () => {
                     control={control}
                     name="email"
                     rules={{
-                      required: "Email is missing",
+                      required: "Email is not valid",
+                      pattern: {
+                        value: EMAIL_REGEX,
+                        message:"Wrong format of email"
+                      },
                     }}
                     render={({ field, fieldState }) => {
                       return (
@@ -74,24 +89,19 @@ export const Login: React.FC = () => {
               <Button theme="primary" type="submit" smallText>
                 Log in
               </Button>
+              {<p>{error}</p>}
             </SForm>
           </SLogin>
-        </Container>
       </SlimContainer>
     </ContentContainer>
   );
 };
 
-const Container = styled.div`
+const SLogin = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-top: 60px;
-`;
-
-const SLogin = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 const SForm = styled.form`

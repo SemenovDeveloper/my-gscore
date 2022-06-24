@@ -1,7 +1,8 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "src/utils";
-
+import { selectProduct } from "./user-actions";
+import { IProduct } from 'src/types'
 interface ILoginData {
   email: string;
   password: string;
@@ -17,33 +18,20 @@ interface IUserState {
   token: string;
   userPackage: number;
   user: IUser;
+  selectedProduct: IProduct;
   loginStatus: string;
   error?: string;
 }
+
 const initialState: IUserState = {} as IUserState;
 
-// export const loginUser = createAsyncThunk(
-//   "products/getProducts",
-//   async function (userData, { rejectWithValue }) {
-//     const { username, login } = userData
-//     try {
-//       const response = await axiosInstance.post(`users/sign-in`);
-//       return response.data;
-//     } catch (error: any) {
-//       if (!error.message) throw error;
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
 
 export const loginUser = createAsyncThunk(
-  "user/login",
+  "user/loginUser",
   async function (userData: ILoginData, {rejectWithValue}) {
-    const { email, password } = userData
-    console.log('recieve', userData)
+    const {email, password} = userData
     try {
-      const response = await axiosInstance.post(`users/sign-in`, {email, password});
-      console.log(response)
+      const response = await axiosInstance.post('users/sign-in',{email, password})
       return response.data
     }
     catch (error: any) {
@@ -53,7 +41,7 @@ export const loginUser = createAsyncThunk(
   }
 )
 
-export const userReducer = createReducer<IUserState>(initialState, {
+export const userReducer = createReducer<IUserState>(initialState, {  
   [loginUser.pending.type]: (state) => {
     state.loginStatus = "loading";
   },
@@ -61,10 +49,14 @@ export const userReducer = createReducer<IUserState>(initialState, {
     state.loginStatus = "resolved";
     state.token = action.payload.token;
     state.user = action.payload.user;
+    state.error = '';
   },
   [loginUser.rejected.type]: (state, action: PayloadAction<string>) => {
     state.loginStatus = "error";
     state.error = action.payload;
+  },
+ [selectProduct.type]: (state, action: PayloadAction<IProduct>) => {
+    state.selectedProduct = action.payload;
   },
 });
 

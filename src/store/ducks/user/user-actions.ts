@@ -1,3 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
+import { IProduct } from "src/types";
 
-export const registerUser = createAction<string>('register-user')
+
+export const selectProduct = createAction<IProduct>('selectProduct')

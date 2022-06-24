@@ -1,7 +1,10 @@
 import { IProduct } from "src/types";
 import { CheckedCircleRed, CheckedCircleBlack}  from "src/assets/icons";
 import { Button } from "src/ui";
-import S from "styled-components";
+import styled from "styled-components";
+import { useAppDispatch } from "src/hooks";
+import { selectProduct } from "src/store/ducks";
+import { useDispatch } from "react-redux";
 
 interface ICard {
   product: IProduct;
@@ -14,6 +17,14 @@ export const Card: React.FC<ICard> = ({
   activeCardID,
   setCardActive,
 }) => {
+
+  const handleClick = () => {
+    console.log(product);
+    
+    // useAppDispatch(selectProduct(product))
+    // // router.push ("/start")
+  }
+
   return (
     <SCard
       active={activeCardID == product.id}
@@ -74,6 +85,8 @@ export const Card: React.FC<ICard> = ({
         theme="secondary"
         size="wide"
         darkLabel={activeCardID !== product.id}
+        onClick={handleClick}
+        // onClick={useAppDispatch(selectProduct(product))}
       >
         Get Gscore
       </Button>
@@ -81,7 +94,7 @@ export const Card: React.FC<ICard> = ({
   );
 };
 
-const SCard = S.div<{ active?: boolean }>`
+const SCard = styled.div<{ active?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,7 +120,7 @@ const SCard = S.div<{ active?: boolean }>`
   }
 `;
 
-const Description = S.div<{ active?: boolean }>`
+const Description = styled.div<{ active?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,7 +134,7 @@ const Description = S.div<{ active?: boolean }>`
   }
 `;
 
-const FeatureList = S.ul`
+const FeatureList = styled.ul`
   width: 100%;
   padding: 38px 0 32px;
   border-top: 1px solid var(--gray);
@@ -134,13 +147,13 @@ const FeatureList = S.ul`
   }
 `;
 
-const Feature = S.li`
+const Feature = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 
-const CardTitle = S.h2`
+const CardTitle = styled.h2`
   margin: 0;
   font-weight: 700;
   font-size: 54px;
@@ -149,6 +162,6 @@ const CardTitle = S.h2`
   color: var(--white);
 `;
 
-const FeatureText = S.p`
+const FeatureText = styled.p`
   margin-left: 14px;
 `;
