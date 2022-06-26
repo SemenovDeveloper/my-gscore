@@ -9,7 +9,6 @@ import { store } from "src/store";
 import { getProducts } from "src/store/ducks/products/products-reducers";
 import { unwrapResult } from "@reduxjs/toolkit";
 
-
 const HomePage: NextPage = ({
   products,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {

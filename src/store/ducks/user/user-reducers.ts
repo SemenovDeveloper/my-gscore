@@ -15,11 +15,10 @@ interface IUser {
 }
 
 interface IUserState {
-  token: string;
-  userPackage: number;
-  user: IUser;
-  selectedProduct: IProduct;
-  loginStatus: string;
+  token?: string;
+  user?: IUser;
+  selectedProduct?: IProduct;
+  loginStatus?: string;
   error?: string;
 }
 
@@ -59,4 +58,3 @@ export const userReducer = createReducer<IUserState>(initialState, {
     state.selectedProduct = action.payload;
   },
 });
-

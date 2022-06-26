@@ -2,9 +2,9 @@ import { IProduct } from "src/types";
 import { CheckedCircleRed, CheckedCircleBlack}  from "src/assets/icons";
 import { Button } from "src/ui";
 import styled from "styled-components";
-import { useAppDispatch } from "src/hooks";
+import { useAppDispatch, useAppSelector } from "src/hooks";
 import { selectProduct } from "src/store/ducks";
-import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 interface ICard {
   product: IProduct;
@@ -17,12 +17,16 @@ export const Card: React.FC<ICard> = ({
   activeCardID,
   setCardActive,
 }) => {
-
+  const { token } = useAppSelector(state => state.user)
+  const dispatch = useAppDispatch()
+  const router = useRouter();
   const handleClick = () => {
-    console.log(product);
-    
-    // useAppDispatch(selectProduct(product))
-    // // router.push ("/start")
+    dispatch(selectProduct(product))
+    if(token) {
+      router.push("/users/checkout")
+    } else {
+      router.push ("/users/registration")
+    }
   }
 
   return (
@@ -86,7 +90,6 @@ export const Card: React.FC<ICard> = ({
         size="wide"
         darkLabel={activeCardID !== product.id}
         onClick={handleClick}
-        // onClick={useAppDispatch(selectProduct(product))}
       >
         Get Gscore
       </Button>
@@ -100,7 +103,6 @@ const SCard = styled.div<{ active?: boolean }>`
   align-items: center;
   justify-content: flex-start;
   width: 404px;
-  height: 612px;
   margin-top: ${(props) => (props.active ? "0px" : "50px")};
   margin-bottom: ${(props) => (props.active ? "50px" : "0")};
   padding: 42px 48px;
