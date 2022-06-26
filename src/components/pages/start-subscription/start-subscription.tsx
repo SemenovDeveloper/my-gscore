@@ -5,31 +5,26 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { useRouter } from "next/router";
 
-export const Checkout: React.FC = () => {
+export const StartSubscription: React.FC = () => {
   const { selectedProduct } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
   const handleClick = () => {
     // dispatch();
-    router.push("/users/start-subscription");
+    // router.push("/users/start-subscription");
   };
   return (
     <>
       <ContentContainer>
         <SlimContainer>
-          <AuthorizationBar step="checkout" />
-          <SCheckout>
-            <STitle>Checkout</STitle>
+          <SStart>
+            <STitle>Start your subscription</STitle>
+            <SDescription>We have sent you a payment receipt by e-mail and a link to download the plugin with a license key.</SDescription>
             <Cart
               name={selectedProduct.name}
               price={selectedProduct.prices[0].price}
-              icon
             />
-            <STotalPrice>
-              <p>Total:</p>
-              <p>${selectedProduct.prices[0].price}</p>
-            </STotalPrice>
             <Button
               theme="primary"
               type="submit"
@@ -38,18 +33,18 @@ export const Checkout: React.FC = () => {
             >
               Purchase
             </Button>
-          </SCheckout>
+          </SStart>
         </SlimContainer>
       </ContentContainer>
     </>
   );
 };
 
-const SCheckout = styled.div`
+const SStart = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 84px;
 `;
 
 const STitle = styled.h2`
@@ -59,6 +54,13 @@ const STitle = styled.h2`
   font-size: 44px;
   line-height: 54px;
 `;
+
+const SDescription = styled.p`
+ margin: 16px 0 48px;
+ font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+`
 
 const STotalPrice = styled.div`
   width: 100%;

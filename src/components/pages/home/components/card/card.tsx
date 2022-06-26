@@ -1,5 +1,5 @@
 import { IProduct } from "src/types";
-import { CheckedCircleRed, CheckedCircleBlack}  from "src/assets/icons";
+import { CheckedCircleRed, CheckedCircleBlack } from "src/assets/icons";
 import { Button } from "src/ui";
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "src/hooks";
@@ -17,17 +17,17 @@ export const Card: React.FC<ICard> = ({
   activeCardID,
   setCardActive,
 }) => {
-  const { token } = useAppSelector(state => state.user)
-  const dispatch = useAppDispatch()
+  const { token } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const handleClick = () => {
-    dispatch(selectProduct(product))
-    if(token) {
-      router.push("/users/checkout")
+    dispatch(selectProduct(product));
+    if (token) {
+      router.push("/users/checkout");
     } else {
-      router.push ("/users/registration")
+      router.push("/users/registration");
     }
-  }
+  };
 
   return (
     <SCard
@@ -129,7 +129,7 @@ const Description = styled.div<{ active?: boolean }>`
   width: 100%;
   padding: 4px 0 40px;
   text-align: center;
-  
+
   p {
     margin-top: 8px;
     color: ${(props) => (props.active ? "var(--white)" : "var(--gray)")};

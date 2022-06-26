@@ -15,11 +15,11 @@ interface IUser {
 }
 
 interface IUserState {
-  token?: string;
-  user?: IUser;
-  selectedProduct?: IProduct;
-  loginStatus?: string;
-  error?: string;
+  token: string;
+  user: IUser;
+  selectedProduct: IProduct;
+  loginStatus: string;
+  error: string;
 }
 
 const initialState: IUserState = {} as IUserState;
