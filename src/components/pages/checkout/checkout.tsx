@@ -4,6 +4,7 @@ import { AuthorizationBar } from "src/components";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { useRouter } from "next/router";
+import { buyProduct } from "src/store/ducks/subscription/subscription-reducers";
 
 export const Checkout: React.FC = () => {
   const { selectedProduct } = useAppSelector((state) => state.user);
@@ -11,8 +12,9 @@ export const Checkout: React.FC = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    // dispatch();
-    router.push("/users/start-subscription");
+    dispatch(buyProduct(selectedProduct.prices[0].id)).then(() =>
+      router.push("/users/start-subscription")
+    );
   };
   return (
     <>

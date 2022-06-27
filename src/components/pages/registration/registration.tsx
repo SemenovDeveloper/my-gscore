@@ -46,7 +46,6 @@ export const Registration: React.FC = () => {
       <ContentContainer>
         <SlimContainer>
           <AuthorizationBar step="register" />
-          <Container>
             <SRegistration>
               <h2>Create account</h2>
               <SDescription>
@@ -130,23 +129,17 @@ export const Registration: React.FC = () => {
                 </Link>
               </STextBlock>
             </SRegistration>
-          </Container>
         </SlimContainer>
       </ContentContainer>
     </>
   );
 };
 
-const Container = styled.div`
+const SRegistration  = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-top: 60px;
-`;
-
-const SRegistration = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 const SDescription = styled.p`
