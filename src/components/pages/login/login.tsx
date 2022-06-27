@@ -83,8 +83,8 @@ export const Login: React.FC = () => {
             <Button theme="primary" type="submit" smallText>
               Log in
             </Button>
-            {<p>{error}</p>}
           </SForm>
+          {<p>{error}</p>}
         </SLogin>
       </SlimContainer>
     </ContentContainer>

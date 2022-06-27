@@ -21,6 +21,6 @@ const StyledContainer = styled.div`
   max-width: 1440px;
   min-height: 916px;
   margin: 0 auto;
-  padding: 0 87px;
+  padding: 64px 87px 42px;
   background-color: var(--black);
 `;

@@ -1,4 +1,4 @@
-import styled, { ThemeContext } from "styled-components";
+import styled from "styled-components";
 import { ContentContainer, Button, SlimContainer, Cart } from "src/ui";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "src/hooks";
@@ -10,8 +10,7 @@ export const StartSubscription: React.FC = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    // dispatch();
-    // router.push("/users/start-subscription");
+    router.push("/subscriptions");
   };
   return (
     <>
@@ -47,7 +46,6 @@ const SStart = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 84px;
 `;
 
 const STitle = styled.h2`

@@ -1,6 +1,6 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosInstance } from "src/utils";
+import { api } from "src/utils";
 import { selectProduct } from "./user-actions";
 import { IProduct } from "src/types";
 interface ILoginData {
@@ -29,7 +29,7 @@ export const loginUser = createAsyncThunk(
   async function (userData: ILoginData, { rejectWithValue }) {
     const { email, password } = userData;
     try {
-      const response = await axiosInstance.post("users/sign-in", {
+      const response = await api.post("users/sign-in", {
         email,
         password,
       });

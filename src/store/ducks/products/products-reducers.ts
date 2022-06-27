@@ -1,7 +1,7 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IProducts } from "src/types";
-import { axiosInstance } from "src/utils";
+import { api } from "src/utils";
 
 interface IProductsState {
   products: IProducts;
@@ -15,7 +15,7 @@ export const getProducts = createAsyncThunk(
   "products/getProducts",
   async function (_, { rejectWithValue }) {
     try {
-      const response = await axiosInstance.get(`products`);
+      const response = await api.get(`products`);
       return response.data;
     } catch (error: any) {
       if (!error.message) throw error;

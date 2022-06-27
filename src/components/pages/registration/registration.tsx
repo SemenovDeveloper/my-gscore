@@ -5,7 +5,7 @@ import { Input, Button, SlimContainer } from "src/ui";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { AuthorizationBar } from "src/components";
 import { EMAIL_REGEX } from "src/lib/constants";
-import { axiosInstance } from "src/utils";
+import { api } from "src/utils";
 import { useRouter } from "next/router";
 
 type UserProps = {
@@ -31,7 +31,7 @@ export const Registration: React.FC = () => {
 
   const onSubmit: SubmitHandler<UserProps> = async (data) => {
     try {
-      const response = await axiosInstance.post<UserExport>(
+      const response = await api.post<UserExport>(
         `/users/sign-up`,
         data
       );

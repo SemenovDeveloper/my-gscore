@@ -1,27 +1,19 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosInstance } from "src/utils";
+import { api } from "src/utils";
 
-interface ISubscription {
-  id: number;
-  userId: number;
-  currentPeriodStart: number;
-  currentPeriodEnd: number;
-}
-
-interface ISubscriptionState {
-  subscription: ISubscription
+interface IPaymentState {
   paymentLoading: boolean;
   error?: string
 }
 
-const initialState: ISubscriptionState = {} as ISubscriptionState;
+const initialState: IPaymentState = {} as IPaymentState
 
 export const buyProduct = createAsyncThunk(
   "subcription/buyProduct",
   async function (priceId: number, { rejectWithValue }) {
     try {
-      const response = await axiosInstance.post("payments/buy", {
+      const response = await api.post("payments/buy", {
         priceId
       });
       return response.data;
@@ -32,16 +24,15 @@ export const buyProduct = createAsyncThunk(
   }
 );
 
-export const subscriptionReducer = createReducer<ISubscriptionState>(initialState, {
+export const paymentReducer = createReducer<IPaymentState>(initialState, {
   [buyProduct.pending.type]: (state) => {
     state.paymentLoading = true;
   },
-  [buyProduct.fulfilled.type]: (state, action: PayloadAction<ISubscription>) => {
+  [buyProduct.fulfilled.type]: (state) => {
     state.paymentLoading= false;
-    state.subscription= action.payload;
   },
   [buyProduct.rejected.type]: (state, action: PayloadAction<string>) => {
-    state.paymentLoading = false
+    state.paymentLoading = false;
     state.error = action.payload;
   },
 });

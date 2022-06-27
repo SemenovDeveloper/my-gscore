@@ -12,6 +12,7 @@ interface IButton {
 export const Button = styled.button<IButton>`
   width: ${(props) => (props.size === "wide" ? "100%" : "fit-content")};
   padding: 20px 38px;
+  height: fit-content;
   border: 0;
   border-radius: 4px;
   font-size: ${(props) => (props.smallText ? "16px" : "18px")};

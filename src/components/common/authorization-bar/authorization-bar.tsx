@@ -28,7 +28,6 @@ const StepList = styled.ul`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-top: 32px;
   list-style: none;
 `;
 

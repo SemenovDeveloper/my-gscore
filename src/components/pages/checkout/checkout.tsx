@@ -4,18 +4,22 @@ import { AuthorizationBar } from "src/components";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { useRouter } from "next/router";
-import { buyProduct } from "src/store/ducks/subscription/subscription-reducers";
+import { buyProduct } from "src/store/ducks/payment/payment-reducers";
 
 export const Checkout: React.FC = () => {
   const { selectedProduct } = useAppSelector((state) => state.user);
+  // const { error } = useAppSelector((state) => state.payment);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
   const handleClick = () => {
-    dispatch(buyProduct(selectedProduct.prices[0].id)).then(() =>
-      router.push("/users/start-subscription")
-    );
+    dispatch(buyProduct(selectedProduct.prices[0].id)).then((response) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        router.push("/users/start-subscription");
+      }
+    });
   };
+
   return (
     <>
       <ContentContainer>
@@ -40,6 +44,7 @@ export const Checkout: React.FC = () => {
             >
               Purchase
             </Button>
+            {/* {error && <p>{error}</p>} */}
           </SCheckout>
         </SlimContainer>
       </ContentContainer>

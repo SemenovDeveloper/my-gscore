@@ -4,35 +4,33 @@ import {
   NextPage,
 } from "next";
 import Head from "next/head";
-import { Home } from "src/components";
 import { store } from "src/store";
-import { getProducts } from "src/store/ducks/products/products-reducers";
+import { getSubscriptions } from "src/store/ducks";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { Subscriptions } from "src/components";
 
-const HomePage: NextPage = ({
-  products,
+const SubscriptionsPage: NextPage = ({
+  subscriptions
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
   return (
     <>
       <Head>
-        <title>Home page</title>
+        <title>Subscriptions</title>
       </Head>
-      <Home products={products} />
+      <Subscriptions subscriptions={subscriptions}/>
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const products = await store.dispatch(getProducts()).then(unwrapResult);
-
-  
+  const subscriptions = await store.dispatch(getSubscriptions()).then(unwrapResult);
 
   return {
     props: {
-      products,
+      subscriptions,
     },
   };
 };
 
-export default HomePage;
+export default SubscriptionsPage;
