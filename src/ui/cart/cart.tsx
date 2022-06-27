@@ -1,4 +1,3 @@
-import { Children } from "react";
 import { ShoppingBasket } from "src/assets/icons";
 import styled from "styled-components";
 
@@ -34,7 +33,6 @@ const SCart = styled.div`
   background: var(--darkest-gray);
 `;
 
-
 const SCartHeader = styled.div`
   display: flex;
   flex-direction: row;
@@ -67,4 +65,3 @@ const SPrice = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-

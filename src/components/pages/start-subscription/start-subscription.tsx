@@ -1,6 +1,5 @@
 import styled, { ThemeContext } from "styled-components";
 import { ContentContainer, Button, SlimContainer, Cart } from "src/ui";
-import { AuthorizationBar } from "src/components";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { useRouter } from "next/router";
@@ -20,7 +19,10 @@ export const StartSubscription: React.FC = () => {
         <SlimContainer>
           <SStart>
             <STitle>Start your subscription</STitle>
-            <SDescription>We have sent you a payment receipt by e-mail and a link to download the plugin with a license key.</SDescription>
+            <SDescription>
+              We have sent you a payment receipt by e-mail and a link to
+              download the plugin with a license key.
+            </SDescription>
             <Cart
               name={selectedProduct.name}
               price={selectedProduct.prices[0].price}
@@ -28,10 +30,11 @@ export const StartSubscription: React.FC = () => {
             <Button
               theme="primary"
               type="submit"
+              size="wide"
               smallText
               onClick={handleClick}
             >
-              Purchase
+              Go to my subscriptions
             </Button>
           </SStart>
         </SlimContainer>
@@ -56,11 +59,11 @@ const STitle = styled.h2`
 `;
 
 const SDescription = styled.p`
- margin: 16px 0 48px;
- font-weight: 500;
+  margin: 16px 0 48px;
+  font-weight: 500;
   font-size: 14px;
   line-height: 24px;
-`
+`;
 
 const STotalPrice = styled.div`
   width: 100%;

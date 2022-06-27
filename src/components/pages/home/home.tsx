@@ -5,7 +5,7 @@ import { IProduct } from "src/types";
 import { Card } from "src/components";
 import { useState } from "react";
 
-export const Home: React.FC<{products: IProduct[]}> = ({ products }) => {
+export const Home: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [activeCardID, setActiveCardID] = useState(2);
 
   return (
@@ -44,7 +44,7 @@ const StyledHome = styled.div`
   a {
     color: var(--red);
   }
-`
+`;
 
 const CardsContainer = styled.div`
   display: flex;
@@ -56,4 +56,4 @@ const CardsContainer = styled.div`
   @media screen and (max-width: 1390px) {
     justify-content: space-evenly;
   }
-`
+`;

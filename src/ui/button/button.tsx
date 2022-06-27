@@ -32,9 +32,9 @@ export const Button = styled.button<IButton>`
       props.theme === "secondary" ? "var(--white)" : "var(--dark-red)"};
     color: ${(props) =>
       props.theme === "primary"
-        ? 'var(--white)'
+        ? "var(--white)"
         : props.darkLabel
-        ? 'var(--gray)'
-        : 'var(--dark-red)'};
+        ? "var(--gray)"
+        : "var(--dark-red)"};
   }
 `;

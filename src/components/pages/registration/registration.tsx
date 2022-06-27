@@ -4,10 +4,9 @@ import { ContentContainer } from "src/ui";
 import { Input, Button, SlimContainer } from "src/ui";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { AuthorizationBar } from "src/components";
-import { EMAIL_REGEX } from 'src/lib/constants'
-import { axiosInstance } from 'src/utils'
+import { EMAIL_REGEX } from "src/lib/constants";
+import { axiosInstance } from "src/utils";
 import { useRouter } from "next/router";
-
 
 type UserProps = {
   username: string;
@@ -16,14 +15,14 @@ type UserProps = {
 };
 
 export interface User {
-  id: number,
-  email: string,
-  username: string,
+  id: number;
+  email: string;
+  username: string;
 }
 
 export interface UserExport {
-  user: User,
-  token: string,
+  user: User;
+  token: string;
 }
 
 export const Registration: React.FC = () => {
@@ -32,16 +31,16 @@ export const Registration: React.FC = () => {
 
   const onSubmit: SubmitHandler<UserProps> = async (data) => {
     try {
-      const response = await axiosInstance.post<UserExport>(`/users/sign-up`, data)
-      if (response.status === 201){
-        router.push('/users/login')
+      const response = await axiosInstance.post<UserExport>(
+        `/users/sign-up`,
+        data
+      );
+      if (response.status === 201) {
+        router.push("/users/login");
       }
-    }
-    catch(err: any) {
-
-    }
+    } catch (err: any) {}
   };
-  
+
   return (
     <>
       <ContentContainer>
@@ -61,7 +60,10 @@ export const Registration: React.FC = () => {
                     name="username"
                     rules={{
                       required: "Username is missing",
-                      minLength: { value: 3, message: "Username must be at least 3 characters long" },
+                      minLength: {
+                        value: 3,
+                        message: "Username must be at least 3 characters long",
+                      },
                     }}
                     render={({ field, fieldState }) => {
                       return (
@@ -80,7 +82,7 @@ export const Registration: React.FC = () => {
                     name="email"
                     rules={{
                       required: "Email is not valid",
-                      pattern: EMAIL_REGEX
+                      pattern: EMAIL_REGEX,
                     }}
                     render={({ field, fieldState }) => {
                       return (
@@ -99,7 +101,10 @@ export const Registration: React.FC = () => {
                     name="password"
                     rules={{
                       required: "Password is missing",
-                      minLength: { value: 6, message: "Password must be at least 6 characters long" },
+                      minLength: {
+                        value: 6,
+                        message: "Password must be at least 6 characters long",
+                      },
                     }}
                     render={({ field, fieldState }) => {
                       return (
@@ -160,11 +165,11 @@ const SForm = styled.form`
 
 const SInputs = styled.div`
   display: flex;
-	flex-direction: column;
-	align-items: start;
-	margin-top: 32px;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 32px;
   margin-bottom: 48px;
-	gap: 24px;
+  gap: 24px;
 `;
 
 const STextBlock = styled.div`

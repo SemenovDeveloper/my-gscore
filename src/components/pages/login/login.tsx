@@ -15,19 +15,16 @@ type LoginProps = {
 };
 
 export const Login: React.FC = () => {
-
   const { error } = useAppSelector((state) => state.user);
-
   const { control, handleSubmit } = useForm<LoginProps>();
+
   const onSubmit: SubmitHandler<LoginProps> = async (data) => {
     const { email, password } = data;
-    store.dispatch(loginUser({ email, password })).then(
-      response => {
-        if(response.payload.token) {
-          router.push('/users/checkout')
-        }
+    store.dispatch(loginUser({ email, password })).then((response) => {
+      if (response.payload.token) {
+        router.push("/users/checkout");
       }
-    )
+    });
   };
 
   return (
