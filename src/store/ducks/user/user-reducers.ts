@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "src/utils";
 import { selectProduct } from "./user-actions";
 import { IProduct } from "src/types";
+
 interface ILoginData {
   email: string;
   password: string;
