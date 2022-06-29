@@ -7,57 +7,47 @@ interface ICheckbox extends InputHTMLAttributes<HTMLInputElement> {
   handleChange: () => void;
 }
 
-export const Checkbox: React.FC<ICheckbox> = ({ isChecked, handleChange }) => {
+export const Checkbox: React.FC<ICheckbox> = (props) => {
   return (
-    <Label isChecked={isChecked}>
-      <HiddenCheckbox type="checkbox" onChange={handleChange} />
-      <StyledCheckbox isChecked={isChecked}>
-        {isChecked && <CheckboxIcon />}
-      </StyledCheckbox>
+    <Label>
+      <HiddenCheckbox type="checkbox" onChange={props.handleChange} />
+      <SCheckbox isChecked={props.isChecked}>
+        {props.isChecked && <CheckboxIcon />}
+      </SCheckbox>
     </Label>
   );
 };
 
-const Label = styled.label<{ isChecked: boolean }>`
-  &:hover {
-    span {
-      box-shadow: 0 0 0 4px
-        ${(props) =>
-          props.isChecked
-            ? "rgba(252, 88, 66, 0.3)"
-            : "rgba(255, 255, 255, 0.3)"};
-    }
-  }
-`;
+const Label = styled.label`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const HiddenCheckbox = styled.input`
+  border: 0;
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
   height: 1px;
+  margin: -1px;
   overflow: hidden;
+  padding: 0;
   position: absolute;
   white-space: nowrap;
   width: 1px;
 `;
 
-const StyledCheckbox = styled.span<{ isChecked: boolean }>`
-  display: inline-block;
-  height: 28px;
+const SCheckbox = styled.span<{ isChecked: boolean }>`
   width: 28px;
+  height: 28px;
   margin: 32px 0 0;
   padding: 4px 5px;
-  border: 1px solid
-    ${(props) => (props.isChecked ? 'var(--red)' : 'var(--white)')};
+  display: inline-block;
   border-radius: 7px;
   background-color: ${(props) =>
     props.isChecked ? 'var(--light-red)': 'var(--white)'};
-  &:hover:enabled {
-    background-color: ${(props) =>
-      props.isChecked ? 'var(--red)' : 'var(--light-red)'};
-    border: 1px solid
-      ${(props) =>
-        props.isChecked ? 'var(--red)' : 'var(--light-red)'};
-  }
   &:disabled {
     cursor: default;
     opacity: 0.6;
