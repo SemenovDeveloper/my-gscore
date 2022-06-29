@@ -26,14 +26,6 @@ const SNoSubscriptions = styled.div`
   justify-content: center;
 `
 
-const NoActiveContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 380px;
-`
-
 const STitle = styled.h3`
   font-weight: 700;
   font-size: 28px;

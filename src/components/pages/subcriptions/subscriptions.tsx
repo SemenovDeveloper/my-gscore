@@ -7,7 +7,8 @@ import { ISubscription } from "src/types";
 import { store } from "src/store";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { getSubscriptions } from "src/store/ducks";
-import { NoSubscriptions } from "./no-subscriptions";
+import { NoSubscriptions, SubscriptionsBar, CodesBar } from "src/components";
+
 
 export const Subscriptions: React.FC = () => {
   // const { token } = useAppSelector((state) => state.user);
@@ -23,16 +24,19 @@ export const Subscriptions: React.FC = () => {
   const [isEmpty, setIsEmpty] = useState<boolean>(!subscriptions.length);
 
   useEffect(() => {
-    // (async () => {
-    //   const subscriptionsData = await store
-    //     .dispatch(getSubscriptions())
-    //     .then(unwrapResult);
-    //   await setSubscriptions(subscriptionsData);
-    // })();
+    (async () => {
+      const subscriptionsData = await store
+        .dispatch(getSubscriptions())
+        .then(unwrapResult);
+      await setSubscriptions(subscriptionsData);
+      await console.log(subscriptions);
+      
+    })();
   }, []);
 
   useEffect(() => {
     setIsEmpty(!subscriptions.length);
+    console.log(subscriptions);
   }, [subscriptions]);
 
   return (
@@ -47,7 +51,8 @@ export const Subscriptions: React.FC = () => {
           )}
         </SubscriptionsHead>
         {isEmpty ? <NoSubscriptions /> :
-        <div>subs</div>}
+        <SubscriptionsBar subscriptions={subscriptions}/>
+        }
       </ContentContainer>
     </>
   );
