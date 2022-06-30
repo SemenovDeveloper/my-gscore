@@ -29,8 +29,6 @@ export const Subscriptions: React.FC = () => {
         .dispatch(getSubscriptions())
         .then(unwrapResult);
       await setSubscriptions(subscriptionsData);
-      await console.log(subscriptions);
-      
     })();
   }, []);
 

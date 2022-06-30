@@ -1,10 +1,14 @@
 import React from 'react'
 import Icon from './logo.svg'
 
-export const Logo: React.FC = () => {
+interface ILogo {
+  width?: string
+  height?: string
+}
+export const Logo: React.FC<ILogo> = ({width = '172px', height = '42px'}) => {
   return (
     <>
-      <Icon />
+      <Icon width={width} height={height} stroke="var(--white)"/>
     </>
   )
 }
