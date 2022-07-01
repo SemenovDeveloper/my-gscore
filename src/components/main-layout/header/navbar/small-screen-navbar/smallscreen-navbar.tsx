@@ -6,26 +6,34 @@ import {
   SettingsIcon,
   CloseIcon,
   Logo,
+  PopupArrow,
 } from "src/assets/icons";
 import { useAppSelector } from "src/hooks";
 import styled from "styled-components";
 
 export const SmallScreenNavbar: React.FC = () => {
   const user = useAppSelector((state) => state.user.user);
-  const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [isPopupOpened, setIsPopupOpened] = useState<boolean>(false);
+  const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
+  console.log(isSettingsOpened);
+  
   const openPopup = () => {
-    setIsOpened(!isOpened);
+    setIsPopupOpened(!isPopupOpened);
   };
+
+  const logOut = () => {
+    // dispatch(signOutAction())
+  }; 
 
   return (
     <Root>
       <div onClick={openPopup}>
         <MenuLine />
       </div>
-      {isOpened && (
+      {isPopupOpened && (
         <PopUp>
           <PopUpHeader>
-            <div onClick={() => setIsOpened(false)}>
+            <div onClick={() => setIsPopupOpened(false)}>
               <CloseIcon />
             </div>
             <Link href="">
@@ -33,35 +41,33 @@ export const SmallScreenNavbar: React.FC = () => {
             </Link>
           </PopUpHeader>
           <div>
-            {/* <ul>
-          <SideBarMenuItem>
-            <Link href="/subscriptions">
-              <a>My subscriptions</a>
-            </Link>
-          </SideBarMenuItem>
-          <SideBarMenuItem>
-            <SideBarUsername onClick={toggleNavPopUp}>
+            <MenuItem>
+              <Link href="/subscriptions">
+                <a>My subscriptions</a>
+              </Link>
+            </MenuItem>
+            <MenuItem>
+            <Username onClick={() => setIsSettingsOpened(!isSettingsOpened)} opened={isSettingsOpened}>
               {user.username}
-              {(navPopUp) ? <Up width="16px" height="9px"/> : <Down width="16px" height="9px"/>}
-            </SideBarUsername>
-            {navPopUp
-              && <SideBarSubmenu>
-                  <SideBarSubmenuItem>
-                    <Settings/>
+              <PopupArrow />
+            </Username>
+            {isSettingsOpened
+              && <SettingsMenu>
+                  <SettingsMenuItem>
+                    <SettingsIcon />
                     <Link href="/settings">
                       <a>Settings</a>
                     </Link>
-                  </SideBarSubmenuItem>
-                  <SideBarSubmenuItem>
-                    <Logout/>
+                  </SettingsMenuItem>
+                  <SettingsMenuItem>
+                    <LogoutIcon />
                     <Link href="/">
-                      <a onClick={signOut}>Logout</a>
+                      <a onClick={logOut}>Logout</a>
                     </Link>
-                  </SideBarSubmenuItem>
-                </SideBarSubmenu>
+                  </SettingsMenuItem>
+                </SettingsMenu>
             }
-          </SideBarMenuItem>
-        </ul> */}
+          </MenuItem>
           </div>
         </PopUp>
       )}
@@ -74,41 +80,45 @@ const Root = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  a {
+    text-decoration: none;
+  }
 `;
 const PopUpHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
-const SideBarMenuItem = styled.li`
+const MenuItem = styled.div`
   padding: 20px 0;
   border-bottom: 1px solid var(--dark-gray);
-
-  svg {
-    width: 24px;
-    height: 24px;
-    /* stroke: var(--gray); */
-  }
 `;
-const SideBarUsername = styled.div`
+const Username = styled.div<{ opened: boolean}>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  svg {
+    transform: ${(props) => props.opened && "rotate(180deg)"};
+  }
 `;
-const SideBarSubmenu = styled.ul`
+const SettingsMenu = styled.ul`
   padding: 30px 0 0;
   color: var(--gray);
 `;
-const SideBarSubmenuItem = styled.li`
+const SettingsMenuItem = styled.li`
   display: flex;
   align-items: center;
   padding-bottom: 25px;
 
   a {
     margin-left: 8px;
+    color: var(--gray)
   }
   &:last-child {
     padding: 0;
+  }
+  svg {
+    stroke: var(--gray)
   }
 `;
 const PopUp = styled.div`
@@ -119,8 +129,4 @@ const PopUp = styled.div`
   height: 100vh;
   padding: 28px 24px;
   background-color: var(--darkest-gray);
-  svg {
-    transform: scale(0.7)
-  }
 `;
-
