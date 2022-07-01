@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
 
   return (
     <Root>
-      <Link href='/'><Logo /></Link>
+      <Link href='/'><a><Logo /></a></Link>
       {token && <NavBar/>}
     </Root>
   );
