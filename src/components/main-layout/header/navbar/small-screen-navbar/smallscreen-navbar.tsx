@@ -79,7 +79,6 @@ const Root = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  position: relative;
   a {
     text-decoration: none;
   }
@@ -123,6 +122,7 @@ const SettingsMenuItem = styled.li`
 `;
 const PopUp = styled.div`
   position: fixed;
+  z-index: 100;
   top: 0;
   right: 0;
   width: 65vw;

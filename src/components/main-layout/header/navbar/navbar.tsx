@@ -14,11 +14,6 @@ export const NavBar: React.FC = () => {
     // dispatch(signOutAction())
   };
 
-  const [sideBar, setSideBar] = useState(false);
-
-  const toggleSideBar = () => {
-    setSideBar(!sideBar);
-  };
   const [isOpened, setIsOpened] = useState(false);
   const handlePopup = () => {
     setIsOpened(!isOpened);
@@ -97,6 +92,7 @@ const PopUpUser = styled.div`
     margin-right: 10px;
   }
 `;
+
 const PopUp = styled.div`
   position: absolute;
   z-index: 2;
