@@ -36,8 +36,10 @@ export const loginUser = createAsyncThunk(
       });
       return response.data;
     } catch (error: any) {
+      console.log(error);
+      
       if (!error.message) throw error;
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -54,6 +56,7 @@ export const userReducer = createReducer<IUserState>(initialState, {
   },
   [loginUser.rejected.type]: (state, action: PayloadAction<string>) => {
     state.loginStatus = "error";
+    console.log(action.payload)
     state.error = action.payload;
   },
   [selectProduct.type]: (state, action: PayloadAction<IProduct>) => {
