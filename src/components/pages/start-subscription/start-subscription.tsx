@@ -16,12 +16,12 @@ export const StartSubscription: React.FC = () => {
     <>
       <ContentContainer>
         <SlimContainer>
-          <SStart>
-            <STitle>Start your subscription</STitle>
-            <SDescription>
+          <Start>
+            <Title>Start your subscription</Title>
+            <Description>
               We have sent you a payment receipt by e-mail and a link to
               download the plugin with a license key.
-            </SDescription>
+            </Description>
             <Cart
               name={selectedProduct.name}
               price={selectedProduct.prices[0].price}
@@ -35,20 +35,20 @@ export const StartSubscription: React.FC = () => {
             >
               Go to my subscriptions
             </Button>
-          </SStart>
+          </Start>
         </SlimContainer>
       </ContentContainer>
     </>
   );
 };
 
-const SStart = styled.div`
+const Start = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
 `;
 
-const STitle = styled.h2`
+const Title = styled.h2`
   margin-bottom: 32px;
   font-style: normal;
   font-weight: 700;
@@ -56,24 +56,10 @@ const STitle = styled.h2`
   line-height: 54px;
 `;
 
-const SDescription = styled.p`
+const Description = styled.p`
   margin: 16px 0 48px;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
 `;
 
-const STotalPrice = styled.div`
-  width: 100%;
-  margin: 24px 0 48px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  p {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 40px;
-  }
-`;

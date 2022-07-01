@@ -24,10 +24,10 @@ export const AuthorizationBar: React.FC<IAuthorizationBar> = ({ step }) => {
 };
 
 const StepList = styled.ul`
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
   list-style: none;
 `;
 

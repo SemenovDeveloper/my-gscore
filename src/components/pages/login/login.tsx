@@ -31,10 +31,10 @@ export const Login: React.FC = () => {
     <ContentContainer>
       <SlimContainer>
         <AuthorizationBar step="login" />
-        <SLogin>
+        <LoginBlock>
           <h2>Log in</h2>
-          <SForm onSubmit={handleSubmit(onSubmit)}>
-            <SInputs>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Inputs>
               <Controller
                 control={control}
                 name="email"
@@ -79,38 +79,36 @@ export const Login: React.FC = () => {
                   );
                 }}
               />
-            </SInputs>
+            </Inputs>
             <Button theme="primary" type="submit" smallText>
               Log in
             </Button>
-          </SForm>
+          </Form>
           {<p>{error}</p>}
-        </SLogin>
+        </LoginBlock>
       </SlimContainer>
     </ContentContainer>
   );
 };
 
-const SLogin = styled.div`
-  display: flex;
-  flex-direction: column;
+const LoginBlock = styled.div`
   width: 100%;
   margin-top: 60px;
-`;
-
-const SForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 100%;
 `;
 
-const SInputs = styled.div`
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Inputs = styled.div`
+  margin-top: 32px;
+  margin-bottom: 48px;
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-top: 32px;
-  margin-bottom: 48px;
   gap: 24px;
 `;
-
-export default Login;

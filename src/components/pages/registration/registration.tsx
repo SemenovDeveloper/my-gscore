@@ -46,14 +46,14 @@ export const Registration: React.FC = () => {
       <ContentContainer>
         <SlimContainer>
           <AuthorizationBar step="register" />
-            <SRegistration>
+            <RegistrationBlock>
               <h2>Create account</h2>
-              <SDescription>
+              <Description>
                 You need to enter your name and email. We will send you a
                 temporary password by email
-              </SDescription>
-              <SForm onSubmit={handleSubmit(onSubmit)}>
-                <SInputs>
+              </Description>
+              <Form onSubmit={handleSubmit(onSubmit)}>
+                <Inputs>
                   <Controller
                     control={control}
                     name="username"
@@ -117,32 +117,32 @@ export const Registration: React.FC = () => {
                       );
                     }}
                   />
-                </SInputs>
+                </Inputs>
                 <Button theme="primary" type="submit" smallText>
                   Send password
                 </Button>
-              </SForm>
-              <STextBlock>
+              </Form>
+              <TextBlock>
                 <p>Have an account? </p>
                 <Link href="/users/login">
-                  <SLink>Go to the next step</SLink>
+                  <StyledLink>Go to the next step</StyledLink>
                 </Link>
-              </STextBlock>
-            </SRegistration>
+              </TextBlock>
+            </RegistrationBlock>
         </SlimContainer>
       </ContentContainer>
     </>
   );
 };
 
-const SRegistration  = styled.div`
-  display: flex;
-  flex-direction: column;
+const RegistrationBlock  = styled.div`
   width: 100%;
   margin-top: 60px;
+  display: flex;
+  flex-direction: column;
 `;
 
-const SDescription = styled.p`
+const Description = styled.p`
   padding-top: 16px;
   font-style: normal;
   font-weight: 400;
@@ -150,26 +150,26 @@ const SDescription = styled.p`
   line-height: 24px;
 `;
 
-const SForm = styled.form`
+const Form = styled.form`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
 `;
 
-const SInputs = styled.div`
+const Inputs = styled.div`
+  margin: 32px 0 48px;
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-top: 32px;
-  margin-bottom: 48px;
   gap: 24px;
 `;
 
-const STextBlock = styled.div`
+const TextBlock = styled.div`
+  margin-top: 48px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 48px;
+
   p {
     padding-right: 8px;
     font-weight: 400;
@@ -178,7 +178,7 @@ const STextBlock = styled.div`
   }
 `;
 
-const SLink = styled.a`
+const StyledLink = styled.a`
   font-weight: 400;
   font-size: 16px;
   line-height: 18px;

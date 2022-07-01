@@ -30,7 +30,7 @@ export const Card: React.FC<ICard> = ({
   };
 
   return (
-    <SCard
+    <Root
       active={activeCardID == product.id}
       onMouseOver={() => setCardActive(product.id)}
       onMouseOut={() => setCardActive(2)}
@@ -93,43 +93,38 @@ export const Card: React.FC<ICard> = ({
       >
         Get Gscore
       </Button>
-    </SCard>
+    </Root>
   );
 };
 
-const SCard = styled.div<{ active?: boolean }>`
+const Root = styled.div<{ active?: boolean }>`
+  width: 404px;
+  margin: ${(props) => (props.active ? "0px 0 50px" : "50px 0 0px")};
+  padding: 42px 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 404px;
-  margin-top: ${(props) => (props.active ? "0px" : "50px")};
-  margin-bottom: ${(props) => (props.active ? "50px" : "0")};
-  padding: 42px 48px;
+  border-radius: 12px;
   background-color: ${(props) =>
     props.active ? "var(--light-red)" : "var(--darkest-gray)"};
   box-shadow: 0px 8px 28px rgba(0, 0, 0, 0.06);
-  border-radius: 12px;
   transition: all 0.4s linear;
-
   p {
     color: ${(props) => props.active && "var(--white)"};
   }
-
   @media screen and (max-width: 1390px) {
-    margin-top: 50px;
-    margin-bottom: 0px;
+    margin: 50px 0 0px;
   }
 `;
 
 const Description = styled.div<{ active?: boolean }>`
+  width: 100%;
+  padding: 4px 0 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  padding: 4px 0 40px;
   text-align: center;
-
   p {
     margin-top: 8px;
     color: ${(props) => (props.active ? "var(--white)" : "var(--gray)")};

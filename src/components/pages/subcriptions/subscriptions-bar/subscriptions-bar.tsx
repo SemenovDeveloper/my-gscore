@@ -18,9 +18,9 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
   const [openedCard, setOpenedCard] = useState(0);
 
   return (
-    <SSubscriptionBar>
+    <Root>
       <SubscriptionsSlider position={activeCard}>
-        <SSlidesList position={activeCard}>
+        <SlidesList position={activeCard}>
           {subscriptions.map((subscription: ISubscription, index) => {
             return (
               <SubscriptionCard
@@ -31,7 +31,7 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
               />
             );
           })}
-        </SSlidesList>
+        </SlidesList>
       </SubscriptionsSlider>
       <SubscriptionsSliderNav
         activeCard={activeCard}
@@ -45,10 +45,10 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
         >
           <ArrowLeft />
         </SliderBtn>
-        <SCount>
+        <Count>
           <SubscriptionH3>{activeCard}</SubscriptionH3>
-          <SCountH3>/{subscriptions.length}</SCountH3>
-        </SCount>
+          <CountH3>/{subscriptions.length}</CountH3>
+        </Count>
         <SliderBtn
           onClick={() => {
             setActiveCard(activeCard + 1);
@@ -59,11 +59,11 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
         </SliderBtn>
       </SubscriptionsSliderNav>
       <CodesList codes={subscriptions[openedCard].codes}/>
-    </SSubscriptionBar>
+    </Root>
   );
 };
 
-const SSubscriptionBar = styled.div`
+const Root = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -76,7 +76,7 @@ const SubscriptionsSlider = styled.div<{ position: number }>`
   margin-top: 48px;
 `;
 
-const SSlidesList = styled.ul<{ position: number }>`
+const SlidesList = styled.ul<{ position: number }>`
   display: flex;
   gap: 24px;
   position: absolute;
@@ -121,12 +121,12 @@ const SliderBtn = styled.button`
   box-shadow: none;
 `;
 
-const SCount = styled.div`
+const Count = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
-const SCountH3 = styled.h3`
+const CountH3 = styled.h3`
   font-size: 22px;
   line-height: 28px;
   color: var(--dark-gray);

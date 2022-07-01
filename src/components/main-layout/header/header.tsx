@@ -16,9 +16,9 @@ export const Header: React.FC = () => {
 
 const Root = styled.header`
   position: relative;
+  width: 100%;
+  padding: 30px 87px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  padding: 30px 87px;
 `;

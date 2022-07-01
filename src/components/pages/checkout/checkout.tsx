@@ -25,17 +25,17 @@ export const Checkout: React.FC = () => {
       <ContentContainer>
         <SlimContainer>
           <AuthorizationBar step="checkout" />
-          <SCheckout>
-            <STitle>Checkout</STitle>
+          <CheckoutBlock>
+            <Title>Checkout</Title>
             <Cart
               name={selectedProduct.name}
               price={selectedProduct.prices[0].price}
               icon
             />
-            <STotalPrice>
+            <TotalPrice>
               <p>Total:</p>
               <p>${selectedProduct.prices[0].price}</p>
-            </STotalPrice>
+            </TotalPrice>
             <Button
               theme="primary"
               type="submit"
@@ -45,21 +45,21 @@ export const Checkout: React.FC = () => {
               Purchase
             </Button>
             {/* {error && <p>{error}</p>} */}
-          </SCheckout>
+          </CheckoutBlock>
         </SlimContainer>
       </ContentContainer>
     </>
   );
 };
 
-const SCheckout = styled.div`
+const CheckoutBlock = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-top: 60px;
 `;
 
-const STitle = styled.h2`
+const Title = styled.h2`
   margin-bottom: 32px;
   font-style: normal;
   font-weight: 700;
@@ -67,7 +67,7 @@ const STitle = styled.h2`
   line-height: 54px;
 `;
 
-const STotalPrice = styled.div`
+const TotalPrice = styled.div`
   width: 100%;
   margin: 24px 0 48px;
   display: flex;

@@ -53,12 +53,12 @@ const DescText = styled.p`
 `;
 
 const CopyrightContainer = styled.div`
+  width: 100%;
+  height: 116px;
+  margin-left: -19px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  height: 116px;
-  margin-left: -19px;
   border-top: 1px solid var(--dark-gray);
 `;

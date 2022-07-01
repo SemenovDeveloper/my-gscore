@@ -9,7 +9,6 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { getSubscriptions } from "src/store/ducks";
 import { NoSubscriptions, SubscriptionsBar, CodesBar } from "src/components";
 
-
 export const Subscriptions: React.FC = () => {
   // const { token } = useAppSelector((state) => state.user);
   // const dispatch = useAppDispatch();
@@ -38,21 +37,21 @@ export const Subscriptions: React.FC = () => {
   }, [subscriptions]);
 
   return (
-    <>
-      <ContentContainer>
-        <SubscriptionsHead>
-          <STitle>My subscriptions</STitle>
-          {!isEmpty && (
-            <Button theme="primary" type="submit" smallText>
-              Upgrade
-            </Button>
-          )}
-        </SubscriptionsHead>
-        {isEmpty ? <NoSubscriptions /> :
-        <SubscriptionsBar subscriptions={subscriptions}/>
-        }
-      </ContentContainer>
-    </>
+    <ContentContainer>
+      <SubscriptionsHead>
+        <Title>My subscriptions</Title>
+        {!isEmpty && (
+          <Button theme="primary" type="submit" smallText>
+            Upgrade
+          </Button>
+        )}
+      </SubscriptionsHead>
+      {isEmpty ? (
+        <NoSubscriptions />
+      ) : (
+        <SubscriptionsBar subscriptions={subscriptions} />
+      )}
+    </ContentContainer>
   );
 };
 
@@ -64,7 +63,7 @@ const SubscriptionsHead = styled.div`
   justify-content: space-between;
 `;
 
-const STitle = styled.h1`
+const Title = styled.h1`
   font-style: normal;
   font-weight: 700;
   font-size: 54px;

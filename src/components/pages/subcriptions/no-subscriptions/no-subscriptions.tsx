@@ -1,23 +1,25 @@
 import Link from "next/link"
-import { Button, ContentContainer } from "src/ui"
+import { Button } from "src/ui"
 import styled from "styled-components"
+
 export const NoSubscriptions: React.FC = () => {
+
   return (
-    <SNoSubscriptions>
-      <STitle>No active subscriptions</STitle>
-      <SText>
+    <Root>
+      <Title>No active subscriptions</Title>
+      <Text>
         You can subscribe right now by clicking on the button below
-      </SText>
+      </Text>
       <Link href="/" passHref>
         <a>
           <Button theme="primary">Get Gscore</Button>
         </a>
       </Link>
-    </SNoSubscriptions>
+    </Root>
   )
 }
 
-const SNoSubscriptions = styled.div`
+const Root = styled.div`
   width: 100%;
   min-height: 770px;
   display: flex;
@@ -26,13 +28,13 @@ const SNoSubscriptions = styled.div`
   justify-content: center;
 `
 
-const STitle = styled.h3`
+const Title = styled.h3`
   font-weight: 700;
   font-size: 28px;
   line-height: 40px;
 `
 
-const SText = styled.p`
+const Text = styled.p`
   width: 320px;
   margin: 8px 0 32px;
   font-weight: 400;

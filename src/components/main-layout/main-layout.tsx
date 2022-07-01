@@ -8,15 +8,15 @@ interface IMainLayout {
 
 export const MainLayout: React.FC<IMainLayout> = ({ children }) => {
   return (
-    <SContainer>
+    <Root>
       <Header />
       {children}
       <Footer />
-    </SContainer>
+    </Root>
   );
 };
 
-const SContainer = styled.div`
+const Root = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;

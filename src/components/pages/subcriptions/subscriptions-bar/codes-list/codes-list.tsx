@@ -1,13 +1,12 @@
 import { ICode } from "src/types";
 import styled from "styled-components";
-import { CodeCard } from "src/components"
+import { CodeCard } from "src/components";
 
 interface ICodesList {
   codes: ICode[];
 }
 
 export const CodesList: React.FC<ICodesList> = ({ codes }) => {
-
   return (
     <SCodesList>
       {codes.map((code) => (

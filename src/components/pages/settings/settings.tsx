@@ -151,18 +151,19 @@ export const Settings: React.FC = () => {
 };
 
 const SettingsContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
 `;
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
   width: 100%;
   margin-top: 48px;
+  display: flex;
+  flex-direction: column;
   input {
-    margin: 24px 0;x
+    max-width: 512px;
+    margin: 24px 0;
   }
   button {
     margin-top: 48px;

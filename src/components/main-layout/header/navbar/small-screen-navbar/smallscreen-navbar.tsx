@@ -83,15 +83,18 @@ const Root = styled.div`
     text-decoration: none;
   }
 `;
+
 const PopUpHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
+
 const MenuItem = styled.div`
   padding: 20px 0;
   border-bottom: 1px solid var(--dark-gray);
 `;
+
 const Username = styled.div<{ opened: boolean}>`
   display: flex;
   justify-content: space-between;
@@ -100,10 +103,12 @@ const Username = styled.div<{ opened: boolean}>`
     transform: ${(props) => props.opened && "rotate(180deg)"};
   }
 `;
+
 const SettingsMenu = styled.ul`
   padding: 30px 0 0;
   color: var(--gray);
 `;
+
 const SettingsMenuItem = styled.li`
   display: flex;
   align-items: center;
@@ -120,6 +125,7 @@ const SettingsMenuItem = styled.li`
     stroke: var(--gray)
   }
 `;
+
 const PopUp = styled.div`
   position: fixed;
   z-index: 100;
