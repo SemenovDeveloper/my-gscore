@@ -1,6 +1,11 @@
 import styled from "styled-components";
-import { ContentContainer } from "src/ui";
-import { Input, Button, SlimContainer } from "src/ui";
+import {
+  Input,
+  Button,
+  SlimContainer,
+  ErrorMessage,
+  ContentContainer,
+} from "src/ui";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { AuthorizationBar } from "src/components";
 import { loginUser } from "src/store/ducks";
@@ -22,10 +27,10 @@ export const Login: React.FC = () => {
     const { email, password } = data;
     store.dispatch(loginUser({ email, password })).then((response) => {
       if (response.payload.token) {
-        if(selectedProduct) {
+        if (selectedProduct) {
           router.push("/users/checkout");
         } else {
-          router.push("/")
+          router.push("/");
         }
       }
     });
@@ -88,7 +93,7 @@ export const Login: React.FC = () => {
               Log in
             </Button>
           </Form>
-          {<p>{error}</p>}
+          {<ErrorMessage>{error}</ErrorMessage>}
         </LoginBlock>
       </SlimContainer>
     </ContentContainer>

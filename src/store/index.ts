@@ -10,7 +10,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { productsReducer, userReducer, paymentReducer } from "src/store/ducks";
+import { productsReducer,  paymentReducer, userReducer } from "src/store/ducks";
 
 const rootReducer = combineReducers({
   products: productsReducer,

@@ -7,7 +7,7 @@ import { ISubscription } from "src/types";
 import { store } from "src/store";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { getSubscriptions } from "src/store/ducks";
-import { NoSubscriptions, SubscriptionsBar, CodesBar } from "src/components";
+import { NoSubscriptions, SubscriptionsBar } from "src/components";
 
 export const Subscriptions: React.FC = () => {
   // const { token } = useAppSelector((state) => state.user);
@@ -33,7 +33,6 @@ export const Subscriptions: React.FC = () => {
 
   useEffect(() => {
     setIsEmpty(!subscriptions.length);
-    console.log(subscriptions);
   }, [subscriptions]);
 
   return (
