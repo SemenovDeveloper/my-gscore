@@ -7,11 +7,14 @@ import { ArrowLeft } from "src/assets/icons";
 import { CodesList } from "src/components";
 
 interface ISubscriptionBar {
+  subscriptionIndex: number;
   subscriptions: ISubscription[];
+  setSubscriptionIndex: (value: number) => void;
 }
 
 export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
   subscriptions,
+  setSubscriptionIndex,
 }) => {
   const dispatch = useAppDispatch();
   const [activeCard, setActiveCard] = useState(1);
@@ -58,7 +61,7 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
           <ArrowLeft />
         </SliderBtn>
       </SubscriptionsSliderNav>
-      <CodesList codes={subscriptions[openedCard].codes}/>
+      <CodesList codes={subscriptions[openedCard].codes} />
     </Root>
   );
 };

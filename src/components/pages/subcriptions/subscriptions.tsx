@@ -10,13 +10,15 @@ import { getSubscriptions } from "src/store/ducks";
 import { NoSubscriptions, SubscriptionsBar } from "src/components";
 
 export const Subscriptions: React.FC = () => {
-  // const { token } = useAppSelector((state) => state.user);
-  // const dispatch = useAppDispatch();
-  // const router = useRouter();
+  const subscritions = useAppSelector(
+    (state) => state.subscription.subscriptions
+  );
 
-  // const handleClick = () => {
-  //   router.push("/users/start-subscription");
-  // };
+  const [subscriptionIndex, setSubscriptionIndex] = useState<number>(0);
+
+  console.log(subscriptionIndex);
+
+  const handleClick = () => {};
 
   const [subscriptions, setSubscriptions] = useState<ISubscription[]>([]);
   const [codes, setCodes] = useState([]);
@@ -40,7 +42,7 @@ export const Subscriptions: React.FC = () => {
       <SubscriptionsHead>
         <Title>My subscriptions</Title>
         {!isEmpty && (
-          <Button theme="primary" type="submit" smallText>
+          <Button theme="primary" type="submit" smallText onClick={handleClick}>
             Upgrade
           </Button>
         )}
@@ -48,7 +50,11 @@ export const Subscriptions: React.FC = () => {
       {isEmpty ? (
         <NoSubscriptions />
       ) : (
-        <SubscriptionsBar subscriptions={subscriptions} />
+        <SubscriptionsBar
+          subscriptions={subscriptions}
+          setSubscriptionIndex={(value: number) => setSubscriptionIndex(value)}
+          subscriptionIndex={subscriptionIndex}
+        />
       )}
     </ContentContainer>
   );

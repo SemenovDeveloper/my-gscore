@@ -12,5 +12,6 @@ export const ErrorMessage: React.FC<IErrorMessage> = ({children}) => {
 }
 
 const Root = styled.p`
+  margin-top: 18px;
   color: var(--light-red)
 `

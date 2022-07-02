@@ -3,7 +3,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ISubscription } from "src/types";
 import { api } from "src/utils";
 
-
 interface ISubscriptionsState {
   subscriptions: ISubscription[];
   subscriptionsLoading: boolean;
@@ -25,7 +24,29 @@ export const getSubscriptions = createAsyncThunk(
   }
 );
 
-export const productsReducer = createReducer<ISubscriptionsState>(
+interface IChangeProduct {
+  productId: number;
+  subscribeId: number;
+}
+
+export const changeProduct = createAsyncThunk(
+  "subscription/changeProduct",
+  async function (productData: IChangeProduct, { rejectWithValue }) {
+    const { productId, subscribeId } = productData;
+    try {
+      const response = await api.post("subscribe/change-product", {
+        productId,
+        subscribeId,
+      });
+      return response.data;
+    } catch (error: any) {
+      if (!error.message) throw error;
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const subscriptionsReducer = createReducer<ISubscriptionsState>(
   initialState,
   {
     [getSubscriptions.pending.type]: (state) => {
@@ -39,6 +60,24 @@ export const productsReducer = createReducer<ISubscriptionsState>(
       state.subscriptionsLoading = false;
     },
     [getSubscriptions.rejected.type]: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.subscriptionsLoading = false;
+      state.error = action.payload;
+    },
+    [changeProduct.pending.type]: (state) => {
+      state.subscriptionsLoading = true;
+    },
+    [changeProduct.fulfilled.type]: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      console.log(action.payload);
+      // state.subscriptions = action.payload;
+      state.subscriptionsLoading = false;
+    },
+    [changeProduct.rejected.type]: (
       state,
       action: PayloadAction<string>
     ) => {
