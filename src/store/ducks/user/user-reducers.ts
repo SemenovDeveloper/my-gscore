@@ -1,7 +1,7 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "src/utils";
-import { selectProduct } from "./user-actions";
+import { selectProduct, logOutUser } from "./user-actions";
 import { IProduct } from "src/types";
 
 interface ILoginData {
@@ -16,14 +16,14 @@ interface IUser {
 }
 
 interface IUserState {
-  token: string;
+  token: string | null;
   user: IUser;
-  selectedProduct: IProduct;
-  loginStatus: string;
-  error: string;
+  selectedProduct?: IProduct;
+  loginStatus?: string;
+  error?: string;
 }
 
-const initialState: IUserState = {} as IUserState;
+const initialState: IUserState = { token: null, user: {} as IUser };
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
@@ -36,8 +36,6 @@ export const loginUser = createAsyncThunk(
       });
       return response.data;
     } catch (error: any) {
-      console.log(error);
-      
       if (!error.message) throw error;
       return rejectWithValue(error.response.data.message);
     }
@@ -56,10 +54,12 @@ export const userReducer = createReducer<IUserState>(initialState, {
   },
   [loginUser.rejected.type]: (state, action: PayloadAction<string>) => {
     state.loginStatus = "error";
-    console.log(action.payload)
     state.error = action.payload;
   },
   [selectProduct.type]: (state, action: PayloadAction<IProduct>) => {
     state.selectedProduct = action.payload;
+  },
+  [logOutUser.type]: (state, action) => {
+    return initialState
   },
 });

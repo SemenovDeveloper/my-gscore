@@ -11,19 +11,18 @@ import {
 import { useAppSelector } from "src/hooks";
 import styled from "styled-components";
 
-export const SmallScreenNavbar: React.FC = () => {
+interface ISmallScreenNavbar {
+  logOut: () => void
+}
+
+export const SmallScreenNavbar: React.FC<ISmallScreenNavbar> = ( { logOut } ) => {
   const user = useAppSelector((state) => state.user.user);
   const [isPopupOpened, setIsPopupOpened] = useState<boolean>(false);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
-  console.log(isSettingsOpened);
   
   const openPopup = () => {
     setIsPopupOpened(!isPopupOpened);
   };
-
-  const logOut = () => {
-    // dispatch(signOutAction())
-  }; 
 
   return (
     <Root>
@@ -62,7 +61,7 @@ export const SmallScreenNavbar: React.FC = () => {
                   <SettingsMenuItem>
                     <LogoutIcon />
                     <Link href="/">
-                      <a onClick={logOut}>Logout</a>
+                      <a onClick={() => logOut()}>Logout</a>
                     </Link>
                   </SettingsMenuItem>
                 </SettingsMenu>

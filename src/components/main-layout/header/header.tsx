@@ -3,8 +3,9 @@ import { Logo } from "src/assets/icons";
 import { useAppSelector } from "src/hooks";
 import { NavBar } from 'src/components'
 import Link from "next/link";
+
 export const Header: React.FC = () => {
-  const token = useAppSelector(state => state.user.token)
+  const  token  = useAppSelector(state => state.user.token)
 
   return (
     <Root>

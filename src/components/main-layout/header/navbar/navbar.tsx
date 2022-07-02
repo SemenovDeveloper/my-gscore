@@ -5,13 +5,14 @@ import styled from "styled-components";
 import { PopupArrow, SettingsIcon, LogoutIcon } from "src/assets/icons";
 import Media from "react-media";
 import { SmallScreenNavbar } from "./small-screen-navbar";
+import { logOutUser } from "src/store/ducks";
 
 export const NavBar: React.FC = () => {
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
 
   const logOut = () => {
-    // dispatch(signOutAction())
+    dispatch(logOutUser())
   };
 
   const [isOpened, setIsOpened] = useState(false);
@@ -24,7 +25,7 @@ export const NavBar: React.FC = () => {
       <Media queries={{ small: { maxWidth: 599 } }}>
         {(matches) =>
           matches.small ? (
-            <SmallScreenNavbar />
+            <SmallScreenNavbar logOut={logOut}/>
           ) : (
             <BigScreenNavbar>
               <Link href="/subscriptions">
@@ -104,6 +105,7 @@ const PopUp = styled.div`
   background-color: var(--darkest-gray);
   div {
     display: flex;
+    align-items: center;
     &:first-child {
       margin-bottom: 32px;
     }
