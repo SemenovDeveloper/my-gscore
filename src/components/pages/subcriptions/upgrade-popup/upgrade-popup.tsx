@@ -1,10 +1,9 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import { CloseIcon } from "src/assets/icons";
-import { useAppDispatch, useAppSelector } from "src/hooks";
 import { store } from "src/store";
-import { getProducts } from "src/store/ducks";
-import { IProduct, ISubscription } from "src/types";
+import { changeSubscription, getProducts } from "src/store/ducks";
+import { ISubscription } from "src/types";
 import { Button } from "src/ui";
 import styled from "styled-components";
 import { SubscriptionH3 } from "../subscription-text";
@@ -18,11 +17,31 @@ export const UpgradePopup: React.FC<IUpgradePopup> = ({
   closePopup,
   currentSubscription,
 }) => {
-  const { products } = useAppSelector((state) => state.products);
+
+  const [products, setProducts] = useState([]);
   useEffect(() => {
-    store.dispatch(getProducts());
+    (async () => {
+      const productsData = await store
+        .dispatch(getProducts())
+        .then(unwrapResult);
+      setProducts(productsData);
+    })();
   }, []);
-  console.log(products);
+
+  const upgradeSubscription = (productId: number) => {
+    store
+      .dispatch(
+        changeSubscription({
+          productId: productId,
+          subscribeId: currentSubscription.id,
+        })
+      )
+      .then((response) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          closePopup();
+        }
+      });
+  };
 
   return (
     <Root>
@@ -44,13 +63,17 @@ export const UpgradePopup: React.FC<IUpgradePopup> = ({
       </CurrentSubscription>
       <Products>
         {products.map((product) => (
-          <UpgradeCard>
+          <UpgradeCard key={product.id}>
             <li>
               <h4>{product.name} license</h4>
             </li>
             <li>Sites count: {product.sitesCount}</li>
             <li>Price: ${product.prices[0].price}</li>
-            <Button theme="secondary" smallText>
+            <Button
+              theme="secondary"
+              smallText
+              onClick={() => upgradeSubscription(product.id)}
+            >
               Select
             </Button>
           </UpgradeCard>

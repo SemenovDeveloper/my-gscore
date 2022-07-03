@@ -24,14 +24,14 @@ export const getSubscriptions = createAsyncThunk(
   }
 );
 
-interface IChangeProduct {
+interface IChangeSubscription {
   productId: number;
   subscribeId: number;
 }
 
-export const changeProduct = createAsyncThunk(
-  "subscription/changeProduct",
-  async function (productData: IChangeProduct, { rejectWithValue }) {
+export const changeSubscription = createAsyncThunk(
+  "subscription/changeSubscription",
+  async function (productData: IChangeSubscription, { rejectWithValue }) {
     const { productId, subscribeId } = productData;
     try {
       const response = await api.post("subscribe/change-product", {
@@ -66,10 +66,10 @@ export const subscriptionsReducer = createReducer<ISubscriptionsState>(
       state.subscriptionsLoading = false;
       state.error = action.payload;
     },
-    [changeProduct.pending.type]: (state) => {
+    [changeSubscription.pending.type]: (state) => {
       state.subscriptionsLoading = true;
     },
-    [changeProduct.fulfilled.type]: (
+    [changeSubscription.fulfilled.type]: (
       state,
       action: PayloadAction<any>
     ) => {
@@ -77,7 +77,7 @@ export const subscriptionsReducer = createReducer<ISubscriptionsState>(
       // state.subscriptions = action.payload;
       state.subscriptionsLoading = false;
     },
-    [changeProduct.rejected.type]: (
+    [changeSubscription.rejected.type]: (
       state,
       action: PayloadAction<string>
     ) => {
