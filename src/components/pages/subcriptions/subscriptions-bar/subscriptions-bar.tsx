@@ -15,20 +15,20 @@ interface ISubscriptionBar {
 export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
   subscriptions,
   setSubscriptionIndex,
+  subscriptionIndex
 }) => {
   const dispatch = useAppDispatch();
-  const [activeCard, setActiveCard] = useState(1);
   const [openedCard, setOpenedCard] = useState(0);
 
   return (
     <Root>
-      <SubscriptionsSlider position={activeCard}>
-        <SlidesList position={activeCard}>
+      <SubscriptionsSlider position={subscriptionIndex + 1}>
+        <SlidesList position={subscriptionIndex + 1}>
           {subscriptions.map((subscription: ISubscription, index) => {
             return (
               <SubscriptionCard
                 subscription={subscription}
-                isCardActive={activeCard === index + 1}
+                isCardActive={subscriptionIndex === index}
                 key={subscription.id}
                 openCard={() => setOpenedCard(index)}
               />
@@ -37,26 +37,26 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
         </SlidesList>
       </SubscriptionsSlider>
       <SubscriptionsSliderNav
-        activeCard={activeCard}
-        countCard={subscriptions.length}
+        activeCard={subscriptionIndex + 1}
+        countCard={subscriptionIndex + 1}
       >
         <SliderBtn
           onClick={() => {
-            setActiveCard(activeCard - 1);
+            setSubscriptionIndex(subscriptionIndex- 1);
           }}
-          disabled={activeCard === 1}
+          disabled={subscriptionIndex === 0}
         >
           <ArrowLeft />
         </SliderBtn>
         <Count>
-          <SubscriptionH3>{activeCard}</SubscriptionH3>
+          <SubscriptionH3>{subscriptionIndex+1}</SubscriptionH3>
           <CountH3>/{subscriptions.length}</CountH3>
         </Count>
         <SliderBtn
           onClick={() => {
-            setActiveCard(activeCard + 1);
+            setSubscriptionIndex(subscriptionIndex + 1);
           }}
-          disabled={activeCard === subscriptions.length}
+          disabled={subscriptionIndex + 1 === subscriptions.length}
         >
           <ArrowLeft />
         </SliderBtn>

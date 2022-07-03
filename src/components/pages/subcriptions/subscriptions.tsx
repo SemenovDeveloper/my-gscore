@@ -1,62 +1,65 @@
 import styled from "styled-components";
-import { ContentContainer, Button, SlimContainer, Cart } from "src/ui";
+import { ContentContainer, Button } from "src/ui";
 import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "src/hooks";
-import { useRouter } from "next/router";
-import { ISubscription } from "src/types";
-import { store } from "src/store";
-import { unwrapResult } from "@reduxjs/toolkit";
-import { getSubscriptions } from "src/store/ducks";
-import { NoSubscriptions, SubscriptionsBar } from "src/components";
+import { useAppSelector } from "src/hooks";
+import {
+  NoSubscriptions,
+  SubscriptionsBar,
+  UpgradePopup,
+} from "src/components";
 
 export const Subscriptions: React.FC = () => {
-  const subscritions = useAppSelector(
-    (state) => state.subscription.subscriptions
+  const { subscriptions, subscriptionsLoading } = useAppSelector(
+    (state) => state.subscription
   );
-
   const [subscriptionIndex, setSubscriptionIndex] = useState<number>(0);
-
-  console.log(subscriptionIndex);
-
-  const handleClick = () => {};
-
-  const [subscriptions, setSubscriptions] = useState<ISubscription[]>([]);
   const [codes, setCodes] = useState([]);
   const [isEmpty, setIsEmpty] = useState<boolean>(!subscriptions.length);
-
-  useEffect(() => {
-    (async () => {
-      const subscriptionsData = await store
-        .dispatch(getSubscriptions())
-        .then(unwrapResult);
-      await setSubscriptions(subscriptionsData);
-    })();
-  }, []);
+  const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
 
   useEffect(() => {
     setIsEmpty(!subscriptions.length);
   }, [subscriptions]);
 
   return (
-    <ContentContainer>
-      <SubscriptionsHead>
-        <Title>My subscriptions</Title>
-        {!isEmpty && (
-          <Button theme="primary" type="submit" smallText onClick={handleClick}>
-            Upgrade
-          </Button>
-        )}
-      </SubscriptionsHead>
-      {isEmpty ? (
-        <NoSubscriptions />
+    <>
+      {subscriptionsLoading ? (
+        <div>Loading</div>
       ) : (
-        <SubscriptionsBar
-          subscriptions={subscriptions}
-          setSubscriptionIndex={(value: number) => setSubscriptionIndex(value)}
-          subscriptionIndex={subscriptionIndex}
-        />
+        <ContentContainer>
+          <SubscriptionsHead>
+            <Title>My subscriptions</Title>
+            {!isEmpty && (
+              <Button
+                theme="primary"
+                type="submit"
+                smallText
+                onClick={() => setIsOpenPopup(true)}
+              >
+                Upgrade
+              </Button>
+            )}
+          </SubscriptionsHead>
+          {isEmpty ? (
+            <NoSubscriptions />
+          ) : (
+            <SubscriptionsBar
+              subscriptions={subscriptions}
+              setSubscriptionIndex={(value: number) =>
+                setSubscriptionIndex(value)
+              }
+              subscriptionIndex={subscriptionIndex}
+            />
+          )}
+          {isOpenPopup && (
+            <UpgradePopup
+              closePopup={() => setIsOpenPopup(false)}
+              currentSubscription={subscriptions[subscriptionIndex]}
+            />
+          )}
+        </ContentContainer>
       )}
-    </ContentContainer>
+    </>
   );
 };
 
