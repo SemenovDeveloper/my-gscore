@@ -72,26 +72,7 @@ export const subscriptionsReducer = createReducer<ISubscriptionsState>(
     [changeSubscription.pending.type]: (state) => {
       state.subscriptionsLoading = true;
     },
-    [changeSubscription.fulfilled.type]: (
-      state,
-      action: PayloadAction<ISubscription>
-    ) => {
-      state.subscriptions.forEach((subscription) => {
-        if (subscription.id === action.payload.id) {
-          subscription.userId = action.payload.userId;
-          subscription.status = action.payload.status;
-          subscription.productId = action.payload.productId;
-          subscription.currentPeriodStart = action.payload.currentPeriodStart;
-          subscription.currentPeriodEnd = action.payload.currentPeriodEnd;
-          
-
-          // Почему-то с сервера приходит undefined за место этих массивов
-          // С теми же самым интрефейсом получаю подписки и эти массивы приходят с сервера
-          // В схеме указано, что массивы с сервера будут
-          // subscription.product = action.payload.product;
-          // subscription.codes= action.payload.codes;
-        }
-      });
+    [changeSubscription.fulfilled.type]: (state) => {
       state.subscriptionsLoading = false;
     },
     [changeSubscription.rejected.type]: (

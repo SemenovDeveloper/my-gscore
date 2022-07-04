@@ -6,15 +6,15 @@ import { SubscriptionH3, SubscriptionP } from "src/components";
 interface ISubscriptionCard {
   subscription: ISubscription;
   isCardActive: boolean;
-  openCard: () => void;
+  openCard: (value: number) => void;
 }
-
 
 export const SubscriptionCard: React.FC<ISubscriptionCard> = ({
   subscription,
   isCardActive,
   openCard,
 }) => {
+
   return (
     <Root active={isCardActive}>
       <CardTop>
@@ -32,7 +32,7 @@ export const SubscriptionCard: React.FC<ISubscriptionCard> = ({
                 ).toLocaleDateString()}
             </SubscriptionP>
           </TextBlock>
-          <Button theme="secondary" onClick={openCard}>
+          <Button theme="secondary" onClick={() => openCard(subscription.id)}>
             View
           </Button>
         </CardDescription>

@@ -4,20 +4,23 @@ import { SubscriptionP, SubscriptionH3 } from "src/components";
 import { CopyIcon } from "src/assets/icons";
 import { Checkbox, Button } from "src/ui";
 import { useState } from "react";
+import { useAppDispatch } from "src/hooks";
+import { activateCode }from 'src/store/ducks';
 
 interface ICodesCard {
   code: ICode;
 }
 
 export const CodeCard: React.FC<ICodesCard> = ({ code }) => {
+  const dispatch = useAppDispatch();
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = () => {
     setIsChecked(!isChecked);
   };
 
-  const activateCode = (code: string) => {
-    
+  const handleSubmit = async () => {
+    await dispatch(activateCode(code.code))
   }
 
   return (
@@ -37,7 +40,7 @@ export const CodeCard: React.FC<ICodesCard> = ({ code }) => {
         <DomainBlock>
           <StyledLink>{code.origin}</StyledLink>
           {code.status === "INACTIVE" && (
-            <Button theme="secondary" onClick={() => activateCode(code.code)}>Activate</Button>
+            <Button theme="secondary" onClick={handleSubmit}>Activate</Button>
           )}
         </DomainBlock>
       </Domain>

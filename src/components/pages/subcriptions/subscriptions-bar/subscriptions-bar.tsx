@@ -20,14 +20,11 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
   subscriptionIndex,
 }) => {
   const dispatch = useAppDispatch();
-  const [openedCard, setOpenedCard] = useState(0);
+  const [openedCard, setOpenedCard] = useState<number>(0);
   const { subscriptions, subscriptionsLoading } = useAppSelector(
     (state) => state.subscription
   );
   
-  console.log(subscriptions);
-  
-
   return (
     <Root>
       <SubscriptionsSlider position={subscriptionIndex + 1}>
@@ -41,7 +38,7 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
                   subscription={subscription}
                   isCardActive={subscriptionIndex === index}
                   key={subscription.id}
-                  openCard={() => setOpenedCard(index)}
+                  openCard={(value: number) => setOpenedCard(value)}
                 />
               );
             })}
@@ -73,7 +70,7 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
           <ArrowLeft />
         </SliderBtn>
       </SubscriptionsSliderNav>
-      <CodesList codes={subscriptions[openedCard].codes} />
+      <CodesList openedCardId={openedCard} />
     </Root>
   );
 };

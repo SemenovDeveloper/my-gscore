@@ -2,7 +2,7 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import { CloseIcon } from "src/assets/icons";
 import { store } from "src/store";
-import { changeSubscription, getProducts } from "src/store/ducks";
+import { changeSubscription, getCodes, getProducts, getSubscriptions } from "src/store/ducks";
 import { ISubscription } from "src/types";
 import { Button } from "src/ui";
 import styled from "styled-components";
@@ -38,6 +38,12 @@ export const UpgradePopup: React.FC<IUpgradePopup> = ({
       )
       .then((response) => {
         if (response.meta.requestStatus === "fulfilled") {
+          (async () => {
+            await store.dispatch(getSubscriptions());
+          })();
+          (async () => {
+            await store.dispatch(getCodes());
+          })();
           closePopup();
         }
       });

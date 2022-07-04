@@ -19,7 +19,7 @@ export const getCodes = createAsyncThunk(
   "code/getCodes",
   async function (__, { rejectWithValue }) {
     try {
-      const response = await api.post(`code/self`);
+      const response = await api.get(`code/self`);
       return response.data;
     } catch (error: any) {
       if (!error.message) throw error;
@@ -30,9 +30,9 @@ export const getCodes = createAsyncThunk(
 
 export const activateCode = createAsyncThunk(
   "code/activateCode",
-  async function (codeId: string, { rejectWithValue }) {
+  async function (code: string, { rejectWithValue }) {
     try {
-      const response = await api.post(`code/activate`, { codeId });
+      const response = await api.post(`code/activate`, { code });
       return response.data;
     } catch (error: any) {
       if (!error.message) throw error;

@@ -7,37 +7,26 @@ import {
   SubscriptionsBar,
   UpgradePopup,
 } from "src/components";
-import { getSubscriptions } from "src/store/ducks";
-import { store } from "src/store";
-import { unwrapResult } from "@reduxjs/toolkit";
+import { getCodes, getSubscriptions } from "src/store/ducks";
 import Router from "next/router";
 
 export const Subscriptions: React.FC = () => {
   const token = useAppSelector((state) => state.user.token);
-  // const [subscriptions, setSubscriptions] = useState([]);
+  const { subscriptions, subscriptionsLoading } = useAppSelector(
+    (state) => state.subscription
+  );
   const [isEmpty, setIsEmpty] = useState<boolean>(!subscriptions?.length);
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
   const [subscriptionIndex, setSubscriptionIndex] = useState<number>(0);
-  const isLoading = useAppSelector(
-    (state) => state.subscription.subscriptionsLoading
-  );
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const subscriptionsData = await store
-  //       .dispatch(getSubscriptions())
-  //       .then(unwrapResult);
-  //     await setSubscriptions(subscriptionsData);
-  //   })();
-  // }, []);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
-      await store.dispatch(getSubscriptions());
+      await dispatch(getSubscriptions());
+      await dispatch(getCodes());
     })();
   }, []);
-
-  const subscriptions = useAppSelector(state => state.subscription.subscriptions)
 
   useEffect(() => {
     setIsEmpty(!subscriptions?.length);
@@ -50,7 +39,7 @@ export const Subscriptions: React.FC = () => {
   return (
     <>
       {token ? (
-        isLoading ? (
+        subscriptionsLoading ? (
           <Preloader />
         ) : (
           <ContentContainer>
