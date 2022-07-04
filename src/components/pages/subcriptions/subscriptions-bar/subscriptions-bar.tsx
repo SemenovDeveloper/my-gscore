@@ -1,40 +1,52 @@
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { ISubscription } from "src/types";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubscriptionCard, SubscriptionH3 } from "src/components";
 import { ArrowLeft } from "src/assets/icons";
 import { CodesList } from "src/components";
+import { store } from "src/store";
+import { Preloader } from "src/ui";
+
+
 
 interface ISubscriptionBar {
   subscriptionIndex: number;
-  subscriptions: ISubscription[];
   setSubscriptionIndex: (value: number) => void;
 }
 
 export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
-  subscriptions,
   setSubscriptionIndex,
-  subscriptionIndex
+  subscriptionIndex,
 }) => {
   const dispatch = useAppDispatch();
   const [openedCard, setOpenedCard] = useState(0);
+  const { subscriptions, subscriptionsLoading } = useAppSelector(
+    (state) => state.subscription
+  );
+  
+  console.log(subscriptions);
+  
 
   return (
     <Root>
       <SubscriptionsSlider position={subscriptionIndex + 1}>
-        <SlidesList position={subscriptionIndex + 1}>
-          {subscriptions.map((subscription: ISubscription, index) => {
-            return (
-              <SubscriptionCard
-                subscription={subscription}
-                isCardActive={subscriptionIndex === index}
-                key={subscription.id}
-                openCard={() => setOpenedCard(index)}
-              />
-            );
-          })}
-        </SlidesList>
+        {subscriptionsLoading ? (
+          <Preloader />
+        ) : (
+          <SlidesList position={subscriptionIndex + 1}>
+            {subscriptions.map((subscription: ISubscription, index) => {
+              return (
+                <SubscriptionCard
+                  subscription={subscription}
+                  isCardActive={subscriptionIndex === index}
+                  key={subscription.id}
+                  openCard={() => setOpenedCard(index)}
+                />
+              );
+            })}
+          </SlidesList>
+        )}
       </SubscriptionsSlider>
       <SubscriptionsSliderNav
         activeCard={subscriptionIndex + 1}
@@ -42,14 +54,14 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
       >
         <SliderBtn
           onClick={() => {
-            setSubscriptionIndex(subscriptionIndex- 1);
+            setSubscriptionIndex(subscriptionIndex - 1);
           }}
           disabled={subscriptionIndex === 0}
         >
           <ArrowLeft />
         </SliderBtn>
         <Count>
-          <SubscriptionH3>{subscriptionIndex+1}</SubscriptionH3>
+          <SubscriptionH3>{subscriptionIndex + 1}</SubscriptionH3>
           <CountH3>/{subscriptions.length}</CountH3>
         </Count>
         <SliderBtn

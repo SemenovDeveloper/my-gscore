@@ -16,6 +16,10 @@ export const CodeCard: React.FC<ICodesCard> = ({ code }) => {
     setIsChecked(!isChecked);
   };
 
+  const activateCode = (code: string) => {
+    
+  }
+
   return (
     <CodesItem key={code.id}>
       <CheckBlock>
@@ -33,7 +37,7 @@ export const CodeCard: React.FC<ICodesCard> = ({ code }) => {
         <DomainBlock>
           <StyledLink>{code.origin}</StyledLink>
           {code.status === "INACTIVE" && (
-            <Button theme="secondary">Activate</Button>
+            <Button theme="secondary" onClick={() => activateCode(code.code)}>Activate</Button>
           )}
         </DomainBlock>
       </Domain>

@@ -14,7 +14,7 @@ import Router from "next/router";
 
 export const Subscriptions: React.FC = () => {
   const token = useAppSelector((state) => state.user.token);
-  const [subscriptions, setSubscriptions] = useState([]);
+  // const [subscriptions, setSubscriptions] = useState([]);
   const [isEmpty, setIsEmpty] = useState<boolean>(!subscriptions?.length);
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
   const [subscriptionIndex, setSubscriptionIndex] = useState<number>(0);
@@ -22,19 +22,27 @@ export const Subscriptions: React.FC = () => {
     (state) => state.subscription.subscriptionsLoading
   );
 
+  // useEffect(() => {
+  //   (async () => {
+  //     const subscriptionsData = await store
+  //       .dispatch(getSubscriptions())
+  //       .then(unwrapResult);
+  //     await setSubscriptions(subscriptionsData);
+  //   })();
+  // }, []);
+
   useEffect(() => {
     (async () => {
-      const subscriptionsData = await store
-        .dispatch(getSubscriptions())
-        .then(unwrapResult);
-      await setSubscriptions(subscriptionsData);
+      await store.dispatch(getSubscriptions());
     })();
   }, []);
 
+  const subscriptions = useAppSelector(state => state.subscription.subscriptions)
+
   useEffect(() => {
-    setIsEmpty(!subscriptions?.length)
+    setIsEmpty(!subscriptions?.length);
   }, [subscriptions]);
-  
+
   const registerRoute = () => {
     Router.push("/users/registration");
   };
@@ -63,7 +71,6 @@ export const Subscriptions: React.FC = () => {
               <NoSubscriptions />
             ) : (
               <SubscriptionsBar
-                subscriptions={subscriptions}
                 setSubscriptionIndex={(value: number) =>
                   setSubscriptionIndex(value)
                 }

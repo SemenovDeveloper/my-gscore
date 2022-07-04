@@ -9,6 +9,7 @@ interface ISubscriptionCard {
   openCard: () => void;
 }
 
+
 export const SubscriptionCard: React.FC<ISubscriptionCard> = ({
   subscription,
   isCardActive,
