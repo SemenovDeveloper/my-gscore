@@ -1,11 +1,10 @@
-import { ICode } from "src/types";
 import styled from "styled-components";
 import { CodeCard } from "src/components";
 import { useAppDispatch, useAppSelector } from "src/hooks";
-import { getCodes } from "src/store/ducks";
-import { unwrapResult } from "@reduxjs/toolkit";
+import { getCodes, manageCodes } from "src/store/ducks";
 import { Button, ErrorMessage, Preloader } from "src/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { store } from "src/store";
 
 interface ICodesList {
   openedCardId: number;
@@ -13,18 +12,32 @@ interface ICodesList {
 
 export const CodesList: React.FC<ICodesList> = ({ openedCardId }) => {
   const dispatch = useAppDispatch();
+  const [checkedCodes, setCheckedCodes] = useState<number[]>([]);
+  const { codes, codesLoading, error } = useAppSelector((state) => state.codes);
 
-  // useEffect(() => {
-  //   async () => {
-  //     await dispatch(getCodes());
-  //   };
-  // }, []);
-
-  const { codes, codesLoading } = useAppSelector((state) => state.codes);
   const filteredCodes = codes.filter(
     (code) => code.subscribeId == openedCardId
   );
-  
+
+  const handleCodes = (codeId: number, action: "add" | "delete") => {
+    if (action === "add") {
+      setCheckedCodes((perv) => [...perv, codeId]);
+    } else {
+      setCheckedCodes((perv) => [...perv].filter((item) => codeId !== item));
+    }
+  };
+
+  const handleConfirm = () => {
+    dispatch(
+      manageCodes({ codesIds: checkedCodes, subscribeId: openedCardId })
+    ).then((response) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        (async () => {
+          await store.dispatch(getCodes());
+        })();
+      }
+    });
+  };
   return (
     <>
       {codesLoading ? (
@@ -32,12 +45,15 @@ export const CodesList: React.FC<ICodesList> = ({ openedCardId }) => {
       ) : (
         <SCodesList>
           {filteredCodes.map((code) => (
-            <CodeCard key={code.id} code={code} />
+            <CodeCard key={code.id} code={code} selectCode={handleCodes} />
           ))}
           {filteredCodes.some((code) => code.status === "HOLD") && (
             <HoldCodesFooter>
               <h3>Select the domains you want to keep</h3>
-              <Button theme="primary">Confirm</Button>
+              {error && <ErrorMessage>{error}</ErrorMessage>}
+              <Button theme="primary" onClick={() => handleConfirm()}>
+                Confirm
+              </Button>
             </HoldCodesFooter>
           )}
         </SCodesList>

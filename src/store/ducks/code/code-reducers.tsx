@@ -1,5 +1,6 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AnyIfEmpty } from "react-redux";
 import { ICode } from "src/types";
 import { api } from "src/utils";
 
@@ -36,7 +37,7 @@ export const activateCode = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       if (!error.message) throw error;
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -51,8 +52,9 @@ export const manageCodes = createAsyncThunk(
       const response = await api.put(`code/manage`, data);
       return response.data;
     } catch (error: any) {
+      
       if (!error.message) throw error;
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -64,6 +66,7 @@ export const codeReducer = createReducer<ICodesState>(initialState, {
   [getCodes.fulfilled.type]: (state, action: PayloadAction<ICode[]>) => {
     state.codesLoading = false;
     state.codes = action.payload;
+    state.error = "";
   },
   [getCodes.rejected.type]: (state, action: PayloadAction<string>) => {
     state.codesLoading = false;
@@ -71,6 +74,7 @@ export const codeReducer = createReducer<ICodesState>(initialState, {
   },
   [activateCode.pending.type]: (state) => {
     state.codesLoading = true;
+    state.error = "";
   },
   [activateCode.fulfilled.type]: (state, action: PayloadAction<ICode>) => {
     state.codesLoading = false;
@@ -81,6 +85,7 @@ export const codeReducer = createReducer<ICodesState>(initialState, {
         code.origin = action.payload.origin;
       }
     });
+    state.error = "";
   },
   [activateCode.rejected.type]: (state, action: PayloadAction<string>) => {
     state.codesLoading = false;
@@ -88,13 +93,14 @@ export const codeReducer = createReducer<ICodesState>(initialState, {
   },
   [manageCodes.pending.type]: (state) => {
     state.codesLoading = true;
+    state.error = "";
   },
   [manageCodes.fulfilled.type]: (state, action: PayloadAction<ICode[]>) => {
     state.codesLoading = false;
-    state.codes = action.payload
+    state.error = "";
   },
-  [manageCodes.rejected.type]: (state, action: PayloadAction<string>) => {
+  [manageCodes.rejected.type]: (state, action: PayloadAction<any>) => {
     state.codesLoading = false;
-    state.error = action.payload;
+    state.error=action.payload
   },
 });

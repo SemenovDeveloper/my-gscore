@@ -3,15 +3,16 @@ import styled from "styled-components";
 import { SubscriptionP, SubscriptionH3 } from "src/components";
 import { CopyIcon } from "src/assets/icons";
 import { Checkbox, Button } from "src/ui";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "src/hooks";
-import { activateCode }from 'src/store/ducks';
+import { activateCode } from "src/store/ducks";
 
 interface ICodesCard {
   code: ICode;
+  selectCode: (codeId: number, add: 'add' | 'delete') => void;
 }
 
-export const CodeCard: React.FC<ICodesCard> = ({ code }) => {
+export const CodeCard: React.FC<ICodesCard> = ({ code, selectCode }) => {
   const dispatch = useAppDispatch();
   const [isChecked, setIsChecked] = useState(false);
 
@@ -20,8 +21,16 @@ export const CodeCard: React.FC<ICodesCard> = ({ code }) => {
   };
 
   const handleSubmit = async () => {
-    await dispatch(activateCode(code.code))
-  }
+    await dispatch(activateCode(code.code));
+  };
+
+  useEffect(() => {
+    if (isChecked) {
+      selectCode(code.id, 'add');
+    } else {
+      selectCode(code.id, 'delete');
+    }
+  }, [isChecked]);
 
   return (
     <CodesItem key={code.id}>
@@ -40,7 +49,9 @@ export const CodeCard: React.FC<ICodesCard> = ({ code }) => {
         <DomainBlock>
           <StyledLink>{code.origin}</StyledLink>
           {code.status === "INACTIVE" && (
-            <Button theme="secondary" onClick={handleSubmit}>Activate</Button>
+            <Button theme="secondary" onClick={handleSubmit}>
+              Activate
+            </Button>
           )}
         </DomainBlock>
       </Domain>

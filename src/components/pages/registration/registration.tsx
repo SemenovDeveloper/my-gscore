@@ -182,5 +182,6 @@ const StyledLink = styled.a`
   font-weight: 400;
   font-size: 16px;
   line-height: 18px;
+  cursor: pointer;
   color: var(--light-red);
 `;
