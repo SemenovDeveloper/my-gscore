@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { Twitter, Facebook, LinkedIn }  from 'src/assets/icons';
+import { Twitter, Facebook, LinkedIn } from "src/assets/icons";
 
 export const SocialMedia: React.FC = () => {
   return (

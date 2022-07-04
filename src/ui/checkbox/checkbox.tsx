@@ -24,7 +24,7 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const HiddenCheckbox = styled.input`
   border: 0;
@@ -47,7 +47,7 @@ const SCheckbox = styled.span<{ isChecked: boolean }>`
   display: inline-block;
   border-radius: 7px;
   background-color: ${(props) =>
-    props.isChecked ? 'var(--light-red)': 'var(--white)'};
+    props.isChecked ? "var(--light-red)" : "var(--white)"};
   &:disabled {
     cursor: default;
     opacity: 0.6;

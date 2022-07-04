@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { ContentContainer, Button, SlimContainer, Cart } from "src/ui";
 import React from "react";
-import { useAppDispatch, useAppSelector } from "src/hooks";
+import { useAppSelector } from "src/hooks";
 import { useRouter } from "next/router";
 
 export const StartSubscription: React.FC = () => {
   const { selectedProduct } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const handleClick = () => {
@@ -62,4 +61,3 @@ const Description = styled.p`
   font-size: 14px;
   line-height: 24px;
 `;
-

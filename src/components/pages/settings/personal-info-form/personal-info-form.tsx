@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Input, Button, ErrorMessage} from "src/ui";
+import { Input, Button, ErrorMessage } from "src/ui";
 import { useForm, Controller } from "react-hook-form";
 import { EMAIL_REGEX } from "src/lib/constants";
 import { updateUserInfo } from "src/store/ducks";

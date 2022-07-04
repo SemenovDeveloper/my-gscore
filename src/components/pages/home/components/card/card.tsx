@@ -20,7 +20,7 @@ export const Card: React.FC<ICard> = ({
   const { token } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  
+
   const handleClick = () => {
     dispatch(selectProduct(product));
     if (token) {

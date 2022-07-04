@@ -8,7 +8,6 @@ import { buyProduct } from "src/store/ducks/payment/payment-reducers";
 
 export const Checkout: React.FC = () => {
   const { selectedProduct } = useAppSelector((state) => state.user);
-  // const { error } = useAppSelector((state) => state.payment);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -44,7 +43,6 @@ export const Checkout: React.FC = () => {
             >
               Purchase
             </Button>
-            {/* {error && <p>{error}</p>} */}
           </CheckoutBlock>
         </SlimContainer>
       </ContentContainer>

@@ -1,9 +1,7 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AnyIfEmpty } from "react-redux";
 import { ICode } from "src/types";
 import { api } from "src/utils";
-
 
 interface ICodesState {
   codes: ICode[];
@@ -52,7 +50,6 @@ export const manageCodes = createAsyncThunk(
       const response = await api.put(`code/manage`, data);
       return response.data;
     } catch (error: any) {
-      
       if (!error.message) throw error;
       return rejectWithValue(error.response.data.message);
     }
@@ -101,6 +98,6 @@ export const codeReducer = createReducer<ICodesState>(initialState, {
   },
   [manageCodes.rejected.type]: (state, action: PayloadAction<any>) => {
     state.codesLoading = false;
-    state.error=action.payload
+    state.error = action.payload;
   },
 });

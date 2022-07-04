@@ -1,14 +1,11 @@
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { ISubscription } from "src/types";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SubscriptionCard, SubscriptionH3 } from "src/components";
 import { ArrowLeft } from "src/assets/icons";
 import { CodesList } from "src/components";
-import { store } from "src/store";
 import { Preloader } from "src/ui";
-
-
 
 interface ISubscriptionBar {
   subscriptionIndex: number;
@@ -24,7 +21,7 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
   const { subscriptions, subscriptionsLoading } = useAppSelector(
     (state) => state.subscription
   );
-  
+
   return (
     <Root>
       <SubscriptionsSlider position={subscriptionIndex + 1}>

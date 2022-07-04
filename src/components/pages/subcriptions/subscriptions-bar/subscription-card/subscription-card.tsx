@@ -14,7 +14,6 @@ export const SubscriptionCard: React.FC<ISubscriptionCard> = ({
   isCardActive,
   openCard,
 }) => {
-
   return (
     <Root active={isCardActive}>
       <CardTop>

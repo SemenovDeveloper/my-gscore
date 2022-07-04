@@ -2,17 +2,17 @@ import styled from "styled-components";
 
 interface ISettingsBar {
   step: string;
-  changeStep: (value: string) => void
+  changeStep: (value: string) => void;
 }
 
 export const SettingsBar: React.FC<ISettingsBar> = ({ step, changeStep }) => {
   return (
     <StepList>
       <Step active={step === "info"}>
-        <p onClick={() => changeStep('info')}>Personal info</p>
+        <p onClick={() => changeStep("info")}>Personal info</p>
       </Step>
-      <Step active={step === "password"} >
-        <p onClick={() => changeStep('password')}>Change password</p>
+      <Step active={step === "password"}>
+        <p onClick={() => changeStep("password")}>Change password</p>
       </Step>
       <Step></Step>
     </StepList>
@@ -25,7 +25,6 @@ const StepList = styled.ul`
   display: flex;
   flex-direction: row;
   list-style: none;
-
 `;
 
 const Step = styled.li<{ active?: boolean }>`
@@ -33,7 +32,8 @@ const Step = styled.li<{ active?: boolean }>`
   border-bottom: 2px solid
     ${(props) => (props.active ? "var(--red)" : "var(--dark-gray)")};
   p {
-    color: ${props => props.active ? 'var(--light-red)' : "var(--dark-gray)"};
+    color: ${(props) =>
+      props.active ? "var(--light-red)" : "var(--dark-gray)"};
     cursor: pointer;
   }
   &:last-child {

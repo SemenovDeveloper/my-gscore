@@ -7,7 +7,6 @@ import Link from "next/link";
 export const Header: React.FC = () => {
   const  token  = useAppSelector(state => state.user.token)
 
-
   return (
     <Root>
       <Link href='/'><a><Logo /></a></Link>

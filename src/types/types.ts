@@ -1,20 +1,20 @@
 export interface IPrice {
-  id: number,
-  isActive: boolean,
-  productId: number,
-  price: string,
-} 
+  id: number;
+  isActive: boolean;
+  productId: number;
+  price: string;
+}
 
 export interface IProduct {
-  id: number,
-  sitesCount: number,
-  name: string,
-  prices: IPrice[],
-  upgrade?: boolean,
+  id: number;
+  sitesCount: number;
+  name: string;
+  prices: IPrice[];
+  upgrade?: boolean;
 }
 
 export interface IProducts {
-  products: IProduct[]
+  products: IProduct[];
 }
 
 export interface ICode {
@@ -36,4 +36,3 @@ export interface ISubscription {
   product: IProduct;
   codes: ICode[];
 }
-

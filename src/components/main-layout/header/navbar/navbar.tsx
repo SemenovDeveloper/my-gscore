@@ -12,7 +12,7 @@ export const NavBar: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const logOut = () => {
-    dispatch(logOutUser())
+    dispatch(logOutUser());
   };
 
   const [isOpened, setIsOpened] = useState(false);
@@ -25,7 +25,7 @@ export const NavBar: React.FC = () => {
       <Media queries={{ small: { maxWidth: 599 } }}>
         {(matches) =>
           matches.small ? (
-            <SmallScreenNavbar logOut={logOut}/>
+            <SmallScreenNavbar logOut={logOut} />
           ) : (
             <BigScreenNavbar>
               <Link href="/subscriptions">
@@ -60,7 +60,6 @@ export const NavBar: React.FC = () => {
     </>
   );
 };
-
 
 const BigScreenNavbar = styled.div`
   display: flex;
