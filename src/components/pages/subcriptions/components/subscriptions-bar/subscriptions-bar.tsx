@@ -17,7 +17,6 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
   setSubscriptionIndex,
   subscriptionIndex,
 }) => {
-  const dispatch = useAppDispatch();
   const [openedCard, setOpenedCard] = useState<number>(0);
   const { subscriptions, subscriptionsLoading } = useAppSelector(
     (state) => state.subscription

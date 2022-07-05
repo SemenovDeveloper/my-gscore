@@ -3,12 +3,12 @@ import { useAppSelector } from "src/hooks";
 import { IProduct, ISubscription } from "src/types";
 import { Button, ErrorMessage } from "src/ui";
 import styled from "styled-components";
-import { SubscriptionH3 } from "../subscription-text";
+import { SubscriptionH3 } from "../../ui/subscription-text";
 
 interface IUpgradePopup {
   products: IProduct[]
   currentSubscription: ISubscription;
-  upgradeSubscription: (productId: number) => void
+  upgradeSubscription: (productId: number, subscribeId: number) => void
   closePopup: () => void;
 }
 
@@ -38,7 +38,6 @@ export const UpgradePopup: React.FC<IUpgradePopup> = ({
           <li>Price: ${currentSubscription.product.prices[0].price}</li>
         </Description>
       </CurrentSubscription>
-      {error && <ErrorMessage>{error}</ErrorMessage>}
       <Products>
         {products.map((product) => (
           <UpgradeCard key={product.id}>
@@ -50,13 +49,14 @@ export const UpgradePopup: React.FC<IUpgradePopup> = ({
             <Button
               theme="secondary"
               smallText
-              onClick={() => upgradeSubscription(product.id)}
+              onClick={() => upgradeSubscription(product.id, currentSubscription.id)}
             >
               Select
             </Button>
           </UpgradeCard>
         ))}
       </Products>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </Root>
   );
 };

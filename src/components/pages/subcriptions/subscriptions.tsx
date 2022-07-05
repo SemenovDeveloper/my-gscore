@@ -24,23 +24,23 @@ export const Subscriptions: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    console.log('render');
     (async () => {
       await dispatch(getSubscriptions());
       await dispatch(getCodes());
       if (!products) {
         await dispatch(getProducts()).then(unwrapResult).then(response => {
           console.log(response);
-          
         });
       }
     })();
   }, []);
 
-  const upgradeSubscription = async (productId: number) => {
+  const upgradeSubscription = async (productId: number, subscribeId: number) => {
     await dispatch(
       changeSubscription({
         productId: productId,
-        subscribeId: subscriptionIndex,
+        subscribeId: subscribeId,
       })
     ).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
