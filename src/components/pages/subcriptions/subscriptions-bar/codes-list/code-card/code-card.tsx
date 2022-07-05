@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { SubscriptionP, SubscriptionH3 } from "src/components";
 import { CopyIcon } from "src/assets/icons";
 import { Checkbox, Button } from "src/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppDispatch } from "src/hooks";
 import { activateCode } from "src/store/ducks";
 import { MEDIA_QUERY } from "src/lib/constants";
 
 interface ICodesCard {
   code: ICode;
-  selectCode: (codeId: number, add: 'add' | 'delete') => void;
+  selectCode: (codeId: number) => void;
 }
 
 export const CodeCard: React.FC<ICodesCard> = ({ code, selectCode }) => {
@@ -19,19 +19,12 @@ export const CodeCard: React.FC<ICodesCard> = ({ code, selectCode }) => {
 
   const handleChange = () => {
     setIsChecked(!isChecked);
+    selectCode(code.id);
   };
 
   const handleSubmit = async () => {
     await dispatch(activateCode(code.code));
   };
-
-  useEffect(() => {
-    if (isChecked) {
-      selectCode(code.id, 'add');
-    } else {
-      selectCode(code.id, 'delete');
-    }
-  }, [isChecked]);
 
   return (
     <CodesItem key={code.id}>

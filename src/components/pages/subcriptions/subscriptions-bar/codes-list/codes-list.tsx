@@ -12,24 +12,24 @@ interface ICodesList {
 
 export const CodesList: React.FC<ICodesList> = ({ openedCardId }) => {
   const dispatch = useAppDispatch();
-  const [checkedCodes, setCheckedCodes] = useState<number[]>([]);
+  const [selectedCodes, setSelectedCodes] = useState<number[]>([]);
   const { codes, codesLoading, error } = useAppSelector((state) => state.codes);
 
   const filteredCodes = codes.filter(
     (code) => code.subscribeId == openedCardId
   );
 
-  const handleCodes = (codeId: number, action: "add" | "delete") => {
-    if (action === "add") {
-      setCheckedCodes((perv) => [...perv, codeId]);
+  const handleCodes = (codeId: number) => {
+    if (!selectedCodes.includes(codeId)) {
+      setSelectedCodes((perv) => [...perv, codeId]);
     } else {
-      setCheckedCodes((perv) => [...perv].filter((item) => codeId !== item));
+      setSelectedCodes((perv) => [...perv].filter((item) => codeId !== item));
     }
   };
 
   const handleConfirm = () => {
     dispatch(
-      manageCodes({ codesIds: checkedCodes, subscribeId: openedCardId })
+      manageCodes({ codesIds: selectedCodes, subscribeId: openedCardId })
     ).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
         (async () => {
