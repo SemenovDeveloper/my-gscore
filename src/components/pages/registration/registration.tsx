@@ -1,12 +1,14 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { ContentContainer } from "src/ui";
+import { ContentContainer, ErrorMessage } from "src/ui";
 import { Input, Button, SlimContainer } from "src/ui";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { AuthorizationBar } from "src/components";
 import { EMAIL_REGEX } from "src/lib/constants";
 import { api } from "src/utils";
 import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "src/hooks";
+import { registerUser } from "src/store/ducks";
 
 type UserProps = {
   username: string;
@@ -26,16 +28,23 @@ export interface UserExport {
 }
 
 export const Registration: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { control, handleSubmit } = useForm<UserProps>();
   const router = useRouter();
+  const { error } = useAppSelector( state => state.user)
 
   const onSubmit: SubmitHandler<UserProps> = async (data) => {
-    try {
-      const response = await api.post<UserExport>(`/users/sign-up`, data);
-      if (response.status === 201) {
+    await dispatch(registerUser(data)).then(response => {
+      if(response.meta.requestStatus === 'fulfilled') {
         router.push("/users/login");
       }
-    } catch (err: any) {}
+    })
+    // try {
+    //   const response = await api.post<UserExport>(`/users/sign-up`, data);
+    //   if (response.status === 201) {
+    //     router.push("/users/login");
+    //   }
+    // } catch (err: any) {}
   };
 
   return (
@@ -119,6 +128,7 @@ export const Registration: React.FC = () => {
                 Send password
               </Button>
             </Form>
+            {error && <ErrorMessage>{error}</ErrorMessage>}
             <TextBlock>
               <p>Have an account? </p>
               <Link href="/users/login">
