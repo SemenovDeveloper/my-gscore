@@ -1,57 +1,24 @@
-import { unwrapResult } from "@reduxjs/toolkit";
-import { useEffect, useState } from "react";
 import { CloseIcon } from "src/assets/icons";
-import { store } from "src/store";
-import {
-  changeSubscription,
-  getCodes,
-  getProducts,
-  getSubscriptions,
-} from "src/store/ducks";
-import { ISubscription } from "src/types";
-import { Button } from "src/ui";
+import { useAppSelector } from "src/hooks";
+import { IProduct, ISubscription } from "src/types";
+import { Button, ErrorMessage } from "src/ui";
 import styled from "styled-components";
 import { SubscriptionH3 } from "../subscription-text";
 
 interface IUpgradePopup {
+  products: IProduct[]
   currentSubscription: ISubscription;
+  upgradeSubscription: (productId: number) => void
   closePopup: () => void;
 }
 
 export const UpgradePopup: React.FC<IUpgradePopup> = ({
   closePopup,
   currentSubscription,
+  products,
+  upgradeSubscription
 }) => {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    (async () => {
-      const productsData = await store
-        .dispatch(getProducts())
-        .then(unwrapResult);
-      setProducts(productsData);
-    })();
-  }, []);
-
-  const upgradeSubscription = (productId: number) => {
-    store
-      .dispatch(
-        changeSubscription({
-          productId: productId,
-          subscribeId: currentSubscription.id,
-        })
-      )
-      .then((response) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          (async () => {
-            await store.dispatch(getSubscriptions());
-          })();
-          (async () => {
-            await store.dispatch(getCodes());
-          })();
-          closePopup();
-        }
-      });
-  };
+  const {error} = useAppSelector(state => state.subscription)
 
   return (
     <Root>
@@ -71,6 +38,7 @@ export const UpgradePopup: React.FC<IUpgradePopup> = ({
           <li>Price: ${currentSubscription.product.prices[0].price}</li>
         </Description>
       </CurrentSubscription>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       <Products>
         {products.map((product) => (
           <UpgradeCard key={product.id}>

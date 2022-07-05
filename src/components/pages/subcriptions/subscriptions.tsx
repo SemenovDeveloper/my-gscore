@@ -7,16 +7,17 @@ import {
   SubscriptionsBar,
   UpgradePopup,
 } from "src/components";
-import { getCodes, getSubscriptions } from "src/store/ducks";
+import { changeSubscription, getCodes, getProducts, getSubscriptions } from "src/store/ducks";
 import Router from "next/router";
 import { MEDIA_QUERY } from "src/lib/constants";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 export const Subscriptions: React.FC = () => {
   const token = useAppSelector((state) => state.user.token);
   const { subscriptions, subscriptionsLoading } = useAppSelector(
     (state) => state.subscription
   );
-  
+  const { products } = useAppSelector((state) => state.products);
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
   const [subscriptionIndex, setSubscriptionIndex] = useState<number>(0);
 
@@ -26,8 +27,33 @@ export const Subscriptions: React.FC = () => {
     (async () => {
       await dispatch(getSubscriptions());
       await dispatch(getCodes());
+      if (!products) {
+        await dispatch(getProducts()).then(unwrapResult).then(response => {
+          console.log(response);
+          
+        });
+      }
     })();
   }, []);
+
+  const upgradeSubscription = async (productId: number) => {
+    await dispatch(
+      changeSubscription({
+        productId: productId,
+        subscribeId: subscriptionIndex,
+      })
+    ).then((response) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        (async () => {
+          await dispatch(getSubscriptions());
+        })();
+        (async () => {
+          await dispatch(getCodes());
+        })();
+        setIsOpenPopup(false);
+      }
+    });
+  };
 
   const registerRoute = () => {
     Router.push("/users/registration");
@@ -42,7 +68,7 @@ export const Subscriptions: React.FC = () => {
           <ContentContainer>
             <SubscriptionsHead>
               <Title>My subscriptions</Title>
-              {!!subscriptions?.length&& (
+              {subscriptions?.length && (
                 <Button
                   theme="primary"
                   type="submit"
@@ -65,7 +91,9 @@ export const Subscriptions: React.FC = () => {
             )}
             {isOpenPopup && (
               <UpgradePopup
+                products={products}
                 closePopup={() => setIsOpenPopup(false)}
+                upgradeSubscription={upgradeSubscription}
                 currentSubscription={subscriptions[subscriptionIndex]}
               />
             )}
