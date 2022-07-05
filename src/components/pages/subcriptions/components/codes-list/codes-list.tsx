@@ -33,7 +33,7 @@ export const CodesList: React.FC<ICodesList> = ({
 
   return (
     <>
-      {codesLoading ? (
+      {codesLoading && openedCardId !== 0 ? (
         <Preloader />
       ) : (
         <SCodesList>
