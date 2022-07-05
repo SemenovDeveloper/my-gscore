@@ -24,6 +24,7 @@ const StyledContainer = styled.div`
   margin: 0 auto;
   padding: 64px 87px 42px;
   background-color: var(--black);
+  overflow: hidden;
   @media ${MEDIA_QUERY.mobile} {
     padding: 25px 15px;
     min-height: auto;
