@@ -5,9 +5,24 @@ import { IProduct } from "src/types";
 import { Card } from "src/components";
 import { useState } from "react";
 import { MEDIA_QUERY } from "src/lib/constants";
+import { useAppDispatch, useAppSelector } from "src/hooks";
+import { selectProduct } from "src/store/ducks";
+import { useRouter } from "next/router";
 
 export const Home: React.FC<{ products: IProduct[] }> = ({ products }) => {
+  const dispatch = useAppDispatch();
+  const { token } = useAppSelector((state) => state.user);
   const [activeCardID, setActiveCardID] = useState(2);
+  const router = useRouter();
+
+  const handleClick = (product: IProduct) => {
+    dispatch(selectProduct(product));
+    if (token) {
+      router.push("/users/checkout");
+    } else {
+      router.push("/users/registration");
+    }
+  };
 
   return (
     <ContentContainer>
@@ -17,6 +32,7 @@ export const Home: React.FC<{ products: IProduct[] }> = ({ products }) => {
           {products.map((product: IProduct) => (
             <Card
               key={product.id}
+              handleClick={handleClick}
               product={product}
               activeCardID={activeCardID}
               setCardActive={(productID: number) => setActiveCardID(productID)}

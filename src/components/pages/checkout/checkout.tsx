@@ -12,40 +12,52 @@ export const Checkout: React.FC = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    dispatch(buyProduct(selectedProduct.prices[0].id)).then((response) => {
-      if (response.meta.requestStatus === "fulfilled") {
-        router.push("/users/start-subscription");
-      }
-    });
+    if (selectedProduct) {
+      dispatch(buyProduct(selectedProduct.prices[0].id)).then((response) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          router.push("/users/start-subscription");
+        }
+      });
+    } else {
+      homeRoute();
+    }
+  };
+
+  const homeRoute = () => {
+    router.push("/");
   };
 
   return (
     <>
-      <ContentContainer>
-        <SlimContainer>
-          <AuthorizationBar step="checkout" />
-          <CheckoutBlock>
-            <Title>Checkout</Title>
-            <Cart
-              name={selectedProduct.name}
-              price={selectedProduct.prices[0].price}
-              icon
-            />
-            <TotalPrice>
-              <p>Total:</p>
-              <p>${selectedProduct.prices[0].price}</p>
-            </TotalPrice>
-            <Button
-              theme="primary"
-              type="submit"
-              smallText
-              onClick={handleClick}
-            >
-              Purchase
-            </Button>
-          </CheckoutBlock>
-        </SlimContainer>
-      </ContentContainer>
+      {selectedProduct ? (
+        <ContentContainer>
+          <SlimContainer>
+            <AuthorizationBar step="checkout" />
+            <CheckoutBlock>
+              <Title>Checkout</Title>
+              <Cart
+                name={selectedProduct.name}
+                price={selectedProduct.prices[0].price}
+                icon
+              />
+              <TotalPrice>
+                <p>Total:</p>
+                <p>${selectedProduct.prices[0].price}</p>
+              </TotalPrice>
+              <Button
+                theme="primary"
+                type="submit"
+                smallText
+                onClick={handleClick}
+              >
+                Purchase
+              </Button>
+            </CheckoutBlock>
+          </SlimContainer>
+        </ContentContainer>
+      ) : (
+        homeRoute()
+      )}
     </>
   );
 };

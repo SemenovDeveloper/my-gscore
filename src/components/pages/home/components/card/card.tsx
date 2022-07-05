@@ -2,34 +2,20 @@ import { IProduct } from "src/types";
 import { CheckedCircleRed, CheckedCircleBlack } from "src/assets/icons";
 import { Button } from "src/ui";
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "src/hooks";
-import { selectProduct } from "src/store/ducks";
-import { useRouter } from "next/router";
 
 interface ICard {
   product: IProduct;
   activeCardID: number;
   setCardActive: (productID: number) => void;
+  handleClick: (product: IProduct) => void
 }
 
 export const Card: React.FC<ICard> = ({
   product,
   activeCardID,
   setCardActive,
+  handleClick
 }) => {
-  const { token } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-
-  const handleClick = () => {
-    dispatch(selectProduct(product));
-    if (token) {
-      router.push("/users/checkout");
-    } else {
-      router.push("/users/registration");
-    }
-  };
-
   return (
     <Root
       active={activeCardID == product.id}
