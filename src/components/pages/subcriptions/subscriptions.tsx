@@ -16,7 +16,7 @@ export const Subscriptions: React.FC = () => {
   const { subscriptions, subscriptionsLoading } = useAppSelector(
     (state) => state.subscription
   );
-  const [isEmpty, setIsEmpty] = useState<boolean>(!subscriptions?.length);
+  
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
   const [subscriptionIndex, setSubscriptionIndex] = useState<number>(0);
 
@@ -28,10 +28,6 @@ export const Subscriptions: React.FC = () => {
       await dispatch(getCodes());
     })();
   }, []);
-
-  useEffect(() => {
-    setIsEmpty(!subscriptions?.length);
-  }, [subscriptions]);
 
   const registerRoute = () => {
     Router.push("/users/registration");
@@ -46,7 +42,7 @@ export const Subscriptions: React.FC = () => {
           <ContentContainer>
             <SubscriptionsHead>
               <Title>My subscriptions</Title>
-              {!isEmpty && (
+              {!!subscriptions?.length&& (
                 <Button
                   theme="primary"
                   type="submit"
@@ -57,7 +53,7 @@ export const Subscriptions: React.FC = () => {
                 </Button>
               )}
             </SubscriptionsHead>
-            {isEmpty ? (
+            {!subscriptions?.length ? (
               <NoSubscriptions />
             ) : (
               <SubscriptionsBar
