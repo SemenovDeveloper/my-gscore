@@ -9,13 +9,14 @@ export const StartSubscription: React.FC = () => {
   const { selectedProduct } = useAppSelector((state) => state.user);
   const router = useRouter();
 
-  const handleClick = () => {
+  const subscriptionRoute = () => {
     router.push("/subscriptions");
   };
 
   const homeRoute = () => {
     router.push("/");
   };
+
   return (
     <>
       {selectedProduct ? (
@@ -36,7 +37,7 @@ export const StartSubscription: React.FC = () => {
                 type="submit"
                 size="wide"
                 smallText
-                onClick={handleClick}
+                onClick={subscriptionRoute}
               >
                 Go to my subscriptions
               </Button>
