@@ -1,29 +1,29 @@
-import { useAppDispatch, useAppSelector } from "src/hooks";
+import { useAppSelector } from "src/hooks";
 import { ISubscription } from "src/types";
 import styled from "styled-components";
-import { useState } from "react";
 import { SubscriptionCard, SubscriptionH3 } from "src/components";
 import { ArrowLeft } from "src/assets/icons";
-import { CodesList } from "src/components";
 import { Preloader } from "src/ui";
 import { MEDIA_QUERY } from "src/lib/constants";
 
 interface ISubscriptionBar {
   subscriptionIndex: number;
   setSubscriptionIndex: (value: number) => void;
+  openCard: (value: number) => void;
 }
 
 export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
   setSubscriptionIndex,
   subscriptionIndex,
+  openCard
 }) => {
-  const [openedCard, setOpenedCard] = useState<number>(0);
+
   const { subscriptions, subscriptionsLoading } = useAppSelector(
     (state) => state.subscription
   );
 
   return (
-    <Root>
+    <>
       <SubscriptionsSlider position={subscriptionIndex + 1}>
         {subscriptionsLoading ? (
           <Preloader />
@@ -35,7 +35,7 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
                   subscription={subscription}
                   isCardActive={subscriptionIndex === index}
                   key={subscription.id}
-                  openCard={(value: number) => setOpenedCard(value)}
+                  openCard={openCard}
                 />
               );
             })}
@@ -67,17 +67,11 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
           <ArrowLeft />
         </SliderBtn>
       </SubscriptionsSliderNav>
-      <CodesList openedCardId={openedCard} />
-    </Root>
+    </>
   );
 };
 
-const Root = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
+
 const SubscriptionsSlider = styled.div<{ position: number }>`
   position: relative;
   width: 100%;
