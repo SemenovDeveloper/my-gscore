@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Logo } from "src/assets/icons";
 import Link from "next/link";
 import { SocialMedia } from "./social-media";
+import { MEDIA_QUERY } from "src/lib/constants";
 
 export const Footer: React.FC = () => {
   return (
@@ -37,12 +38,18 @@ const SFooter = styled.footer`
   border-top: 1px solid var(--dark-gray);
   background-color: var(--black);
   color: var(--light-gray);
+  @media ${MEDIA_QUERY.mobile} {
+    padding: 0 15px;
+  }
 `;
 
 const Description = styled.div`
   width: 100%;
   height: 126px;
   margin: 60px 0;
+  @media ${MEDIA_QUERY.mobile} {
+    margin: 40px 0;
+  }
 `;
 
 const DescText = styled.p`
@@ -61,4 +68,10 @@ const CopyrightContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid var(--dark-gray);
+  @media ${MEDIA_QUERY.mobile} {
+    margin-left: 0px;
+    padding: 32px 0px;
+    flex-direction: column;
+    text-align: center;
+  }
 `;

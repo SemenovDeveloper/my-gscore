@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { Twitter, Facebook, LinkedIn } from "src/assets/icons";
+import { MEDIA_QUERY } from "src/lib/constants";
 
 export const SocialMedia: React.FC = () => {
   return (
@@ -30,4 +31,7 @@ const StyledSocialMedia = styled.div`
   align-items: center;
   width: 134px;
   padding: 5px;
+  @media ${MEDIA_QUERY.mobile} {
+   margin-top: 29px;
+  }
 `;

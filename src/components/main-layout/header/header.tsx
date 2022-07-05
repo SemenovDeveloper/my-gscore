@@ -3,6 +3,7 @@ import { Logo } from "src/assets/icons";
 import { useAppSelector } from "src/hooks";
 import { NavBar } from 'src/components'
 import Link from "next/link";
+import { MEDIA_QUERY } from "src/lib/constants";
 
 export const Header: React.FC = () => {
   const  token  = useAppSelector(state => state.user.token)
@@ -22,4 +23,7 @@ const Root = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media ${MEDIA_QUERY.mobile} {
+    padding: 25px 15px;
+  }
 `;

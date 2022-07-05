@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { IProduct } from "src/types";
 import { Card } from "src/components";
 import { useState } from "react";
+import { MEDIA_QUERY } from "src/lib/constants";
 
 export const Home: React.FC<{ products: IProduct[] }> = ({ products }) => {
   const [activeCardID, setActiveCardID] = useState(2);
@@ -39,6 +40,11 @@ const StyledHome = styled.div`
   a {
     color: var(--red);
   }
+  @media ${MEDIA_QUERY.mobile} {
+    h2 {
+      text-align: center;
+    }
+  }
 `;
 
 const CardsContainer = styled.div`
@@ -50,5 +56,8 @@ const CardsContainer = styled.div`
   flex-wrap: wrap;
   @media screen and (max-width: 1390px) {
     justify-content: space-evenly;
+  }
+  @media ${MEDIA_QUERY.mobile} {
+    margin: 0px 0 12px;
   }
 `;

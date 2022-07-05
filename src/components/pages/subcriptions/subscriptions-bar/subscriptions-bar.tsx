@@ -6,6 +6,7 @@ import { SubscriptionCard, SubscriptionH3 } from "src/components";
 import { ArrowLeft } from "src/assets/icons";
 import { CodesList } from "src/components";
 import { Preloader } from "src/ui";
+import { MEDIA_QUERY } from "src/lib/constants";
 
 interface ISubscriptionBar {
   subscriptionIndex: number;
@@ -78,11 +79,13 @@ const Root = styled.div`
   flex-direction: column;
   align-items: flex-start;
 `;
-
 const SubscriptionsSlider = styled.div<{ position: number }>`
   position: relative;
   width: 100%;
   margin-top: 48px;
+  @media ${MEDIA_QUERY.mobile} {
+    margin-top: 32px;
+  }
 `;
 
 const SlidesList = styled.ul<{ position: number }>`
@@ -90,16 +93,20 @@ const SlidesList = styled.ul<{ position: number }>`
   gap: 24px;
   position: absolute;
   left: ${(props) => props.position && `calc((1 - ${props.position})*644px)`};
+  @media ${MEDIA_QUERY.mobile} {
+    gap: 12px;
+    left: ${(props) => props.position && `calc((1 - ${props.position})*330px)`};
+  }
 `;
 
 const SubscriptionsSliderNav = styled.div<{
   activeCard: number;
   countCard: number;
 }>`
-  margin-top: 400px;
-  display: flex;
   width: 159px;
   height: 44px;
+  margin-top: 400px;
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

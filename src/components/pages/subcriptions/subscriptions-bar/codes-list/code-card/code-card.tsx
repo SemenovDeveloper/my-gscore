@@ -6,6 +6,7 @@ import { Checkbox, Button } from "src/ui";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "src/hooks";
 import { activateCode } from "src/store/ducks";
+import { MEDIA_QUERY } from "src/lib/constants";
 
 interface ICodesCard {
   code: ICode;
@@ -73,6 +74,9 @@ const CodesItem = styled.li`
   flex-direction: row;
   align-items: center;
   background-color: var(--darkest-gray);
+  @media ${MEDIA_QUERY.mobile} {
+    flex-direction: column;
+  }
 `;
 
 const LicenseCode = styled.div`

@@ -1,3 +1,4 @@
+import { MEDIA_QUERY } from "src/lib/constants";
 import styled from "styled-components";
 
 interface IAuthorizationBar {
@@ -37,6 +38,9 @@ const Step = styled.li`
     font-weight: 600;
     font-size: 20px;
     line-height: 22px;
+    @media ${MEDIA_QUERY.mobile} {
+      height: 48px;
+    }
   }
 `;
 

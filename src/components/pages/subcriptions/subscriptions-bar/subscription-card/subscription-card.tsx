@@ -2,6 +2,7 @@ import { ISubscription } from "src/types";
 import styled from "styled-components";
 import { Button } from "src/ui";
 import { SubscriptionH3, SubscriptionP } from "src/components";
+import { MEDIA_QUERY } from "src/lib/constants";
 
 interface ISubscriptionCard {
   subscription: ISubscription;
@@ -48,6 +49,11 @@ const Root = styled.div<{ active: boolean }>`
   background: var(--dark-gray);
   box-shadow: 0px 24px 65px rgba(0, 0, 0, 0.12);
   opacity: ${(props) => (props.active ? "1" : "0.5")};
+  @media ${MEDIA_QUERY.mobile} {
+    width: 318px;
+    height: 268px;
+    border-radius: 8px;
+  }
 `;
 
 const CardTop = styled.div`
@@ -57,6 +63,10 @@ const CardTop = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  @media ${MEDIA_QUERY.mobile} {
+    padding: 32px 24px 24px 16px;
+  }
 `;
 
 const CardBottom = styled.div`
@@ -65,6 +75,10 @@ const CardBottom = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  @media ${MEDIA_QUERY.mobile} {
+    padding: 24px 24px 32px 16px;
+  }
 `;
 
 const Price = styled.p`

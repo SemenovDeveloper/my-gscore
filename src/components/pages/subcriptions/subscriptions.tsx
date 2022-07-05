@@ -9,6 +9,7 @@ import {
 } from "src/components";
 import { getCodes, getSubscriptions } from "src/store/ducks";
 import Router from "next/router";
+import { MEDIA_QUERY } from "src/lib/constants";
 
 export const Subscriptions: React.FC = () => {
   const token = useAppSelector((state) => state.user.token);
@@ -95,4 +96,8 @@ const Title = styled.h1`
   font-size: 54px;
   line-height: 64px;
   margin: 0;
+  @media ${MEDIA_QUERY.mobile} {
+    font-size: 28px;
+    line-height: 40px;
+  }
 `;
