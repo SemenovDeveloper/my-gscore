@@ -39,12 +39,6 @@ export const Registration: React.FC = () => {
         router.push("/users/login");
       }
     })
-    // try {
-    //   const response = await api.post<UserExport>(`/users/sign-up`, data);
-    //   if (response.status === 201) {
-    //     router.push("/users/login");
-    //   }
-    // } catch (err: any) {}
   };
 
   return (
