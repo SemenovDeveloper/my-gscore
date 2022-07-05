@@ -16,6 +16,7 @@ export const Card: React.FC<ICard> = ({
   setCardActive,
   handleClick
 }) => {
+
   return (
     <Root
       active={activeCardID == product.id}
@@ -76,7 +77,7 @@ export const Card: React.FC<ICard> = ({
         theme="secondary"
         size="wide"
         darkLabel={activeCardID !== product.id}
-        onClick={handleClick}
+        onClick={() => handleClick(product)}
       >
         Get Gscore
       </Button>
