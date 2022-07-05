@@ -5,7 +5,6 @@ import { Input, Button, SlimContainer } from "src/ui";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { AuthorizationBar } from "src/components";
 import { EMAIL_REGEX } from "src/lib/constants";
-import { api } from "src/utils";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { registerUser } from "src/store/ducks";

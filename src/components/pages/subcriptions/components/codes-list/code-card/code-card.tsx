@@ -4,26 +4,20 @@ import { SubscriptionP, SubscriptionH3 } from "src/components";
 import { CopyIcon } from "src/assets/icons";
 import { Checkbox, Button } from "src/ui";
 import { useState } from "react";
-import { useAppDispatch } from "src/hooks";
-import { activateCode } from "src/store/ducks";
 import { MEDIA_QUERY } from "src/lib/constants";
 
 interface ICodesCard {
   code: ICode;
   selectCode: (codeId: number) => void;
+  handleActivateCode: (code: string) => void
 }
 
-export const CodeCard: React.FC<ICodesCard> = ({ code, selectCode }) => {
-  const dispatch = useAppDispatch();
+export const CodeCard: React.FC<ICodesCard> = ({ code, selectCode, handleActivateCode }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = () => {
     setIsChecked(!isChecked);
     selectCode(code.id);
-  };
-
-  const handleSubmit = async () => {
-    await dispatch(activateCode(code.code));
   };
 
   return (
@@ -41,9 +35,9 @@ export const CodeCard: React.FC<ICodesCard> = ({ code, selectCode }) => {
       <Domain>
         <SubscriptionP>Domain</SubscriptionP>
         <DomainBlock>
-          <StyledLink>{code.origin}</StyledLink>
+          <Adress>{code.origin}</Adress>
           {code.status === "INACTIVE" && (
-            <Button theme="secondary" onClick={handleSubmit}>
+            <Button theme="secondary" onClick={() => handleActivateCode(code.code)}>
               Activate
             </Button>
           )}
@@ -107,7 +101,7 @@ const DomainBlock = styled.div`
   gap: 59px;
 `;
 
-const StyledLink = styled.div`
+const Adress = styled.div`
   height: 68px;
   padding: 25px 12px 25px 24px;
   border-radius: 12px;

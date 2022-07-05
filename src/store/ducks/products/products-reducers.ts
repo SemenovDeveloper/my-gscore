@@ -1,10 +1,10 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IProducts } from "src/types";
+import { IProduct } from "src/types";
 import { api } from "src/utils";
 
 interface IProductsState {
-  products: IProducts;
+  products: IProduct[];
   status: string;
   error: string;
 }
@@ -28,7 +28,7 @@ export const productsReducer = createReducer<IProductsState>(initialState, {
   [getProducts.pending.type]: (state) => {
     state.status = "loading";
   },
-  [getProducts.fulfilled.type]: (state, action: PayloadAction<IProducts>) => {
+  [getProducts.fulfilled.type]: (state, action: PayloadAction<IProduct[]>) => {
     state.status = "resolved";
     state.products = action.payload;
   },

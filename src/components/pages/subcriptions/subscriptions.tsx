@@ -6,29 +6,30 @@ import {
   NoSubscriptions,
   SubscriptionsBar,
   UpgradePopup,
-  CodesList
+  CodesList,
 } from "src/components";
 import {
+  activateCode,
   changeSubscription,
   getCodes,
   getProducts,
   getSubscriptions,
+  manageCodes,
 } from "src/store/ducks";
 import Router from "next/router";
 import { MEDIA_QUERY } from "src/lib/constants";
 import { unwrapResult } from "@reduxjs/toolkit";
 
 export const Subscriptions: React.FC = () => {
-  const token = useAppSelector((state) => state.user.token);
-  const { subscriptions, subscriptionsLoading } = useAppSelector(
-    (state) => state.subscription
-  );
-  const { products } = useAppSelector((state) => state.products);
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
   const [subscriptionIndex, setSubscriptionIndex] = useState<number>(0);
   const [openedCard, setOpenedCard] = useState<number>(0);
-
   const dispatch = useAppDispatch();
+  const token = useAppSelector((state) => state.user.token);
+  const { products } = useAppSelector((state) => state.products);
+  const { subscriptions, subscriptionsLoading } = useAppSelector(
+    (state) => state.subscription
+  );
 
   useEffect(() => {
     (async () => {
@@ -38,10 +39,15 @@ export const Subscriptions: React.FC = () => {
         await dispatch(getProducts())
           .then(unwrapResult)
           .then((response) => {
+            console.log(response);
           });
       }
     })();
   }, []);
+  const handleActivateCode = async (code: string) => {
+    await dispatch(activateCode(code));
+  };
+
   const upgradeSubscription = async (
     productId: number,
     subscribeId: number
@@ -62,6 +68,18 @@ export const Subscriptions: React.FC = () => {
         setIsOpenPopup(false);
       }
     });
+  };
+
+  const handleManageCodes = (codeIds: number[]) => {
+    dispatch(manageCodes({ codesIds: codeIds, subscribeId: openedCard })).then(
+      (response) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          (async () => {
+            await dispatch(getCodes());
+          })();
+        }
+      }
+    );
   };
 
   const registerRoute = () => {
@@ -99,7 +117,11 @@ export const Subscriptions: React.FC = () => {
                   }
                   subscriptionIndex={subscriptionIndex}
                 />
-                <CodesList openedCardId={openedCard} />
+                <CodesList
+                  handleManageCodes={handleManageCodes}
+                  openedCardId={openedCard}
+                  handleActivateCode={handleActivateCode}
+                />
               </SubscriptionsBlock>
             )}
             {isOpenPopup && (

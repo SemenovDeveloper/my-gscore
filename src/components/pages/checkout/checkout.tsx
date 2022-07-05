@@ -1,4 +1,4 @@
-import styled, { ThemeContext } from "styled-components";
+import styled from "styled-components";
 import { ContentContainer, Button, SlimContainer, Cart } from "src/ui";
 import { AuthorizationBar } from "src/components";
 import React from "react";
