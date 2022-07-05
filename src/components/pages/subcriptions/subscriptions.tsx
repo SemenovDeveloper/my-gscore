@@ -37,10 +37,6 @@ export const Subscriptions: React.FC = () => {
       await dispatch(getCodes());
       if (!products) {
         await dispatch(getProducts())
-          .then(unwrapResult)
-          .then((response) => {
-            console.log(response);
-          });
       }
     })();
   }, []);

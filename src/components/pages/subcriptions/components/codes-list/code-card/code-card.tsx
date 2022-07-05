@@ -9,10 +9,14 @@ import { MEDIA_QUERY } from "src/lib/constants";
 interface ICodesCard {
   code: ICode;
   selectCode: (codeId: number) => void;
-  handleActivateCode: (code: string) => void
+  handleActivateCode: (code: string) => void;
 }
 
-export const CodeCard: React.FC<ICodesCard> = ({ code, selectCode, handleActivateCode }) => {
+export const CodeCard: React.FC<ICodesCard> = ({
+  code,
+  selectCode,
+  handleActivateCode,
+}) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = () => {
@@ -25,29 +29,34 @@ export const CodeCard: React.FC<ICodesCard> = ({ code, selectCode, handleActivat
       <CheckBlock>
         <Checkbox isChecked={isChecked} handleChange={handleChange} />
       </CheckBlock>
-      <div>
+      <CodeBlock>
         <SubscriptionP>License code</SubscriptionP>
         <LicenseCode>
           <SubscriptionP>{code.code}</SubscriptionP>
           <CopyIcon />
         </LicenseCode>
-      </div>
+      </CodeBlock>
       <Domain>
         <SubscriptionP>Domain</SubscriptionP>
         <DomainBlock>
           <Adress>{code.origin}</Adress>
-          {code.status === "INACTIVE" && (
-            <Button theme="secondary" onClick={() => handleActivateCode(code.code)}>
-              Activate
-            </Button>
-          )}
         </DomainBlock>
       </Domain>
-      <Status status={code.status}>
-        <SubscriptionP>Status</SubscriptionP>
-        <SubscriptionH3>
-          {code.status.charAt(0) + code.status.slice(1).toLowerCase()}
-        </SubscriptionH3>
+      <Status >
+        {code.status === "INACTIVE" && (
+          <StyledButton
+            theme="secondary"
+            onClick={() => handleActivateCode(code.code)}
+          >
+            Activate
+          </StyledButton>
+        )}
+        <TextBlock status={code.status}>
+          <SubscriptionP>Status</SubscriptionP>
+          <SubscriptionH3>
+            {code.status.charAt(0) + code.status.slice(1).toLowerCase()}
+          </SubscriptionH3>
+        </TextBlock>
       </Status>
     </CodesItem>
   );
@@ -57,13 +66,25 @@ const CodesItem = styled.li`
   width: 100%;
   padding: 24px 96px 31px 32px;
   border-radius: 12px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: grid;
+  grid-template-areas: "checkbox code domain status";
+  grid-template-columns: 60px 296px 6fr 1fr;
   background-color: var(--darkest-gray);
-  @media ${MEDIA_QUERY.mobile} {
-    flex-direction: column;
+  @media ${MEDIA_QUERY.tablet} {
+    grid-template-columns: 60px 300px 1fr;
+    grid-template-areas:
+      "checkbox status ."
+      "code code code"
+      "domain domain domain";
   }
+`;
+
+const CodeBlock = styled.div`
+  grid-area: code;
+`;
+
+const StyledButton = styled(Button)`
+  grid-area: button;
 `;
 
 const LicenseCode = styled.div`
@@ -82,15 +103,29 @@ const LicenseCode = styled.div`
     text-overflow: ellipsis;
     overflow: hidden;
   }
+  @media ${MEDIA_QUERY.tablet} {
+    max-width: 100%;
+    margin: 0px;
+    justify-content: space-between;
+    p {
+      max-width: 100%;
+    }
+  }
 `;
 
 const CheckBlock = styled.div`
+  grid-area: checkbox;
   margin: 20px 48px 0 0;
 `;
 
 const Domain = styled.div`
+  grid-area: domain;
   margin: 0 56px 0 28px;
   flex: 1 1 0px;
+  @media ${MEDIA_QUERY.tablet} {
+    width: 100%;
+    margin: 0px;
+  }
 `;
 
 const DomainBlock = styled.div`
@@ -115,7 +150,20 @@ const Adress = styled.div`
   overflow: hidden;
 `;
 
-const Status = styled.div<{ status: string }>`
+const Status = styled.div`
+  grid-area: status;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 56px;
+  @media ${MEDIA_QUERY.tablet} {
+    width: 100%;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+`;
+
+const TextBlock = styled.div<{ status: string }>`
   height: 98px;
   align-self: flex-start;
   h3 {
@@ -126,5 +174,11 @@ const Status = styled.div<{ status: string }>`
         : props.status === "INACTIVE"
         ? "var(--red)"
         : "var(--orange)"};
+  }
+  @media ${MEDIA_QUERY.tablet} {
+    align-self: flex-end;
+    p {
+      display: none;
+    }
   }
 `;
