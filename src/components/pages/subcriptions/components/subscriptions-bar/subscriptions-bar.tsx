@@ -6,6 +6,7 @@ import { Preloader } from "src/ui";
 import { MEDIA_QUERY } from "src/lib/constants";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Swiper as ISwiper } from "swiper";
+import { useState } from "react";
 
 interface ISubscriptionBar {
   subscriptionIndex: number;
@@ -18,9 +19,14 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
   subscriptionIndex,
   openCard,
 }) => {
+  const [swiper, setSwiper] = useState<ISwiper | null>(null);
   const { subscriptions, subscriptionsLoading } = useAppSelector(
     (state) => state.subscription
   );
+
+  const slideTo = (index: number) => {
+    swiper?.slideTo?.(index);
+  };
 
   const handleSlideChange = (swiper: ISwiper) => {
     setSubscriptionIndex(swiper.activeIndex);
@@ -37,6 +43,7 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
               spaceBetween={28}
               slidesPerView={1}
               onSlideChange={handleSlideChange}
+              onSwiper={setSwiper}
             >
               {subscriptions.map((subscription, index) => (
                 <SwiperSlide key={subscription.id}>
@@ -56,6 +63,7 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
               <SwiperBtn
                 onClick={() => {
                   setSubscriptionIndex(subscriptionIndex - 1);
+                  slideTo(subscriptionIndex - 1);
                 }}
                 disabled={subscriptionIndex === 0}
               >
@@ -68,6 +76,7 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
               <SwiperBtn
                 onClick={() => {
                   setSubscriptionIndex(subscriptionIndex + 1);
+                  slideTo(subscriptionIndex + 1);
                 }}
                 disabled={subscriptionIndex + 1 === subscriptions.length}
               >
@@ -80,7 +89,6 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
     </>
   );
 };
-
 const SubscriptionsSwiper = styled.div`
   position: relative;
   width: 100%;
