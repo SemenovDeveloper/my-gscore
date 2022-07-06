@@ -1,14 +1,15 @@
 import { CloseIcon } from "src/assets/icons";
 import { useAppSelector } from "src/hooks";
+import { MEDIA_QUERY } from "src/lib/constants";
 import { IProduct, ISubscription } from "src/types";
 import { Button, ErrorMessage } from "src/ui";
 import styled from "styled-components";
 import { SubscriptionH3 } from "../../ui/subscription-text";
 
 interface IUpgradePopup {
-  products: IProduct[]
+  products: IProduct[];
   currentSubscription: ISubscription;
-  upgradeSubscription: (productId: number, subscribeId: number) => void
+  upgradeSubscription: (productId: number, subscribeId: number) => void;
   closePopup: () => void;
 }
 
@@ -16,9 +17,9 @@ export const UpgradePopup: React.FC<IUpgradePopup> = ({
   closePopup,
   currentSubscription,
   products,
-  upgradeSubscription
+  upgradeSubscription,
 }) => {
-  const {error} = useAppSelector(state => state.subscription)
+  const { error } = useAppSelector((state) => state.subscription);
 
   return (
     <Root>
@@ -49,7 +50,9 @@ export const UpgradePopup: React.FC<IUpgradePopup> = ({
             <Button
               theme="secondary"
               smallText
-              onClick={() => upgradeSubscription(product.id, currentSubscription.id)}
+              onClick={() =>
+                upgradeSubscription(product.id, currentSubscription.id)
+              }
             >
               Select
             </Button>
@@ -63,7 +66,7 @@ export const UpgradePopup: React.FC<IUpgradePopup> = ({
 
 const Root = styled.div`
   position: absolute;
-  top: 150px;
+  top: 0px;
   right: 0px;
   width: 80%;
   padding: 32px;

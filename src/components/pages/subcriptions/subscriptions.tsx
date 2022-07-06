@@ -18,18 +18,19 @@ import {
 } from "src/store/ducks";
 import Router from "next/router";
 import { MEDIA_QUERY } from "src/lib/constants";
-
+import useComponentVisible from "src/hooks/useComponentVisible";
 export const Subscriptions: React.FC = () => {
-  const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
   const [subscriptionIndex, setSubscriptionIndex] = useState<number>(0);
   const [openedCard, setOpenedCard] = useState<number>(0);
+  const { ref, isComponentVisible, setIsComponentVisible } =
+  useComponentVisible(false);
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.user.token);
   const { products } = useAppSelector((state) => state.products);
   const { subscriptions, subscriptionsLoading } = useAppSelector(
     (state) => state.subscription
   );
-
+  
   useEffect(() => {
     dispatch(getSubscriptions());
     dispatch(getCodes());
@@ -54,7 +55,7 @@ export const Subscriptions: React.FC = () => {
       if (response.meta.requestStatus === "fulfilled") {
         dispatch(getSubscriptions());
         dispatch(getCodes());
-        setIsOpenPopup(false);
+        setIsComponentVisible(false);
       }
     });
   };
@@ -87,7 +88,7 @@ export const Subscriptions: React.FC = () => {
                   theme="primary"
                   type="submit"
                   smallText
-                  onClick={() => setIsOpenPopup(true)}
+                  onClick={() => setIsComponentVisible(true)}
                 >
                   Upgrade
                 </Button>
@@ -111,14 +112,16 @@ export const Subscriptions: React.FC = () => {
                 />
               </SubscriptionsBlock>
             )}
-            {isOpenPopup && (
-              <UpgradePopup
-                products={products}
-                closePopup={() => setIsOpenPopup(false)}
-                upgradeSubscription={upgradeSubscription}
-                currentSubscription={subscriptions[subscriptionIndex]}
-              />
-            )}
+            <div ref={ref}>
+              {isComponentVisible && (
+                <UpgradePopup
+                  products={products}
+                  closePopup={() => setIsComponentVisible(false)}
+                  upgradeSubscription={upgradeSubscription}
+                  currentSubscription={subscriptions[subscriptionIndex]}
+                />
+              )}
+            </div>
           </ContentContainer>
         )
       ) : (
@@ -141,6 +144,18 @@ const SubscriptionsHead = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  button {
+    @media ${MEDIA_QUERY.mobile} {
+      background-color: var(--black);
+      color: var(--light-red);
+      width: 100px;
+      &:hover {
+        background-color: var(--black);
+        color: var(--dark-red);
+      }
+    }
+  }
 `;
 
 const Title = styled.h1`
