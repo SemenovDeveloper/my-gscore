@@ -32,13 +32,11 @@ export const Subscriptions: React.FC = () => {
   );
 
   useEffect(() => {
-    (async () => {
-      await dispatch(getSubscriptions());
-      await dispatch(getCodes());
-      if (!products) {
-        await dispatch(getProducts())
-      }
-    })();
+    dispatch(getSubscriptions());
+    dispatch(getCodes());
+    if (!products) {
+      dispatch(getProducts());
+    }
   }, []);
   const handleActivateCode = async (code: string) => {
     await dispatch(activateCode(code));
@@ -55,12 +53,8 @@ export const Subscriptions: React.FC = () => {
       })
     ).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
-        (async () => {
-          await dispatch(getSubscriptions());
-        })();
-        (async () => {
-          await dispatch(getCodes());
-        })();
+        dispatch(getSubscriptions());
+        dispatch(getCodes());
         setIsOpenPopup(false);
       }
     });
@@ -70,9 +64,7 @@ export const Subscriptions: React.FC = () => {
     dispatch(manageCodes({ codesIds: codeIds, subscribeId: openedCard })).then(
       (response) => {
         if (response.meta.requestStatus === "fulfilled") {
-          (async () => {
-            await dispatch(getCodes());
-          })();
+          dispatch(getCodes());
         }
       }
     );
