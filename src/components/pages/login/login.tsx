@@ -21,7 +21,7 @@ type LoginProps = {
 };
 
 export const Login: React.FC = () => {
-  const { error, selectedProduct} = useAppSelector(
+  const { error, selectedProduct, loginIsLoading } = useAppSelector(
     (state) => state.user
   );
   const { control, handleSubmit } = useForm<LoginProps>();
@@ -43,61 +43,65 @@ export const Login: React.FC = () => {
     <ContentContainer>
       <SlimContainer>
         <AuthorizationBar step="login" />
-        <LoginBlock>
-          <h2>Log in</h2>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <Inputs>
-              <Controller
-                control={control}
-                name="email"
-                rules={{
-                  required: "Email is not valid",
-                  pattern: {
-                    value: EMAIL_REGEX,
-                    message: "Wrong format of email",
-                  },
-                }}
-                render={({ field, fieldState }) => {
-                  return (
-                    <Input
-                      type="text"
-                      placeholder="Email"
-                      {...field}
-                      ref={null}
-                      error={fieldState.error}
-                    />
-                  );
-                }}
-              />
-              <Controller
-                control={control}
-                name="password"
-                rules={{
-                  required: "Password is missing",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters long",
-                  },
-                }}
-                render={({ field, fieldState }) => {
-                  return (
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      {...field}
-                      ref={null}
-                      error={fieldState.error}
-                    />
-                  );
-                }}
-              />
-            </Inputs>
-            <Button theme="primary" type="submit" smallText>
-              Log in
-            </Button>
-          </Form>
-          {error && <ErrorMessage>{error}</ErrorMessage>}
-        </LoginBlock>
+        {loginIsLoading ? (
+          <Preloader />
+        ) : (
+          <LoginBlock>
+            <h2>Log in</h2>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Inputs>
+                <Controller
+                  control={control}
+                  name="email"
+                  rules={{
+                    required: "Email is not valid",
+                    pattern: {
+                      value: EMAIL_REGEX,
+                      message: "Wrong format of email",
+                    },
+                  }}
+                  render={({ field, fieldState }) => {
+                    return (
+                      <Input
+                        type="text"
+                        placeholder="Email"
+                        {...field}
+                        ref={null}
+                        error={fieldState.error}
+                      />
+                    );
+                  }}
+                />
+                <Controller
+                  control={control}
+                  name="password"
+                  rules={{
+                    required: "Password is missing",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters long",
+                    },
+                  }}
+                  render={({ field, fieldState }) => {
+                    return (
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        {...field}
+                        ref={null}
+                        error={fieldState.error}
+                      />
+                    );
+                  }}
+                />
+              </Inputs>
+              <Button theme="primary" type="submit" smallText>
+                Log in
+              </Button>
+            </Form>
+            {error && <ErrorMessage>{error}</ErrorMessage>}
+          </LoginBlock>
+        )}
       </SlimContainer>
     </ContentContainer>
   );

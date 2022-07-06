@@ -54,6 +54,7 @@ export const subscriptionsReducer = createReducer<ISubscriptionsState>(
   {
     [getSubscriptions.pending.type]: (state) => {
       state.subscriptionsLoading = true;
+      state.error = "";
     },
     [getSubscriptions.fulfilled.type]: (
       state,
@@ -61,6 +62,7 @@ export const subscriptionsReducer = createReducer<ISubscriptionsState>(
     ) => {
       state.subscriptions = action.payload;
       state.subscriptionsLoading = false;
+      state.error = "";
     },
     [getSubscriptions.rejected.type]: (
       state,
@@ -71,9 +73,11 @@ export const subscriptionsReducer = createReducer<ISubscriptionsState>(
     },
     [changeSubscription.pending.type]: (state) => {
       state.subscriptionsLoading = true;
+      state.error = "";
     },
     [changeSubscription.fulfilled.type]: (state) => {
       state.subscriptionsLoading = false;
+      state.error = "";
     },
     [changeSubscription.rejected.type]: (
       state,
