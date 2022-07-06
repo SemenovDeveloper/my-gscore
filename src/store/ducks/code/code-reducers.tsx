@@ -99,5 +99,8 @@ export const codeReducer = createReducer<ICodesState>(initialState, {
   [manageCodes.rejected.type]: (state, action: PayloadAction<any>) => {
     state.codesLoading = false;
     state.error = action.payload;
+    setTimeout(() => {
+      state.error = ""
+    },3000)
   },
 });

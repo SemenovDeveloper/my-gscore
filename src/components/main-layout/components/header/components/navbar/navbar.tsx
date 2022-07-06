@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from "src/hooks";
 import styled from "styled-components";
 import { PopupArrow, SettingsIcon, LogoutIcon } from "src/assets/icons";
 import Media from "react-media";
-import { SmallScreenNavbar } from "./small-screen-navbar";
+import { SmallScreenNavbar } from "./components/small-screen-navbar";
 import { logOutUser } from "src/store/ducks";
 
 export const NavBar: React.FC = () => {

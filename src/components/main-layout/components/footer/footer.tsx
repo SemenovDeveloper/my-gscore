@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Logo } from "src/assets/icons";
 import Link from "next/link";
-import { SocialMedia } from "./social-media";
+import { SocialMedia } from "./components/social-media";
 import { MEDIA_QUERY } from "src/lib/constants";
 
 export const Footer: React.FC = () => {

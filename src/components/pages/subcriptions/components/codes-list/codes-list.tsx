@@ -4,7 +4,6 @@ import { useAppSelector } from "src/hooks";
 import { Button, ErrorMessage, Preloader } from "src/ui";
 import { useState } from "react";
 
-
 interface ICodesList {
   openedCardId: number;
   handleManageCodes: (codeIds: number[]) => void;
