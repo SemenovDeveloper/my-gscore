@@ -9,6 +9,7 @@ import {
   PopupArrow,
 } from "src/assets/icons";
 import { useAppSelector } from "src/hooks";
+import useComponentVisible from "src/hooks/useComponentVisible";
 import { MEDIA_QUERY } from "src/lib/constants";
 import styled from "styled-components";
 
@@ -16,13 +17,14 @@ interface ISmallScreenNavbar {
   logOut: () => void
 }
 
-export const SmallScreenNavbar: React.FC<ISmallScreenNavbar> = ( { logOut } ) => {
+export const SmallScreenNavbar: React.FC<ISmallScreenNavbar> = ({ logOut }) => {
   const user = useAppSelector((state) => state.user.user);
-  const [isPopupOpened, setIsPopupOpened] = useState<boolean>(false);
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false);
-  
+  const { ref, isComponentVisible, setIsComponentVisible } =
+  useComponentVisible(false);
+
   const openPopup = () => {
-    setIsPopupOpened(!isPopupOpened);
+    setIsComponentVisible (!isComponentVisible);
   };
 
   return (
@@ -30,47 +32,49 @@ export const SmallScreenNavbar: React.FC<ISmallScreenNavbar> = ( { logOut } ) =>
       <div onClick={openPopup}>
         <MenuLine />
       </div>
-      {isPopupOpened && (
-        <PopUp>
-          <PopUpHeader>
-            <div onClick={() => setIsPopupOpened(false)}>
-              <CloseIcon />
-            </div>
-            <Link href="">
-              <Logo />
-            </Link>
-          </PopUpHeader>
-          <div>
-            <MenuItem>
-              <Link href="/subscriptions">
-                <a>My subscriptions</a>
+      <div ref={ref}>
+        {isComponentVisible && (
+          <PopUp>
+            <PopUpHeader>
+              <div onClick={() => setIsComponentVisible(false)}>
+                <CloseIcon />
+              </div>
+              <Link href="">
+                <Logo />
               </Link>
-            </MenuItem>
-            <MenuItem>
-            <Username onClick={() => setIsSettingsOpened(!isSettingsOpened)} opened={isSettingsOpened}>
-              {user.username}
-              <PopupArrow />
-            </Username>
-            {isSettingsOpened
-              && <SettingsMenu>
-                  <SettingsMenuItem>
-                    <SettingsIcon />
-                    <Link href="/settings">
-                      <a>Settings</a>
-                    </Link>
-                  </SettingsMenuItem>
-                  <SettingsMenuItem>
-                    <LogoutIcon />
-                    <Link href="/">
-                      <a onClick={() => logOut()}>Logout</a>
-                    </Link>
-                  </SettingsMenuItem>
-                </SettingsMenu>
-            }
-          </MenuItem>
-          </div>
-        </PopUp>
-      )}
+            </PopUpHeader>
+            <div>
+              <MenuItem>
+                <Link href="/subscriptions">
+                  <a>My subscriptions</a>
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Username onClick={() => setIsSettingsOpened(!isSettingsOpened)} opened={isSettingsOpened}>
+                  {user.username}
+                  <PopupArrow />
+                </Username>
+                {isSettingsOpened
+                  && <SettingsMenu>
+                    <SettingsMenuItem>
+                      <SettingsIcon />
+                      <Link href="/settings">
+                        <a>Settings</a>
+                      </Link>
+                    </SettingsMenuItem>
+                    <SettingsMenuItem>
+                      <LogoutIcon />
+                      <Link href="/">
+                        <a onClick={() => logOut()}>Logout</a>
+                      </Link>
+                    </SettingsMenuItem>
+                  </SettingsMenu>
+                }
+              </MenuItem>
+            </div>
+          </PopUp>
+        )}
+      </div>
     </Root>
   );
 };
@@ -99,7 +103,7 @@ const MenuItem = styled.div`
   border-bottom: 1px solid var(--dark-gray);
 `;
 
-const Username = styled.div<{ opened: boolean}>`
+const Username = styled.div<{ opened: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
