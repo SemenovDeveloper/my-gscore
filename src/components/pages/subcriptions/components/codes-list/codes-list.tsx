@@ -3,6 +3,8 @@ import { CodeCard } from "src/components";
 import { useAppSelector } from "src/hooks";
 import { Button, ErrorMessage, Preloader } from "src/ui";
 import { useState } from "react";
+import Media from "react-media";
+import { MEDIA_QUERY } from "src/lib/constants";
 
 interface ICodesList {
   openedCardId: number;
@@ -29,13 +31,17 @@ export const CodesList: React.FC<ICodesList> = ({
       setSelectedCodes((perv) => [...perv].filter((item) => codeId !== item));
     }
   };
-
   return (
     <>
       {codesLoading && openedCardId !== 0 ? (
         <Preloader />
       ) : (
         <SCodesList>
+          <Media queries={{ small: { maxWidth: 426 } }}>
+            {(matches) =>
+              matches.small && <h3>Select the domains you want to keep</h3>
+            }
+          </Media>
           {filteredCodes.map((code) => (
             <CodeCard
               key={code.id}
@@ -47,14 +53,18 @@ export const CodesList: React.FC<ICodesList> = ({
           ))}
           {filteredCodes.some((code) => code.status === "HOLD") && (
             <HoldCodesFooter>
-              <h3>Select the domains you want to keep</h3>
+              <Media queries={{ small: { maxWidth: 426 } }}>
+                {(matches) =>
+                  !matches.small && <h3>Select the domains you want to keep</h3>
+                }
+              </Media>
               {error && <ErrorMessage>{error}</ErrorMessage>}
-              <Button
+              <StyledButton
                 theme="primary"
                 onClick={() => handleManageCodes(selectedCodes)}
               >
                 Confirm
-              </Button>
+              </StyledButton>
             </HoldCodesFooter>
           )}
         </SCodesList>
@@ -70,6 +80,10 @@ const SCodesList = styled.ul`
   flex-direction: column;
   gap: 32px;
   list-style: none;
+  @media ${MEDIA_QUERY.mobile} {
+    gap: 24px;
+    padding: 0;
+  }
 `;
 
 const HoldCodesFooter = styled.div`
@@ -77,4 +91,10 @@ const HoldCodesFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+const StyledButton = styled(Button)`
+  @media ${MEDIA_QUERY.mobile} {
+    width: 100%;
+  }
 `;

@@ -85,6 +85,8 @@ const SubscriptionsSwiper = styled.div`
   position: relative;
   width: 100%;
   margin-top: 48px;
+  display: flex;
+  flex-direction: column;
   @media ${MEDIA_QUERY.tablet} {
     margin-top: 32px;
   }
@@ -121,7 +123,8 @@ const SwiperNav = styled.div<{
   }
   @media ${MEDIA_QUERY.tablet} {
     margin: 16px auto;
-    align-self: center;
+    display: flex;
+    justify-content: center;
   }
 `;
 
@@ -148,8 +151,10 @@ const CountH3 = styled.h3`
 
 const StyledSwiper = styled(Swiper)`
   width: 620px;
+  z-index: 0;
   @media ${MEDIA_QUERY.tablet} {
     width: 318px;
+    z-index: 0;
   }
   .swiper {
     width: 100%;
@@ -158,7 +163,6 @@ const StyledSwiper = styled(Swiper)`
     position: relative;
     width: 100%;
     height: 100%;
-    z-index: 1;
     display: flex;
   }
   .swiper-slide {

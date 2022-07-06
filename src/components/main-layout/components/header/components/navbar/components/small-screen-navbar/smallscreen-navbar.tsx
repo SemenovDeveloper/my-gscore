@@ -9,6 +9,7 @@ import {
   PopupArrow,
 } from "src/assets/icons";
 import { useAppSelector } from "src/hooks";
+import { MEDIA_QUERY } from "src/lib/constants";
 import styled from "styled-components";
 
 interface ISmallScreenNavbar {
@@ -82,11 +83,15 @@ const Root = styled.div`
     text-decoration: none;
   }
 `;
-
 const PopUpHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media ${MEDIA_QUERY.tablet} {
+    svg {
+      transform: scale(0.8)
+    }
+  }
 `;
 
 const MenuItem = styled.div`
@@ -130,7 +135,7 @@ const PopUp = styled.div`
   z-index: 100;
   top: 0;
   right: 0;
-  width: 65vw;
+  width: 70vw;
   height: 100vh;
   padding: 28px 24px;
   background-color: var(--darkest-gray);
