@@ -9,9 +9,7 @@ export const Preloader: React.FC =() => {
   )
 }
 
-const Root = styled.div`
-width: 100%;
-height: 100%;
+const Root = styled(ContentContainer)`
 display: flex;
 align-items: center;
 justify-content: center;
