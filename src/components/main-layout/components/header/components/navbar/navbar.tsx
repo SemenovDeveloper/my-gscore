@@ -1,13 +1,15 @@
 import Link from "next/link";
-import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "src/hooks";
 import styled from "styled-components";
 import { PopupArrow, SettingsIcon, LogoutIcon } from "src/assets/icons";
 import Media from "react-media";
 import { SmallScreenNavbar } from "./components/small-screen-navbar";
 import { logOutUser } from "src/store/ducks";
+import useComponentVisible from "src/hooks/useComponentVisible";
 
 export const NavBar: React.FC = () => {
+  const { ref, isComponentVisible, setIsComponentVisible } =
+    useComponentVisible(false);
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
 
@@ -15,9 +17,8 @@ export const NavBar: React.FC = () => {
     dispatch(logOutUser());
   };
 
-  const [isOpened, setIsOpened] = useState(false);
   const handlePopup = () => {
-    setIsOpened(!isOpened);
+    setIsComponentVisible(!isComponentVisible);
   };
 
   return (
@@ -31,26 +32,28 @@ export const NavBar: React.FC = () => {
               <Link href="/subscriptions">
                 <a>My subscriptions</a>
               </Link>
-              <NavPopUp isOpened={isOpened}>
+              <NavPopUp isOpened={isComponentVisible}>
                 <PopUpUser onClick={handlePopup}>
                   <p>{user.username}</p>
                   <PopupArrow />
                 </PopUpUser>
-                {isOpened && (
-                  <PopUp>
-                    <div>
-                      <SettingsIcon />
-                      <Link href="/settings">
-                        <a>Settings</a>
-                      </Link>
-                    </div>
-                    <div>
-                      <LogoutIcon />
-                      <Link href="/">
-                        <a onClick={logOut}>Logout</a>
-                      </Link>
-                    </div>
-                  </PopUp>
+                {isComponentVisible && (
+                  <div ref={ref}>
+                    <PopUp>
+                      <div>
+                        <SettingsIcon />
+                        <Link href="/settings">
+                          <a>Settings</a>
+                        </Link>
+                      </div>
+                      <div>
+                        <LogoutIcon />
+                        <Link href="/">
+                          <a onClick={logOut}>Logout</a>
+                        </Link>
+                      </div>
+                    </PopUp>
+                  </div>
                 )}
               </NavPopUp>
             </BigScreenNavbar>
