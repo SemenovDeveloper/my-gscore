@@ -28,58 +28,60 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
 
   return (
     <>
-      <SubscriptionsSlider position={subscriptionIndex + 1}>
+      <SubscriptionsSwiper>
         {subscriptionsLoading ? (
           <Preloader />
         ) : (
-          <StyledSwiper
-            spaceBetween={28}
-            slidesPerView={1}
-            onSlideChange={handleSlideChange}
-          >
-            {subscriptions.map((subscription, index) => (
-              <SwiperSlide key={subscription.id}>
-                <SubscriptionCard
-                  subscription={subscription}
-                  isCardActive={subscriptionIndex === index}
-                  key={subscription.id}
-                  openCard={openCard}
-                />
-              </SwiperSlide>
-            ))}
-            <SubscriptionsSliderNav
+          <>
+            <StyledSwiper
+              spaceBetween={28}
+              slidesPerView={1}
+              onSlideChange={handleSlideChange}
+            >
+              {subscriptions.map((subscription, index) => (
+                <SwiperSlide key={subscription.id}>
+                  <SubscriptionCard
+                    subscription={subscription}
+                    isCardActive={subscriptionIndex === index}
+                    key={subscription.id}
+                    openCard={openCard}
+                  />
+                </SwiperSlide>
+              ))}
+            </StyledSwiper>
+            <SwiperNav
               activeCard={subscriptionIndex + 1}
               countCard={subscriptionIndex + 1}
             >
-              <SliderBtn
+              <SwiperBtn
                 onClick={() => {
                   setSubscriptionIndex(subscriptionIndex - 1);
                 }}
                 disabled={subscriptionIndex === 0}
               >
                 <ArrowLeft />
-              </SliderBtn>
+              </SwiperBtn>
               <Count>
                 <SubscriptionH3>{subscriptionIndex + 1}</SubscriptionH3>
                 <CountH3>/{subscriptions.length}</CountH3>
               </Count>
-              <SliderBtn
+              <SwiperBtn
                 onClick={() => {
                   setSubscriptionIndex(subscriptionIndex + 1);
                 }}
                 disabled={subscriptionIndex + 1 === subscriptions.length}
               >
                 <ArrowLeft />
-              </SliderBtn>
-            </SubscriptionsSliderNav>
-          </StyledSwiper>
+              </SwiperBtn>
+            </SwiperNav>
+          </>
         )}
-      </SubscriptionsSlider>
+      </SubscriptionsSwiper>
     </>
   );
 };
 
-const SubscriptionsSlider = styled.div<{ position: number }>`
+const SubscriptionsSwiper = styled.div`
   position: relative;
   width: 100%;
   margin-top: 48px;
@@ -88,12 +90,13 @@ const SubscriptionsSlider = styled.div<{ position: number }>`
   }
 `;
 
-const SubscriptionsSliderNav = styled.div<{
+const SwiperNav = styled.div<{
   activeCard: number;
   countCard: number;
 }>`
   width: 159px;
   height: 44px;
+  margin-top: 24px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -117,15 +120,19 @@ const SubscriptionsSliderNav = styled.div<{
     }
   }
   @media ${MEDIA_QUERY.tablet} {
-    margin: 0 auto;
+    margin: 16px auto;
+    align-self: center;
   }
 `;
 
-const SliderBtn = styled.button`
+const SwiperBtn = styled.button`
   padding: 10px 10px 8px 10px;
   border-radius: 12px;
   background-color: var(--black);
   box-shadow: none;
+  @media ${MEDIA_QUERY.tablet} {
+    display: none;
+  }
 `;
 
 const Count = styled.div`
