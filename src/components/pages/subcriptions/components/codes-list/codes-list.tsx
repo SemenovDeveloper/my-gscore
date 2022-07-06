@@ -40,6 +40,7 @@ export const CodesList: React.FC<ICodesList> = ({
             <CodeCard
               key={code.id}
               code={code}
+              isChecked={selectedCodes.includes(code.id)}
               selectCode={handleCodes}
               handleActivateCode={handleActivateCode}
             />

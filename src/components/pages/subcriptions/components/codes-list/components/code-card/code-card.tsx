@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { SubscriptionP, SubscriptionH3 } from "src/components";
 import { CopyIcon } from "src/assets/icons";
 import { Checkbox, Button } from "src/ui";
-import { useState } from "react";
 import { MEDIA_QUERY } from "src/lib/constants";
 
 interface ICodesCard {
   code: ICode;
+  isChecked: boolean;
   selectCode: (codeId: number) => void;
   handleActivateCode: (code: string) => void;
 }
@@ -15,12 +15,11 @@ interface ICodesCard {
 export const CodeCard: React.FC<ICodesCard> = ({
   code,
   selectCode,
+  isChecked,
   handleActivateCode,
 }) => {
-  const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = () => {
-    setIsChecked(!isChecked);
     selectCode(code.id);
   };
 
