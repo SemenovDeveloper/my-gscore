@@ -1,2 +1,2 @@
 export * from './codes-list'
-export * from './code-card'
+export * from './components'
