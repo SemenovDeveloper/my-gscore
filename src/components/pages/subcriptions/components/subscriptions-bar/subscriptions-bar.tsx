@@ -1,10 +1,11 @@
 import { useAppSelector } from "src/hooks";
-import { ISubscription } from "src/types";
 import styled from "styled-components";
 import { SubscriptionCard, SubscriptionH3 } from "src/components";
 import { ArrowLeft } from "src/assets/icons";
 import { Preloader } from "src/ui";
 import { MEDIA_QUERY } from "src/lib/constants";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper as ISwiper } from "swiper";
 
 interface ISubscriptionBar {
   subscriptionIndex: number;
@@ -15,12 +16,15 @@ interface ISubscriptionBar {
 export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
   setSubscriptionIndex,
   subscriptionIndex,
-  openCard
+  openCard,
 }) => {
-
   const { subscriptions, subscriptionsLoading } = useAppSelector(
     (state) => state.subscription
   );
+
+  const handleSlideChange = (swiper: ISwiper) => {
+    setSubscriptionIndex(swiper.activeIndex);
+  };
 
   return (
     <>
@@ -28,49 +32,52 @@ export const SubscriptionsBar: React.FC<ISubscriptionBar> = ({
         {subscriptionsLoading ? (
           <Preloader />
         ) : (
-          <SlidesList position={subscriptionIndex + 1}>
-            {subscriptions.map((subscription: ISubscription, index) => {
-              return (
+          <StyledSwiper
+            spaceBetween={28}
+            slidesPerView={1}
+            onSlideChange={handleSlideChange}
+          >
+            {subscriptions.map((subscription, index) => (
+              <SwiperSlide key={subscription.id}>
                 <SubscriptionCard
                   subscription={subscription}
                   isCardActive={subscriptionIndex === index}
                   key={subscription.id}
                   openCard={openCard}
                 />
-              );
-            })}
-          </SlidesList>
+              </SwiperSlide>
+            ))}
+            <SubscriptionsSliderNav
+              activeCard={subscriptionIndex + 1}
+              countCard={subscriptionIndex + 1}
+            >
+              <SliderBtn
+                onClick={() => {
+                  setSubscriptionIndex(subscriptionIndex - 1);
+                }}
+                disabled={subscriptionIndex === 0}
+              >
+                <ArrowLeft />
+              </SliderBtn>
+              <Count>
+                <SubscriptionH3>{subscriptionIndex + 1}</SubscriptionH3>
+                <CountH3>/{subscriptions.length}</CountH3>
+              </Count>
+              <SliderBtn
+                onClick={() => {
+                  setSubscriptionIndex(subscriptionIndex + 1);
+                }}
+                disabled={subscriptionIndex + 1 === subscriptions.length}
+              >
+                <ArrowLeft />
+              </SliderBtn>
+            </SubscriptionsSliderNav>
+          </StyledSwiper>
         )}
       </SubscriptionsSlider>
-      <SubscriptionsSliderNav
-        activeCard={subscriptionIndex + 1}
-        countCard={subscriptionIndex + 1}
-      >
-        <SliderBtn
-          onClick={() => {
-            setSubscriptionIndex(subscriptionIndex - 1);
-          }}
-          disabled={subscriptionIndex === 0}
-        >
-          <ArrowLeft />
-        </SliderBtn>
-        <Count>
-          <SubscriptionH3>{subscriptionIndex + 1}</SubscriptionH3>
-          <CountH3>/{subscriptions.length}</CountH3>
-        </Count>
-        <SliderBtn
-          onClick={() => {
-            setSubscriptionIndex(subscriptionIndex + 1);
-          }}
-          disabled={subscriptionIndex + 1 === subscriptions.length}
-        >
-          <ArrowLeft />
-        </SliderBtn>
-      </SubscriptionsSliderNav>
     </>
   );
 };
-
 
 const SubscriptionsSlider = styled.div<{ position: number }>`
   position: relative;
@@ -81,24 +88,12 @@ const SubscriptionsSlider = styled.div<{ position: number }>`
   }
 `;
 
-const SlidesList = styled.ul<{ position: number }>`
-  display: flex;
-  gap: 24px;
-  position: absolute;
-  left: ${(props) => props.position && `calc((1 - ${props.position})*644px)`};
-  @media ${MEDIA_QUERY.tablet} {
-    gap: 12px;
-    left: ${(props) => props.position && `calc((1 - ${props.position})*330px)`};
-  }
-`;
-
 const SubscriptionsSliderNav = styled.div<{
   activeCard: number;
   countCard: number;
 }>`
   width: 159px;
   height: 44px;
-  margin-top: 400px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -122,7 +117,7 @@ const SubscriptionsSliderNav = styled.div<{
     }
   }
   @media ${MEDIA_QUERY.tablet} {
-    margin: 284px auto 0;
+    margin: 0 auto;
   }
 `;
 
@@ -142,4 +137,27 @@ const CountH3 = styled.h3`
   font-size: 22px;
   line-height: 28px;
   color: var(--dark-gray);
+`;
+
+const StyledSwiper = styled(Swiper)`
+  width: 620px;
+  @media ${MEDIA_QUERY.tablet} {
+    width: 318px;
+  }
+  .swiper {
+    width: 100%;
+  }
+  .swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+  }
+  .swiper-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 1;
+  }
 `;

@@ -18,7 +18,6 @@ import {
 } from "src/store/ducks";
 import Router from "next/router";
 import { MEDIA_QUERY } from "src/lib/constants";
-import { unwrapResult } from "@reduxjs/toolkit";
 
 export const Subscriptions: React.FC = () => {
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
