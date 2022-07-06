@@ -158,7 +158,7 @@ const Title = styled.h1`
   font-size: 54px;
   line-height: 64px;
   margin: 0;
-  @media ${MEDIA_QUERY.mobile} {
+  @media ${MEDIA_QUERY.tablet} {
     font-size: 28px;
     line-height: 40px;
   }

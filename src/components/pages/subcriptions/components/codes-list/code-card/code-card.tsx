@@ -77,6 +77,9 @@ const CodesItem = styled.li`
       "code code code"
       "domain domain domain";
   }
+  @media ${MEDIA_QUERY.mobile} {
+    grid-template-columns: 45px 300px 1fr;
+  }
 `;
 
 const CodeBlock = styled.div`
@@ -105,10 +108,17 @@ const LicenseCode = styled.div`
   }
   @media ${MEDIA_QUERY.tablet} {
     max-width: 100%;
-    margin: 0px;
+    margin: 12px 0 24px;
     justify-content: space-between;
     p {
       max-width: 100%;
+    }
+  }
+  @media ${MEDIA_QUERY.mobile} {
+    max-width: 75vw;
+    justify-content: space-between;
+    p {
+      max-width: 50%;
     }
   }
 `;
@@ -126,6 +136,13 @@ const Domain = styled.div`
     width: 100%;
     margin: 0px;
   }
+  @media ${MEDIA_QUERY.mobile} {
+    max-width: 75vw;
+    margin: 0px;
+    justify-content: space-between;
+    p {
+      max-width: 50%;
+    }
 `;
 
 const DomainBlock = styled.div`
@@ -160,6 +177,12 @@ const Status = styled.div`
     width: 100%;
     flex-direction: row-reverse;
     justify-content: flex-end;
+  }
+  @media ${MEDIA_QUERY.mobile} {
+    width: 100%;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 12px;
   }
 `;
 

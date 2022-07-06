@@ -76,7 +76,7 @@ const SubscriptionsSlider = styled.div<{ position: number }>`
   position: relative;
   width: 100%;
   margin-top: 48px;
-  @media ${MEDIA_QUERY.mobile} {
+  @media ${MEDIA_QUERY.tablet} {
     margin-top: 32px;
   }
 `;
@@ -86,7 +86,7 @@ const SlidesList = styled.ul<{ position: number }>`
   gap: 24px;
   position: absolute;
   left: ${(props) => props.position && `calc((1 - ${props.position})*644px)`};
-  @media ${MEDIA_QUERY.mobile} {
+  @media ${MEDIA_QUERY.tablet} {
     gap: 12px;
     left: ${(props) => props.position && `calc((1 - ${props.position})*330px)`};
   }
@@ -120,6 +120,9 @@ const SubscriptionsSliderNav = styled.div<{
             ? "var(--dark-gray)"
             : "var(--gray)"};
     }
+  }
+  @media ${MEDIA_QUERY.tablet} {
+    margin: 284px auto 0;
   }
 `;
 

@@ -49,7 +49,7 @@ const Root = styled.div<{ active: boolean }>`
   background: var(--dark-gray);
   box-shadow: 0px 24px 65px rgba(0, 0, 0, 0.12);
   opacity: ${(props) => (props.active ? "1" : "0.5")};
-  @media ${MEDIA_QUERY.mobile} {
+  @media ${MEDIA_QUERY.tablet} {
     width: 318px;
     height: 268px;
     border-radius: 8px;
@@ -64,7 +64,7 @@ const CardTop = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  @media ${MEDIA_QUERY.mobile} {
+  @media ${MEDIA_QUERY.tablet} {
     padding: 32px 24px 24px 16px;
   }
 `;
@@ -76,7 +76,7 @@ const CardBottom = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  @media ${MEDIA_QUERY.mobile} {
+  @media ${MEDIA_QUERY.tablet} {
     padding: 24px 24px 32px 16px;
   }
 `;
